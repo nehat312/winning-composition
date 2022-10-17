@@ -26,31 +26,15 @@ from PIL import Image
 # import statistics
 
 ## DIRECTORY CONFIGURATION ##
-abs_path = r'https://raw.githubusercontent.com/nehat312/exoplanet-explorer/main'
-exoplanet_path = abs_path + '/data/NASA_Exoplanets-8-7-22.csv'
+abs_path = r'https://raw.githubusercontent.com/nehat312/NBA-championship-caliber/main'
+exoplanet_path = abs_path + '/data/NBA-Champs-python.csv'
 
 ## DATA IMPORT ##
-exoplanets = pd.read_csv(exoplanet_path, header=0, index_col='loc_rowid') #, header=0, index_col='pl_name'#,
-exoplanets.sort_values(by='disc_year', inplace=True)
+nba_champs = pd.read_csv(exoplanet_path, header=0, index_col='YR_TM_PLR') #, header=0, index_col='pl_name'#,
+# nba_champs.sort_values(by='disc_year', inplace=True)
 
 ## IMAGE IMPORT ##
 jwst_tele_img_1 = Image.open('images/JWST-2.jpg')
-tess_tele_img_1 = Image.open('images/TESS-1.jpg')
-kepler_tele_img_1 = Image.open('images/Kepler-1.jpg')
-hubble_tele_img_1 = Image.open('images/Hubble-1.jpg')
-jwst_carina_img_1 = Image.open('images/JW-Carina-1.jpg')
-jwst_phantom_img_1 = Image.open('images/JW-Phantom.jpg')
-jwst_infra_img_1 = Image.open('images/JW-Infrared.jpg')
-
-
-# exoplanets.dropna(inplace=True)
-
-# print(exoplanets.info())
-# print(exoplanets.columns)
-# print(exoplanets.head())
-
-# pd.to_numeric(exoplanets['disc_year'])
-# exoplanets['disc_year'].astype(int)
 
 ## FORMAT / STYLE ##
 
@@ -73,32 +57,14 @@ Dense = px.colors.sequential.dense
 
 ## VISUALIATION LABELS ##
 
-chart_labels = {'pl_name':'PL. NAME',
-                'host_name':'ST. NAME',
-                'sy_star_count':'SYS. STARS (#)',
-                'sy_planet_count':'SYS. PLANETS (#)',
-                'disc_method':'DISC. METHOD',
-                'disc_year':'DISC. YEAR',
-                'disc_facility':'DISC. FACILITY',
-                'disc_telescope':'DISC. TELESCOPE',
-                'disc_instrument':'DISC. INSTRUMENT',
-                'pl_orbper':'ORB. PERIOD',
-                'pl_orbeccen':'ORB. ECCENTRICITY',
-                'pl_orbsmax':'ORB. SPEED',
-                'pl_rade':'PL. RADIUS (E)',
-                'pl_radj':'PL. RADIUS (J)',
-                'pl_bmasse':'PL. MASS (E)',
-                'pl_bmassj':'PL. MASS (J)',
-                'st_temp_eff_k':'ST. TEMP. (K)',
-                'st_radius':'ST. RADIUS',
-                'st_mass':'ST. MASS',
-                'st_metallicity':'METALLICITY',
-                'st_surf_gravity':'SURFACE GRAVITY',
-                'sy_distance_pc':'ST. DISTANCE (PC)',
-                'ra':'RIGHT ASCENSION',
-                'dec':'DECLINATION',
-                'glon':'GALACTIC LONGITUDE',
-                'glat':'GALACTIC LATITUDE',
+chart_labels = {'W-SPAN':'WINGSPAN',
+                '':'',
+                '':'',
+                '':'',
+                '':'',
+                '':'',
+                '':'',
+                '':'',
                 }
 
 ## FEATURED VARIABLES ##
