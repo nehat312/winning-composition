@@ -27,13 +27,13 @@ import datetime
 # import statistics
 
 ## DIRECTORY CONFIGURATION ##
-abs_path = r'https://raw.githubusercontent.com/nehat312/NBA-championship-caliber/main'
+abs_path = r'https://raw.githubusercontent.com/nehat312/winning-composition/main'
 players_path = abs_path + '/data/NBA-Champs-python.csv'
 # team_path = abs_path + '/data/NBA-Champs-python.csv'
 
 ## DATA IMPORT ##
-champion_players = pd.read_csv(players_path, header=0, index_col='YR_TM_PLR') #, header=0, index_col='pl_name'#,
-# champion_teams = pd.read_csv(players_path, header=0, index_col='YR_TM_PLR') #, header=0, index_col='pl_name'#,
+champion_players = pd.read_csv(players_path, index_col='YR_TM_PLR', header=0)
+# champion_teams = pd.read_csv(players_path, header=0, index_col='YR_TM_PLR')
 
 
 ## PRE-PROCESSING ##
