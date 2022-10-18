@@ -38,6 +38,13 @@ champion_players = pd.read_csv(players_path, index_col='YR_TM_PLR', header=0)
 ## PRE-PROCESSING ##
 # players_path.sort_values(by='disc_year', inplace=True)
 
+# ## TIME INTERVALS ##
+# today = datetime.date.today()
+# before = today - datetime.timedelta(days=1095) #700
+# start_date = '2000-01-01'
+# end_date = today
+
+
 ## IMAGE IMPORT ##
 
 ## DESIGN IMAGES ##
@@ -81,14 +88,7 @@ OKC_logo = Image.open('images/west/OKC-Thunder.png')
 UTA_logo = Image.open('images/west/UTA-Jazz.png')
 
 
-
 ## FORMAT / STYLE ##
-
-# ## TIME INTERVALS ##
-# today = datetime.date.today()
-# before = today - datetime.timedelta(days=1095) #700
-# start_date = '2000-01-01'
-# end_date = today
 
 ## COLOR SCALES ##
 YlOrRd = px.colors.sequential.YlOrRd
@@ -163,29 +163,44 @@ region_list = list(champion_players['GLOBAL REGION'])
 
 ## VISUALIZATIONS ##
 
-# scatter_3d_1 = px.scatter_3d(exo_drop_na,
-#                              x=exo_drop_na['ra'],
-#                              y=exo_drop_na['dec'],
-#                              z=exo_drop_na['sy_distance_pc'],
-#                              color=exo_drop_na['st_temp_eff_k'],
-#                              color_discrete_sequence=Ice_r,
-#                              color_continuous_scale=Ice_r,
-#                              color_continuous_midpoint=5000,
-#                              size=exo_drop_na['pl_rade'],
-#                              size_max=50,
-#                              # symbol=exo_drop_na['disc_year'],
-#                              hover_name=exo_drop_na['pl_name'],
-#                              hover_data=exo_drop_na[['host_name', 'disc_facility', 'disc_telescope']],
-#                              title='EXOPLANET POPULATION -- RIGHT ASCENSION / DECLINATION / DISTANCE',
-#                              labels=chart_labels,
-#                              # range_x=[0,360],
-#                              # range_y=[-50,50],
-#                              range_z=[0,2500],
-#                              # range_color=Sunsetdark,
-#                              opacity=.8,
-#                              height=800,
-#                              width=1600,
-#                              )
+scatter_3d_wingspan1 = px.scatter_3d(champion_players,
+                                     x=champion_players['HEIGHT (IN)'],
+                                     y=champion_players['WEIGHT (LBS)'],
+                                     z=champion_players['WINGSPAN (IN)'],
+                                     color=champion_players['WTD POS.'],
+                                     color_discrete_sequence=Ice_r,
+                                     color_continuous_scale=Ice_r,
+                                     color_continuous_midpoint=3,
+                                     title='NBA CHAMPIONS -- HEIGHT / WEIGHT / WINGSPAN',
+                                     hover_name=champion_players['PLAYER'],
+                                     hover_data=champion_players[['PLAYER', 'TEAM', 'YEAR']],
+                                     # size=champion_players['pl_rade'],
+                                     # size_max=50,
+                                     # symbol=champion_players['disc_year'],
+                                     labels=chart_labels,
+                                     # range_x=[0,360],
+                                     # range_y=[-50,50],
+                                     # range_z=[0,2500],
+                                     # range_color=Sunsetdark,
+                                     opacity=.8,
+                                     height=800,
+                                     width=1600,
+                                     )
+
+scatter_matrix_raptor1 = px.scatter_matrix(champion_players,
+                                     dimensions=['RAPTOR', 'D-WS', 'O-WS', 'WS', 'USG%'],
+                                     color=champion_players['TEAM'],
+                                     color_continuous_scale=Ice_r,
+                                     color_discrete_sequence=Ice_r,
+                                     hover_name=champion_players['PLAYER'],
+                                     hover_data=champion_players[['PLAYER', 'TEAM', 'YEAR']],
+                                     title='CHAMPIONSHIP CONTRIBUTIONS',
+                                     labels=chart_labels,
+                                     # height=850,
+                                     # width=800,
+                                     )
+
+
 #
 # disc_info_1 = px.histogram(disc_facility_filter,
 #                            y=disc_facility_filter['disc_facility'],
@@ -214,18 +229,6 @@ region_list = list(champion_players['GLOBAL REGION'])
 #                                    labels=chart_labels,
 #                                    )
 #
-# exo_matrix_1 = px.scatter_matrix(exoplanets,
-#                                      dimensions=['pl_rade', 'pl_bmasse', 'pl_orbper', 'pl_orbeccen'], #, 'pl_orbsmax'
-#                                      color=exoplanets['st_temp_eff_k'],
-#                                      color_continuous_scale=Ice_r,
-#                                      color_discrete_sequence=Ice_r,
-#                                      hover_name=exoplanets['pl_name'],
-#                                      hover_data=exoplanets[['host_name', 'sy_star_count', 'sy_planet_count']],
-#                                      title='EXOPLANET ATTRIBUTES',
-#                                      labels=chart_labels,
-#                                  height=850,
-#                                  # width=800,
-#                                  )
 
 
 #####################
@@ -286,8 +289,8 @@ df_styles = [dict(selector="th", props=th_props),
 ## HEADER ##
 st.container()
 
-st.title('WINNING COMPOSITION -- NBA CHAMPIONS')
-st.write('*CHAMPIONSHIP CALIBER ROSTER CONSTRUCTION*')
+st.title('WINNING COMPOSITION OF NBA CHAMPIONS')
+st.write('*CHAMPIONSHIP-CALIBER ROSTER CONSTRUCTION FOR MODERN-DAY BASKETBALL*')
 
 ## EAST LOGOS ##
 EA_col_1, EA_col_2, EA_col_3, EA_col_4, EA_col_5, \
@@ -344,7 +347,7 @@ west_col_3.image(West_logo, width=300) # caption='EASTERN CONFERENCE'
 
 
 ## 3D SCATTER ##
-# st.plotly_chart(scatter_3d_1, use_container_width=False, sharing="streamlit")
+st.plotly_chart(scatter_3d_wingspan1, use_container_width=False, sharing="streamlit")
 
 ## SELECTION FORM ##
 # exo_drop_cols = ['', '']
@@ -362,7 +365,6 @@ west_col_3.image(West_logo, width=300) # caption='EASTERN CONFERENCE'
 # left_col_1, right_col_1 = st.columns(2)
 # left_col_1.plotly_chart(exo_matrix_1, use_container_width=False, sharing="streamlit")
 # right_col_1.plotly_chart(star_matrix_1, use_container_width=False, sharing="streamlit")
-
 
 
 ## EXTERNAL LINKS ##
