@@ -27,14 +27,19 @@ from PIL import Image
 
 ## DIRECTORY CONFIGURATION ##
 abs_path = r'https://raw.githubusercontent.com/nehat312/NBA-championship-caliber/main'
-exoplanet_path = abs_path + '/data/NBA-Champs-python.csv'
+players_path = abs_path + '/data/NBA-Champs-python.csv'
+# team_path = abs_path + '/data/NBA-Champs-python.csv'
 
 ## DATA IMPORT ##
-nba_champs = pd.read_csv(exoplanet_path, header=0, index_col='YR_TM_PLR') #, header=0, index_col='pl_name'#,
-# nba_champs.sort_values(by='disc_year', inplace=True)
+champion_players = pd.read_csv(players_path, header=0, index_col='YR_TM_PLR') #, header=0, index_col='pl_name'#,
+# champion_teams = pd.read_csv(players_path, header=0, index_col='YR_TM_PLR') #, header=0, index_col='pl_name'#,
+
+
+## PRE-PROCESSING ##
+# players_path.sort_values(by='disc_year', inplace=True)
 
 ## IMAGE IMPORT ##
-jwst_tele_img_1 = Image.open('images/JWST-2.jpg')
+# nba_logo_1 = Image.open('images/JWST-2.jpg')
 
 ## FORMAT / STYLE ##
 
@@ -58,102 +63,101 @@ Dense = px.colors.sequential.dense
 ## VISUALIATION LABELS ##
 
 chart_labels = {'W-SPAN':'WINGSPAN',
-                '':'',
-                '':'',
-                '':'',
-                '':'',
-                '':'',
-                '':'',
-                '':'',
+                # '':'',
+                # '':'',
+                # '':'',
+                # '':'',
+                # '':'',
+                # '':'',
+                # '':'',
                 }
 
 ## FEATURED VARIABLES ##
 
-exo_planet_list = list(exoplanets['pl_name'])
-exo_star_list = list(exoplanets['host_name'])
-disc_telescope_list = list(exoplanets['disc_telescope'])
-disc_method_list = list(exoplanets['disc_method'])
-disc_facility_list = list(exoplanets['disc_facility'])
-disc_year_list = list(exoplanets['disc_year'])
+team_list = list(champion_players['TEAM'])
+college_list = list(champion_players['COLLEGE'])
+conference_list = list(champion_players['CONFERENCE'])
+country_list = list(champion_players['COUNTRY'])
+region_list = list(champion_players['GLOBAL REGION'])
+
+
 
 ## PRE-PROCESSING ##
-exo_drop_na = exoplanets.dropna()
-exo_with_temp = exoplanets[['st_temp_eff_k']].dropna()
-exo_with_dist = exoplanets[['sy_distance_pc']].dropna()
+# exo_drop_na = champion_players.dropna()
+# exo_with_temp = champion_players[['st_temp_eff_k']].dropna()
+# exo_with_dist = champion_players[['sy_distance_pc']].dropna()
 
 
 ## FILTER DATA ##
-disc_facility_filter = exoplanets[exoplanets['facility_count'] > 1]
-facility_filtered = disc_facility_filter['disc_facility'].unique()
-# print(disc_facility_filter)
-# print(facility_filtered)
+# disc_facility_filter = champion_players[champion_players['facility_count'] > 1]
+# facility_filtered = disc_facility_filter['disc_facility'].unique()
 
 
 ## VISUALIZATIONS ##
 
-scatter_3d_1 = px.scatter_3d(exo_drop_na,
-                             x=exo_drop_na['ra'],
-                             y=exo_drop_na['dec'],
-                             z=exo_drop_na['sy_distance_pc'],
-                             color=exo_drop_na['st_temp_eff_k'],
-                             color_discrete_sequence=Ice_r,
-                             color_continuous_scale=Ice_r,
-                             color_continuous_midpoint=5000,
-                             size=exo_drop_na['pl_rade'],
-                             size_max=50,
-                             # symbol=exo_drop_na['disc_year'],
-                             hover_name=exo_drop_na['pl_name'],
-                             hover_data=exo_drop_na[['host_name', 'disc_facility', 'disc_telescope']],
-                             title='EXOPLANET POPULATION -- RIGHT ASCENSION / DECLINATION / DISTANCE',
-                             labels=chart_labels,
-                             # range_x=[0,360],
-                             # range_y=[-50,50],
-                             range_z=[0,2500],
-                             # range_color=Sunsetdark,
-                             opacity=.8,
-                             height=800,
-                             width=1600,
-                             )
-
-disc_info_1 = px.histogram(disc_facility_filter,
-                           y=disc_facility_filter['disc_facility'],
-                           color=disc_facility_filter['disc_method'],
-                           color_discrete_sequence=Ice_r,
-                           hover_name=disc_facility_filter['pl_name'],
-                           hover_data=disc_facility_filter[['host_name', 'disc_facility', 'disc_telescope', 'sy_star_count', 'sy_planet_count']],
-                           # animation_frame=disc_facility_filter['disc_year'],
-                           # animation_group=disc_facility_filter['disc_facility'],
-                           title='EXOPLANET DISCOVERY FACILITY (BY DISCOVERY METHOD)',
-                           labels=chart_labels,
-                           range_x=[0,2500],
-                           height=1000,
-                           # width=800,
-                           )
-
-density_map_1 = px.density_contour(exoplanets,
-                                   x=exoplanets['ra'],
-                                   y=exoplanets['dec'],
-                                   z=exoplanets['sy_distance_pc'],
-                                   color=exoplanets['disc_method'],
-                                   color_discrete_sequence=Temps,
-                                   hover_name=exoplanets['pl_name'],
-                                   hover_data=exoplanets[['host_name', 'disc_facility', 'disc_telescope', 'sy_star_count', 'sy_planet_count']],
-                                   title='EXOPLANET RIGHT ASCENSION / DECLINATION',
-                                   labels=chart_labels,
-                                   )
-
-exo_matrix_1 = px.scatter_matrix(exoplanets,
-                                     dimensions=['pl_rade', 'pl_bmasse', 'pl_orbper', 'pl_orbeccen'], #, 'pl_orbsmax'
-                                     color=exoplanets['st_temp_eff_k'],
-                                     color_continuous_scale=Ice_r,
-                                     color_discrete_sequence=Ice_r,
-                                     hover_name=exoplanets['pl_name'],
-                                     hover_data=exoplanets[['host_name', 'sy_star_count', 'sy_planet_count']],
-                                     title='EXOPLANET ATTRIBUTES',
-                                     labels=chart_labels,
-                                 height=850,
-                                 # width=800,
-                                 )
+# scatter_3d_1 = px.scatter_3d(exo_drop_na,
+#                              x=exo_drop_na['ra'],
+#                              y=exo_drop_na['dec'],
+#                              z=exo_drop_na['sy_distance_pc'],
+#                              color=exo_drop_na['st_temp_eff_k'],
+#                              color_discrete_sequence=Ice_r,
+#                              color_continuous_scale=Ice_r,
+#                              color_continuous_midpoint=5000,
+#                              size=exo_drop_na['pl_rade'],
+#                              size_max=50,
+#                              # symbol=exo_drop_na['disc_year'],
+#                              hover_name=exo_drop_na['pl_name'],
+#                              hover_data=exo_drop_na[['host_name', 'disc_facility', 'disc_telescope']],
+#                              title='EXOPLANET POPULATION -- RIGHT ASCENSION / DECLINATION / DISTANCE',
+#                              labels=chart_labels,
+#                              # range_x=[0,360],
+#                              # range_y=[-50,50],
+#                              range_z=[0,2500],
+#                              # range_color=Sunsetdark,
+#                              opacity=.8,
+#                              height=800,
+#                              width=1600,
+#                              )
+#
+# disc_info_1 = px.histogram(disc_facility_filter,
+#                            y=disc_facility_filter['disc_facility'],
+#                            color=disc_facility_filter['disc_method'],
+#                            color_discrete_sequence=Ice_r,
+#                            hover_name=disc_facility_filter['pl_name'],
+#                            hover_data=disc_facility_filter[['host_name', 'disc_facility', 'disc_telescope', 'sy_star_count', 'sy_planet_count']],
+#                            # animation_frame=disc_facility_filter['disc_year'],
+#                            # animation_group=disc_facility_filter['disc_facility'],
+#                            title='EXOPLANET DISCOVERY FACILITY (BY DISCOVERY METHOD)',
+#                            labels=chart_labels,
+#                            range_x=[0,2500],
+#                            height=1000,
+#                            # width=800,
+#                            )
+#
+# density_map_1 = px.density_contour(exoplanets,
+#                                    x=exoplanets['ra'],
+#                                    y=exoplanets['dec'],
+#                                    z=exoplanets['sy_distance_pc'],
+#                                    color=exoplanets['disc_method'],
+#                                    color_discrete_sequence=Temps,
+#                                    hover_name=exoplanets['pl_name'],
+#                                    hover_data=exoplanets[['host_name', 'disc_facility', 'disc_telescope', 'sy_star_count', 'sy_planet_count']],
+#                                    title='EXOPLANET RIGHT ASCENSION / DECLINATION',
+#                                    labels=chart_labels,
+#                                    )
+#
+# exo_matrix_1 = px.scatter_matrix(exoplanets,
+#                                      dimensions=['pl_rade', 'pl_bmasse', 'pl_orbper', 'pl_orbeccen'], #, 'pl_orbsmax'
+#                                      color=exoplanets['st_temp_eff_k'],
+#                                      color_continuous_scale=Ice_r,
+#                                      color_discrete_sequence=Ice_r,
+#                                      hover_name=exoplanets['pl_name'],
+#                                      hover_data=exoplanets[['host_name', 'sy_star_count', 'sy_planet_count']],
+#                                      title='EXOPLANET ATTRIBUTES',
+#                                      labels=chart_labels,
+#                                  height=850,
+#                                  # width=800,
+#                                  )
 
 
 #####################
@@ -161,7 +165,7 @@ exo_matrix_1 = px.scatter_matrix(exoplanets,
 #####################
 
 ## CONFIGURATION ##
-st.set_page_config(page_title='EXOPLANET EXPLORER', layout='wide', initial_sidebar_state='auto') #, page_icon=":smirk:"
+st.set_page_config(page_title='NBA CHAMPIONS', layout='wide', initial_sidebar_state='auto') #, page_icon=":smirk:"
 
 hide_menu_style = """
         <style>
@@ -182,17 +186,17 @@ st.container()
 
 ## EXTERNAL LINKS ##
 
-github_link = '[GITHUB REPOSITORY](https://github.com/nehat312/exoplanet-explorer/)'
-nasa_exo_link = '[NASA EXOPLANETS](https://exoplanets.nasa.gov/)'
-nasa_caltech_link = '[NASA ARCHIVE](https://exoplanetarchive.ipac.caltech.edu/)'
+github_link = '[GITHUB REPOSITORY](https://github.com/nehat312/NBA-championship-caliber/)'
+nba_site_link = '[TBU1](https://www.nba.com/)'
+bbref_site_link = '[TBU2](https://www.basketball-reference.com/)'
 
 link_col_1, link_col_2, link_col_3 = st.columns(3)
 ext_link_1 = link_col_1.markdown(github_link, unsafe_allow_html=True)
-ext_link_2 = link_col_2.markdown(nasa_exo_link, unsafe_allow_html=True)
-ext_link_3 = link_col_3.markdown(nasa_caltech_link, unsafe_allow_html=True)
+ext_link_2 = link_col_2.markdown(nba_site_link, unsafe_allow_html=True)
+ext_link_3 = link_col_3.markdown(bbref_site_link, unsafe_allow_html=True)
 
-st.title('EXOPLANET EXPLORER')
-st.write('*Sourced from NASA-CalTECH mission archives*')
+st.title('WINNING COMPOSITION')
+st.write('*CHAMPIONSHIP-CALIBER ROSTER CONSTRUCTION*')
 
 ## TELESCOPE IMAGES ##
 tele_col_1, tele_col_2, tele_col_3, tele_col_4 = st.columns(4)
@@ -205,25 +209,14 @@ tele_col_4.image(hubble_tele_img_1, caption='HUBBLE SPACE TELESCOPE', width=250)
 st.plotly_chart(scatter_3d_1, use_container_width=False, sharing="streamlit")
 
 ## SELECTION FORM ##
-exo_drop_cols = ['pl_controv_flag', 'pl_bmassprov', 'ttv_flag',
-                 'st_temp_eff_k1', 'st_temp_eff_k2',
-                 'decstr', 'rastr',
-                 'sy_vmag', 'sy_kmag', 'sy_gaiamag']
+# exo_drop_cols = ['pl_controv_flag', 'pl_bmassprov', 'ttv_flag',
+#
+#                  'sy_vmag', 'sy_kmag', 'sy_gaiamag']
 
 
-## EXOPLANET SELECTION ##
-@st.cache(persist=True, allow_output_mutation=True, suppress_st_warning=True)
-def display_planet_stats(exo_input):
-    exo_df = exoplanets.loc[exoplanets['pl_name'] == exo_input] #'K2-398 b'
-    exo_df.drop(columns=exo_drop_cols, inplace=True)
-    st.dataframe(exo_df)
+## FORM FUNCTIONS ##
+# @st.cache(persist=True, allow_output_mutation=True, suppress_st_warning=True)
 
-with st.form('EXOPLANET SELECTION'):
-    exoplanet_prompt = st.subheader('SELECT AN EXOPLANET:')
-    exo_input = st.selectbox('', (exo_planet_list)) #'EXOPLANETS:'
-    exo_submit = st.form_submit_button('EXO-STATS')
-    if exo_submit:
-        display_planet_stats(exo_input)
 
 
 ## DISCOVERY INFORMATION ##
