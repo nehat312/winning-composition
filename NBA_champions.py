@@ -332,7 +332,11 @@ WS_col_3.image(HOU_logo, caption='HOU', width=45)
 WS_col_4.image(SAS_logo, caption='SAS', width=45)
 WS_col_5.image(MEM_logo, caption='MEM', width=45)
 
+## 3D SCATTER ##
+st.plotly_chart(scatter_3d_wingspan1, use_container_width=False, sharing="streamlit")
 
+## SCATTER MATRIX ##
+st.plotly_chart(scatter_matrix_raptor1, use_container_width=False, sharing="streamlit")
 
 
 ## LEAGUE LOGOS ##
@@ -346,8 +350,7 @@ west_col_3.image(West_logo, width=300) # caption='EASTERN CONFERENCE'
 ## NEO4J / MONGO ?? ##
 
 
-## 3D SCATTER ##
-st.plotly_chart(scatter_3d_wingspan1, use_container_width=False, sharing="streamlit")
+
 
 ## SELECTION FORM ##
 # exo_drop_cols = ['', '']
@@ -361,10 +364,7 @@ st.plotly_chart(scatter_3d_wingspan1, use_container_width=False, sharing="stream
 ## DISCOVERY INFORMATION ##
 # st.plotly_chart(disc_info_1.update_yaxes(categoryorder='total ascending'), use_container_width=True, sharing="streamlit")
 
-## SCATTER MATRIX ##
-# left_col_1, right_col_1 = st.columns(2)
-# left_col_1.plotly_chart(exo_matrix_1, use_container_width=False, sharing="streamlit")
-# right_col_1.plotly_chart(star_matrix_1, use_container_width=False, sharing="streamlit")
+
 
 
 ## EXTERNAL LINKS ##
