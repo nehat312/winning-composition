@@ -2,9 +2,9 @@
 
 ## HARDWOOD THEME ##
 primaryColor="#2BDB6B" #alien green 2
-backgroundColor="#E9D0AF" #E4C49B  #DEB887 #hardwoodlightbrown
+backgroundColor= "#C39C76" #hardwoodlightbrown attempts: #"#E9D0AF" #E4C49B  #DEB887 
 secondaryBackgroundColor="#020202" #spacegray
-textColor="#1A1A1D" #spaceblack
+textColor= "#2BDB6B" #"#1A1A1D" #spaceblack 
 font="sans serif"
 
 
