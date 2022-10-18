@@ -289,17 +289,6 @@ st.container()
 st.title('WINNING COMPOSITION -- NBA CHAMPIONS')
 st.write('*CHAMPIONSHIP CALIBER ROSTER CONSTRUCTION*')
 
-## EXTERNAL LINKS ##
-
-github_link = '[GITHUB REPOSITORY](https://github.com/nehat312/NBA-championship-caliber/)'
-nba_site_link = '[NBA.com](https://www.nba.com/)'
-bbref_site_link = '[BASKETBALL REFERENCE](https://www.basketball-reference.com/)'
-
-link_col_1, link_col_2, link_col_3 = st.columns(3)
-ext_link_1 = link_col_1.markdown(github_link, unsafe_allow_html=True)
-ext_link_2 = link_col_2.markdown(nba_site_link, unsafe_allow_html=True)
-ext_link_3 = link_col_3.markdown(bbref_site_link, unsafe_allow_html=True)
-
 ## EAST LOGOS ##
 EA_col_1, EA_col_2, EA_col_3, EA_col_4, EA_col_5, \
 EC_col_1, EC_col_2, EC_col_3, EC_col_4, EC_col_5, \
@@ -341,19 +330,24 @@ WS_col_4.image(SAS_logo, caption='SAS', width=45)
 WS_col_5.image(MEM_logo, caption='MEM', width=45)
 
 
+
+
 ## LEAGUE LOGOS ##
-# afc_col_1, nfl_col_2, nfc_col_3 = st.columns(3)
-# afc_col_1.image(AFC_logo, width=300) #
-# nfl_col_2.image(NFL_logo, width=300) # caption='NATIONAL FOOTBALL LEAGUE'
-# nfc_col_3.image(NFC_logo, width=300) # caption='NATIONAL FOOTBALL LEAGUE'
+east_col_1, nba_col_2, west_col_3 = st.columns(3)
+east_col_1.image(East_logo, width=300) # caption='WESTERN CONFERENCE'
+nba_col_2.image(nba_logo_1, width=300) # caption='NATIONAL BASKETBALL ASSOCIATION'
+west_col_3.image(West_logo, width=300) # caption='EASTERN CONFERENCE'
+
+
+## TABLEAU ##
+## NEO4J / MONGO ?? ##
+
 
 ## 3D SCATTER ##
 # st.plotly_chart(scatter_3d_1, use_container_width=False, sharing="streamlit")
 
 ## SELECTION FORM ##
-# exo_drop_cols = ['pl_controv_flag', 'pl_bmassprov', 'ttv_flag',
-#
-#                  'sy_vmag', 'sy_kmag', 'sy_gaiamag']
+# exo_drop_cols = ['', '']
 
 
 ## FORM FUNCTIONS ##
@@ -370,6 +364,17 @@ WS_col_5.image(MEM_logo, caption='MEM', width=45)
 # right_col_1.plotly_chart(star_matrix_1, use_container_width=False, sharing="streamlit")
 
 
+
+## EXTERNAL LINKS ##
+
+github_link = '[GITHUB REPOSITORY](https://github.com/nehat312/NBA-championship-caliber/)'
+nba_site_link = '[NBA.com](https://www.nba.com/)'
+bbref_site_link = '[BASKETBALL REFERENCE](https://www.basketball-reference.com/)'
+
+link_col_1, link_col_2, link_col_3 = st.columns(3)
+ext_link_1 = link_col_1.markdown(github_link, unsafe_allow_html=True)
+ext_link_2 = link_col_2.markdown(nba_site_link, unsafe_allow_html=True)
+ext_link_3 = link_col_3.markdown(bbref_site_link, unsafe_allow_html=True)
 
 
 ## SCRIPT TERMINATION ##
