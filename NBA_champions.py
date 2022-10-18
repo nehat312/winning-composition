@@ -11,6 +11,7 @@ from plotly.subplots import make_subplots
 import plotly.graph_objects as go
 
 from PIL import Image
+import datetime
 
 # import matplotlib.pyplot as plt
 # import seaborn as sns
@@ -39,9 +40,56 @@ champion_players = pd.read_csv(players_path, header=0, index_col='YR_TM_PLR') #,
 # players_path.sort_values(by='disc_year', inplace=True)
 
 ## IMAGE IMPORT ##
-# nba_logo_1 = Image.open('images/JWST-2.jpg')
+
+## DESIGN IMAGES ##
+nba_logo_1 = Image.open('images/NBA_Logo.png')
+nba_logo_2 = Image.open('images/NBA_Logo2.png')
+
+## EASTERN CONFERENCE LOGOS ##
+East_logo = Image.open('images/east/NBA_East.png')
+ATL_logo = Image.open('images/east/ATL-Hawks.png')
+BOS_logo = Image.open('images/east/BOS-Celtics.png')
+CHI_logo = Image.open('images/east/CHI-Bulls.png')
+CHA_logo = Image.open('images/east/CHA-Hornets.png')
+CLE_logo = Image.open('images/east/CLE-Cavaliers.png')
+DET_logo = Image.open('images/east/DET-Pistons.png')
+IND_logo = Image.open('images/east/IND-Pacers.png')
+MIA_logo = Image.open('images/east/MIA-Heat.png')
+MIL_logo = Image.open('images/east/MIL-Bucks.png')
+BKN_logo = Image.open('images/east/BKN-Nets.png')
+NYK_logo = Image.open('images/east/NYK-Knicks.png')
+ORL_logo = Image.open('images/east/ORL-Magic.png')
+PHI_logo = Image.open('images/east/PHI-Sixers.png')
+TOR_logo = Image.open('images/east/TOR-Raptors.png')
+WAS_logo = Image.open('images/east/WAS-Wizards.png')
+
+## WESTERN CONFERENCE LOGOS ##
+West_logo = Image.open('images/west/NBA_West.png')
+DAL_logo = Image.open('images/west/DAL-Mavericks.png')
+DEN_logo = Image.open('images/west/DEN-Nuggets.png')
+GSW_logo = Image.open('images/west/GSW-Warriors.png')
+HOU_logo = Image.open('images/west/HOU-Rockets.png')
+LAC_logo = Image.open('images/west/LAC-Clippers.png')
+LAL_logo = Image.open('images/west/LAL-Lakers.png')
+MEM_logo = Image.open('images/west/MEM-Grizzlies.png')
+MIN_logo = Image.open('images/west/MIN-Timberwolves.png')
+NOP_logo = Image.open('images/west/NOP-Pelicans.png')
+PHX_logo = Image.open('images/west/PHX-Suns.png')
+POR_logo = Image.open('images/west/POR-Trailblazers.png')
+SAC_logo = Image.open('images/west/SAC-Kings.png')
+SAS_logo = Image.open('images/west/SAS-Spurs.png')
+OKC_logo = Image.open('images/west/OKC-Thunder.png')
+UTA_logo = Image.open('images/west/UTA-Jazz.png')
+
+
 
 ## FORMAT / STYLE ##
+
+# ## TIME INTERVALS ##
+# today = datetime.date.today()
+# before = today - datetime.timedelta(days=1095) #700
+# start_date = '2000-01-01'
+# end_date = today
 
 ## COLOR SCALES ##
 YlOrRd = px.colors.sequential.YlOrRd
@@ -62,7 +110,28 @@ Dense = px.colors.sequential.dense
 
 ## VISUALIATION LABELS ##
 
-chart_labels = {'W-SPAN':'WINGSPAN',
+all_cols = ['YR_TM_PLR', 'YEARS', 'YEAR',
+            'TEAM', 'PLAYER', 'NUMBER',
+            'POS', 'WTD POS',
+            'HEIGHT (IN)',
+            'WEIGHT (LBS)',
+            'BMI', 'W-SPAN (IN)',
+            'AGE',  'EXPERIENCE',
+            'NATION', 'COUNTRY',
+            'CONTINENT', 'GLOBAL REGION',
+            'CONFERENCE', 'COLLEGE',
+            'SALARY', '% SALARY',
+            'MP', 'PER', 'WTD-PER', 'AGE',
+            'D-WS', 'O-WS', 'WS', 'TM-WS',
+            'RAPTOR', 'TM-RAPTOR', 'USG%',
+            ]
+
+
+# output_cols = ['',
+#                ''
+#                ]
+
+chart_labels = {'W-SPAN (IN)':'WINGSPAN',
                 # '':'',
                 # '':'',
                 # '':'',
@@ -165,7 +234,7 @@ region_list = list(champion_players['GLOBAL REGION'])
 #####################
 
 ## CONFIGURATION ##
-st.set_page_config(page_title='NBA CHAMPIONS', layout='wide', initial_sidebar_state='auto') #, page_icon=":smirk:"
+st.set_page_config(page_title='COMPOSITION OF NBA CHAMPIONS', layout='wide', initial_sidebar_state='auto') #, page_icon=":smirk:"
 
 hide_menu_style = """
         <style>
@@ -176,6 +245,40 @@ hide_menu_style = """
 
 st.markdown(hide_menu_style, unsafe_allow_html=True)
 
+## CSS LAYOUT CUSTOMIZATION ##
+
+th_props = [('font-size', '12px'),
+            ('text-align', 'center'),
+            ('font-weight', 'bold'),
+            ('color', '#EBEDE9'), #6d6d6d #29609C
+            ('background-color', '#29609C') #f7f7f9
+            ]
+
+td_props = [('font-size', '12px'),
+            # ('text-align', 'center'),
+            # ('font-weight', 'bold'),
+            # ('color', '#EBEDE9'), #6d6d6d #29609C
+            # ('background-color', '#29609C') #f7f7f9
+            ]
+
+df_styles = [dict(selector="th", props=th_props),
+             dict(selector="td", props=td_props)]
+
+
+# col_format_dict = {'BYE': "{:,}",
+#                    '': "{:,}",
+#                    '': "{:,}",
+#                    '': "{:,}",
+#                    '': "{:,}",
+#                    '': "{:,}",
+#                    '': "{:,}",
+#                    'O-WS': "{:,}",
+#                    'D-WS': "{:,}",
+#                    'WS': "{:,}",
+#                    'TM_WS': "{:,}",
+                   # #: "{:.1%}", #:"{:.1}x", "${:.2}", #"${:,}"
+#                   }
+
 
 ## SIDEBAR ##
 # st.sidebar.xyz
@@ -184,29 +287,69 @@ st.markdown(hide_menu_style, unsafe_allow_html=True)
 ## HEADER ##
 st.container()
 
+st.title('WINNING COMPOSITION -- NBA CHAMPIONS')
+st.write('*CHAMPIONSHIP CALIBER ROSTER CONSTRUCTION*')
+
 ## EXTERNAL LINKS ##
 
 github_link = '[GITHUB REPOSITORY](https://github.com/nehat312/NBA-championship-caliber/)'
-nba_site_link = '[TBU1](https://www.nba.com/)'
-bbref_site_link = '[TBU2](https://www.basketball-reference.com/)'
+nba_site_link = '[NBA.com](https://www.nba.com/)'
+bbref_site_link = '[BASKETBALL REFERENCE](https://www.basketball-reference.com/)'
 
 link_col_1, link_col_2, link_col_3 = st.columns(3)
 ext_link_1 = link_col_1.markdown(github_link, unsafe_allow_html=True)
 ext_link_2 = link_col_2.markdown(nba_site_link, unsafe_allow_html=True)
 ext_link_3 = link_col_3.markdown(bbref_site_link, unsafe_allow_html=True)
 
-st.title('WINNING COMPOSITION')
-st.write('*CHAMPIONSHIP-CALIBER ROSTER CONSTRUCTION*')
+## EAST LOGOS ##
+EA_col_1, EA_col_2, EA_col_3, EA_col_4, EA_col_5, \
+EC_col_1, EC_col_2, EC_col_3, EC_col_4, EC_col_5, \
+ES_col_1, ES_col_2, ES_col_3, ES_col_4, ES_col_5 = st.columns(15)
+EA_col_1.image(BOS_logo, caption='BOS', width=45)
+EA_col_2.image(BKN_logo, caption='BKN', width=45)
+EA_col_3.image(NYK_logo, caption='NYK', width=45)
+EA_col_4.image(PHI_logo, caption='PHI', width=45)
+EA_col_5.image(TOR_logo, caption='TOR', width=45)
+EC_col_1.image(CHI_logo, caption='CHI', width=45)
+EC_col_2.image(CLE_logo, caption='CLE', width=45)
+EC_col_3.image(DET_logo, caption='DET', width=45)
+EC_col_4.image(IND_logo, caption='IND', width=45)
+EC_col_5.image(MIL_logo, caption='MIL', width=45)
+ES_col_1.image(ATL_logo, caption='ATL', width=45)
+ES_col_2.image(MIA_logo, caption='MIA', width=45)
+ES_col_3.image(ORL_logo, caption='ORL', width=45)
+ES_col_4.image(WAS_logo, caption='WAS', width=45)
+ES_col_5.image(CHA_logo, caption='CHA', width=45)
 
-## TELESCOPE IMAGES ##
-tele_col_1, tele_col_2, tele_col_3, tele_col_4 = st.columns(4)
-tele_col_1.image(jwst_tele_img_1, caption='JAMES WEBB SPACE TELESCOPE (JWST)', width=250)
-tele_col_2.image(tess_tele_img_1, caption='TRANSITING EXOPLANET SURVEY SATELLITE (TESS)', width=250)
-tele_col_3.image(kepler_tele_img_1, caption='KEPLER SPACE TELESCOPE', width=250)
-tele_col_4.image(hubble_tele_img_1, caption='HUBBLE SPACE TELESCOPE', width=250)
+## WEST LOGOS ##
+WN_col_1, WN_col_2, WN_col_3, WN_col_4, WN_col_5, \
+WP_col_1, WP_col_2, WP_col_3, WP_col_4, WP_col_5, \
+WS_col_1, WS_col_2, WS_col_3, WS_col_4, WS_col_5 = st.columns(15)
+WN_col_1.image(DEN_logo, caption='DEN', width=45)
+WN_col_2.image(MIN_logo, caption='MIN', width=45)
+WN_col_3.image(POR_logo, caption='POR', width=45)
+WN_col_4.image(OKC_logo, caption='OKC', width=45)
+WN_col_5.image(UTA_logo, caption='UTA', width=45)
+WP_col_1.image(GSW_logo, caption='GSW', width=45)
+WP_col_2.image(LAC_logo, caption='LAC', width=45)
+WP_col_3.image(LAL_logo, caption='LAL', width=45)
+WP_col_4.image(PHX_logo, caption='PHX', width=45)
+WP_col_5.image(SAC_logo, caption='SAC', width=45)
+WS_col_1.image(NOP_logo, caption='NOP', width=45)
+WS_col_2.image(DAL_logo, caption='DAL', width=45)
+WS_col_3.image(HOU_logo, caption='HOU', width=45)
+WS_col_4.image(SAS_logo, caption='SAS', width=45)
+WS_col_5.image(MEM_logo, caption='MEM', width=45)
+
+
+## LEAGUE LOGOS ##
+# afc_col_1, nfl_col_2, nfc_col_3 = st.columns(3)
+# afc_col_1.image(AFC_logo, width=300) #
+# nfl_col_2.image(NFL_logo, width=300) # caption='NATIONAL FOOTBALL LEAGUE'
+# nfc_col_3.image(NFC_logo, width=300) # caption='NATIONAL FOOTBALL LEAGUE'
 
 ## 3D SCATTER ##
-st.plotly_chart(scatter_3d_1, use_container_width=False, sharing="streamlit")
+# st.plotly_chart(scatter_3d_1, use_container_width=False, sharing="streamlit")
 
 ## SELECTION FORM ##
 # exo_drop_cols = ['pl_controv_flag', 'pl_bmassprov', 'ttv_flag',
@@ -220,38 +363,14 @@ st.plotly_chart(scatter_3d_1, use_container_width=False, sharing="streamlit")
 
 
 ## DISCOVERY INFORMATION ##
-st.plotly_chart(disc_info_1.update_yaxes(categoryorder='total ascending'), use_container_width=True, sharing="streamlit")
+# st.plotly_chart(disc_info_1.update_yaxes(categoryorder='total ascending'), use_container_width=True, sharing="streamlit")
 
 ## SCATTER MATRIX ##
-left_col_1, right_col_1 = st.columns(2)
-left_col_1.plotly_chart(exo_matrix_1, use_container_width=False, sharing="streamlit")
-right_col_1.plotly_chart(star_matrix_1, use_container_width=False, sharing="streamlit")
-
-## DENSITY MAP ##
-# st.plotly_chart(density_map_1, use_container_width=False, sharing="streamlit")
+# left_col_1, right_col_1 = st.columns(2)
+# left_col_1.plotly_chart(exo_matrix_1, use_container_width=False, sharing="streamlit")
+# right_col_1.plotly_chart(star_matrix_1, use_container_width=False, sharing="streamlit")
 
 
-## SUBPLOTS ##
-# subplots = make_subplots(rows=1, cols=2)
-    # subplots.add_trace(scatter_3d_1, row=1, col=1)
-    # subplots.add_trace(scatter_3d_1, row=1, col=2)
-
-        ## DATAFRAME STYLING ##
-
-        # def df_style_map(val):
-        #     if val == 'United States':
-        #         color = 'black'
-        #     else:
-        #         color = 'pink'
-        #         return f'background-color: {color}'
-        #
-        # st.dataframe(buyer_rec_df.style.applymap(df_style_map, subset=['COUNTRY']))
-
-## GALAXY IMAGES ##
-img_col_1, img_col_2, img_col_3 = st.columns(3)
-img_col_1.image(jwst_carina_img_1, caption='CARINA NEBULA (JWST)', width=400)
-img_col_2.image(jwst_phantom_img_1, caption='PHANTOM GALAXY (JWST)', width=400)
-img_col_3.image(jwst_infra_img_1, caption='INFRARED PANORAMIC (JWST)', width=400)
 
 
 ## SCRIPT TERMINATION ##
