@@ -116,7 +116,7 @@ Speed = px.colors.sequential.speed
 ## VISUALIATION LABELS ##
 
 all_cols = ['YR_TM_PLR', 'YEARS', 'YEAR',
-            'TEAM', 'PLAYER', 'NUMBER',
+            'TEAM', 'CHAMP', 'PLAYER', 'NUMBER',
             'POS', 'WTD POS',
             'HEIGHT (IN)',
             'WEIGHT (LBS)',
@@ -132,7 +132,7 @@ all_cols = ['YR_TM_PLR', 'YEARS', 'YEAR',
             ]
 
 
-viz_cols = ['YEAR', 'TEAM', 'PLAYER',
+viz_cols = ['YEAR', 'TEAM', 'CHAMP', 'PLAYER',
                'WTD POS',
                'HEIGHT (IN)', 'WEIGHT (LBS)', 'BMI', 'W-SPAN (IN)',
                'AGE',  'EXPERIENCE',
@@ -172,6 +172,7 @@ team_logos_dict = {'ATL':ATL_logo,
 ## FEATURED VARIABLES ##
 
 team_list = list(champion_players['TEAM'].unique())
+champ_list = list(champion_players['CHAMP'].unique())
 college_list = list(champion_players['COLLEGE'].unique())
 conference_list = list(champion_players['CONFERENCE'].unique())
 country_list = list(champion_players['COUNTRY'].unique())
@@ -218,7 +219,7 @@ champion_players['LOGO'] = champion_players.TEAM.map(team_logos_dict)
 #
 # HTML(champion_players[['LOGO']].to_html(escape=False, formatters=dict(image=path_to_image_html)))
 
-print(champion_players.info())
+# print(champion_players.info())
 #%%
 
 
