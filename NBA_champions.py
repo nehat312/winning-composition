@@ -249,8 +249,8 @@ scatter_3d_wingspan1 = px.scatter_3d(champion_players,
                                      hover_data=champion_players[['TEAM', 'YEAR']], #'LOGO'
                                      # 'HEIGHT (IN)' 'WEIGHT (LBS)' 'BMI' 'W-SPAN (IN)'
                                      # custom_data=['LOGO'],
-                                     size=champion_players['WS'],
-                                     size_max=50,
+                                     # size=champion_players['WS'],
+                                     # size_max=50,
                                      # symbol=champion_players['disc_year'],
                                      labels=chart_labels,
                                      # range_x=[0,360],
