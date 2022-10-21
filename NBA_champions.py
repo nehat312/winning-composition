@@ -201,8 +201,8 @@ scatter_3d_wingspan1 = px.scatter_3d(champion_players,
                                      y=champion_players['WEIGHT (LBS)'],
                                      z=champion_players['W-SPAN (IN)'],
                                      color=champion_players['WTD POS'],
-                                     color_discrete_sequence=PuOr,
-                                     color_continuous_scale=PuOr,
+                                     color_discrete_sequence=Dense,
+                                     color_continuous_scale=Dense,
                                      color_continuous_midpoint=3,
                                      title='NBA CHAMPIONS -- HEIGHT / WEIGHT / WINGSPAN',
                                      hover_name=champion_players['PLAYER'],
@@ -230,20 +230,20 @@ scatter_matrix_teams = px.scatter_matrix(champion_players,
                                      title='CHAMPIONSHIP CONTRIBUTIONS',
                                      labels=chart_labels,
                                      # height=800,
-                                     width=800,
+                                     # width=800,
                                      )
 
 scatter_matrix_positions = px.scatter_matrix(champion_players,
                                      dimensions=['RAPTOR', 'WS', 'USG%'],
                                      color=champion_players['WTD POS'],
-                                     color_continuous_scale=PuOr,
-                                     color_discrete_sequence=PuOr,
+                                     color_continuous_scale=Dense,
+                                     color_discrete_sequence=Dense,
                                      hover_name=champion_players['PLAYER'],
                                      hover_data=champion_players[['PLAYER', 'TEAM', 'YEAR']],
                                      title='CHAMPIONSHIP CONTRIBUTIONS',
                                      labels=chart_labels,
                                      # height=800,
-                                     width=800,
+                                     # width=800,
                                      )
 
 
@@ -329,70 +329,84 @@ df_styles = [dict(selector="th", props=th_props),
 
 
 ## SIDEBAR ##
-# st.sidebar.xyz
+sidebar_header = st.sidebar.subheader('DIRECTORY:')
+
+# sector_sidebar_select = st.sidebar.selectbox('SECTOR', (sector_list_of_names), help='SELECT CRE SECTOR')
+# ticker_sidebar_select = st.sidebar.selectbox('TICKER', (sector_dict['apartment'])) #sector_sidebar_select
+
+# sidebar_start = st.sidebar.date_input('START DATE', before)
+# sidebar_end = st.sidebar.date_input('END DATE', today)
+# if sidebar_start < sidebar_end:
+#     st.sidebar.success('START DATE: `%s`\n\nEND DATE: `%s`' % (sidebar_start, sidebar_end))
+# else:
+#     st.sidebar.error('ERROR: END DATE BEFORE START DATE')
+
 
 
 ## HEADER ##
 st.container()
 
-st.title('WINNING COMPOSITION OF NBA CHAMPIONS')
-st.write('*ROSTER CONSTRUCTION BREAKDOWN OF MODERN-DAY LEAGUE CHAMPIONS*')
+st.title('WINNING COMPOSITION -- ANALYZING CHAMPIONSHIP TEAMS IN PROFESSIONAL SPORTS')
+st.write('*STATISTICAL BREAKDOWN OF MODERN-DAY NBA CHAMPIONSHIP ROSTERS*')
 
 ## EAST LOGOS ##
 EA_col_1, EA_col_2, EA_col_3, EA_col_4, EA_col_5, \
 EC_col_1, EC_col_2, EC_col_3, EC_col_4, EC_col_5, \
 ES_col_1, ES_col_2, ES_col_3, ES_col_4, ES_col_5 = st.columns(15)
-EA_col_1.image(BOS_logo, caption='BOS', width=45)
-EA_col_2.image(BKN_logo, caption='BKN', width=45)
-EA_col_3.image(NYK_logo, caption='NYK', width=45)
-EA_col_4.image(PHI_logo, caption='PHI', width=45)
-EA_col_5.image(TOR_logo, caption='TOR', width=45)
-EC_col_1.image(CHI_logo, caption='CHI', width=45)
-EC_col_2.image(CLE_logo, caption='CLE', width=45)
-EC_col_3.image(DET_logo, caption='DET', width=45)
-EC_col_4.image(IND_logo, caption='IND', width=45)
-EC_col_5.image(MIL_logo, caption='MIL', width=45)
-ES_col_1.image(ATL_logo, caption='ATL', width=45)
-ES_col_2.image(MIA_logo, caption='MIA', width=45)
-ES_col_3.image(ORL_logo, caption='ORL', width=45)
-ES_col_4.image(WAS_logo, caption='WAS', width=45)
-ES_col_5.image(CHA_logo, caption='CHA', width=45)
+EA_col_1.image(BOS_logo, caption='BOS', width=35)
+EA_col_2.image(BKN_logo, caption='BKN', width=35)
+EA_col_3.image(NYK_logo, caption='NYK', width=35)
+EA_col_4.image(PHI_logo, caption='PHI', width=35)
+EA_col_5.image(TOR_logo, caption='TOR', width=35)
+EC_col_1.image(CHI_logo, caption='CHI', width=35)
+EC_col_2.image(CLE_logo, caption='CLE', width=35)
+EC_col_3.image(DET_logo, caption='DET', width=35)
+EC_col_4.image(IND_logo, caption='IND', width=35)
+EC_col_5.image(MIL_logo, caption='MIL', width=35)
+ES_col_1.image(ATL_logo, caption='ATL', width=35)
+ES_col_2.image(MIA_logo, caption='MIA', width=35)
+ES_col_3.image(ORL_logo, caption='ORL', width=35)
+ES_col_4.image(WAS_logo, caption='WAS', width=35)
+ES_col_5.image(CHA_logo, caption='CHA', width=35)
 
 ## WEST LOGOS ##
 WN_col_1, WN_col_2, WN_col_3, WN_col_4, WN_col_5, \
 WP_col_1, WP_col_2, WP_col_3, WP_col_4, WP_col_5, \
 WS_col_1, WS_col_2, WS_col_3, WS_col_4, WS_col_5 = st.columns(15)
-WN_col_1.image(DEN_logo, caption='DEN', width=45)
-WN_col_2.image(MIN_logo, caption='MIN', width=45)
-WN_col_3.image(POR_logo, caption='POR', width=45)
-WN_col_4.image(OKC_logo, caption='OKC', width=45)
-WN_col_5.image(UTA_logo, caption='UTA', width=45)
-WP_col_1.image(GSW_logo, caption='GSW', width=45)
-WP_col_2.image(LAC_logo, caption='LAC', width=45)
-WP_col_3.image(LAL_logo, caption='LAL', width=45)
-WP_col_4.image(PHX_logo, caption='PHX', width=45)
-WP_col_5.image(SAC_logo, caption='SAC', width=45)
-WS_col_1.image(NOP_logo, caption='NOP', width=45)
-WS_col_2.image(DAL_logo, caption='DAL', width=45)
-WS_col_3.image(HOU_logo, caption='HOU', width=45)
-WS_col_4.image(SAS_logo, caption='SAS', width=45)
-WS_col_5.image(MEM_logo, caption='MEM', width=45)
+WN_col_1.image(DEN_logo, caption='DEN', width=35)
+WN_col_2.image(MIN_logo, caption='MIN', width=35)
+WN_col_3.image(POR_logo, caption='POR', width=35)
+WN_col_4.image(OKC_logo, caption='OKC', width=35)
+WN_col_5.image(UTA_logo, caption='UTA', width=35)
+WP_col_1.image(GSW_logo, caption='GSW', width=35)
+WP_col_2.image(LAC_logo, caption='LAC', width=35)
+WP_col_3.image(LAL_logo, caption='LAL', width=35)
+WP_col_4.image(PHX_logo, caption='PHX', width=35)
+WP_col_5.image(SAC_logo, caption='SAC', width=35)
+WS_col_1.image(NOP_logo, caption='NOP', width=35)
+WS_col_2.image(DAL_logo, caption='DAL', width=35)
+WS_col_3.image(HOU_logo, caption='HOU', width=35)
+WS_col_4.image(SAS_logo, caption='SAS', width=35)
+WS_col_5.image(MEM_logo, caption='MEM', width=35)
+
+
 
 ## 3D SCATTER ##
+# left, middle, right = stl.columns((2, 5, 2))
+# with middle:
+#     plot_open_close_chart()
 st.plotly_chart(scatter_3d_wingspan1, use_container_width=False, sharing="streamlit")
 
 ## SCATTER MATRIX ##
-st.plotly_chart(scatter_matrix_teams, use_container_width=False, sharing="streamlit")
-
-
-st.plotly_chart(scatter_matrix_positions, use_container_width=False, sharing="streamlit")
+st.plotly_chart(scatter_matrix_teams, use_container_width=True, sharing="streamlit")
+st.plotly_chart(scatter_matrix_positions, use_container_width=True, sharing="streamlit")
 
 
 ## LEAGUE LOGOS ##
 east_col_1, nba_col_2, west_col_3 = st.columns(3)
-east_col_1.image(East_logo, width=300) # caption='WESTERN CONFERENCE'
+east_col_1.image(East_logo, width=250) # caption='WESTERN CONFERENCE'
 nba_col_2.image(nba_logo_1, width=300) # caption='NATIONAL BASKETBALL ASSOCIATION'
-west_col_3.image(West_logo, width=300) # caption='EASTERN CONFERENCE'
+west_col_3.image(West_logo, width=250) # caption='EASTERN CONFERENCE'
 
 
 ## TABLEAU ##
