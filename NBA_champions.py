@@ -120,7 +120,7 @@ all_cols = ['YR_TM_PLR', 'YEARS', 'YEAR',
             'POS', 'WTD POS',
             'HEIGHT (IN)',
             'WEIGHT (LBS)',
-            'BMI', 'W-SPAN (IN)',
+            'BMI', 'W-SPAN (IN)', 'APE',
             'AGE',  'EXPERIENCE',
             'NATION', 'COUNTRY',
             'CONTINENT', 'GLOBAL REGION',
@@ -128,21 +128,24 @@ all_cols = ['YR_TM_PLR', 'YEARS', 'YEAR',
             'SALARY', '% SALARY',
             'MP', 'PER', 'WTD-PER', 'AGE',
             'D-WS', 'O-WS', 'WS', 'TM-WS',
-            'RAPTOR', 'TM-RAPTOR', 'USG%',
+            'RAPTOR', 'TM-RAPTOR',
+            'LEBRON', 'TM-LEBRON', #D #O
+            'USG%',
             ]
 
 
-viz_cols = ['YEAR', 'TEAM', 'CHAMP', 'PLAYER',
-               'WTD POS',
-               'HEIGHT (IN)', 'WEIGHT (LBS)', 'BMI', 'W-SPAN (IN)',
-               'AGE',  'EXPERIENCE',
-               'NATION', 'COUNTRY',
-               'CONTINENT', 'GLOBAL REGION',
-               'CONFERENCE', 'COLLEGE',
-               'SALARY', '% SALARY', 'MP', #'PER', 'WTD-PER',
-               'D-WS', 'O-WS', 'WS', # 'TM-WS', 'TM-RAPTOR',
-               'RAPTOR', 'USG%',
-               ]
+viz_cols = ['YEAR', 'TEAM', 'CHAMP', 'PLAYER', 'WTD POS',
+            'HEIGHT (IN)', 'WEIGHT (LBS)', 'BMI', 'W-SPAN (IN)', 'APE',
+            'AGE',  'EXPERIENCE',
+            'NATION', 'COUNTRY',
+            'CONTINENT', 'GLOBAL REGION',
+            'CONFERENCE', 'COLLEGE',
+            'SALARY', '% SALARY',
+            'MP', #'PER', 'WTD-PER',
+            'D-WS', 'O-WS', 'WS', # 'TM-WS', 'TM-RAPTOR',
+            'RAPTOR', 'LEBRON', 'USG%',
+            ]
+
 
 chart_labels = {'W-SPAN (IN)':'WINGSPAN (IN)',
                 'APE':'APE INDEX',
@@ -167,6 +170,7 @@ team_logos_dict = {'ATL':ATL_logo,
                    'WAS':WAS_logo,
 
                    }
+
 
 
 ## FEATURED VARIABLES ##
@@ -370,7 +374,7 @@ df_styles = [dict(selector="th", props=th_props),
 
 
 ## SIDEBAR ##
-sidebar_header = st.sidebar.subheader('DIRECTORY:')
+# sidebar_header = st.sidebar.subheader('DIRECTORY:')
 
 # sector_sidebar_select = st.sidebar.selectbox('SECTOR', (sector_list_of_names), help='SELECT CRE SECTOR')
 # ticker_sidebar_select = st.sidebar.selectbox('TICKER', (sector_dict['apartment'])) #sector_sidebar_select
@@ -433,10 +437,9 @@ WS_col_5.image(MEM_logo, caption='MEM', width=35)
 
 
 ## 3D SCATTER ##
-# left, middle, right = stl.columns((2, 5, 2))
-# with middle:
-#     plot_open_close_chart()
-st.plotly_chart(scatter_3d_wingspan1, use_container_width=False, sharing="streamlit")
+left, middle, right = st.columns((2, 5, 2))
+with middle:
+    st.plotly_chart(scatter_3d_wingspan1, use_container_width=False, sharing="streamlit")
 
 ## SCATTER MATRIX ##
 st.plotly_chart(scatter_matrix_teams, use_container_width=True, sharing="streamlit")
