@@ -54,6 +54,7 @@ nba_logo_2 = Image.open('images/NBA_Logo2.png')
 ## EASTERN CONFERENCE LOGOS ##
 East_logo = Image.open('images/east/NBA_East.png')
 ATL_logo = Image.open('images/east/ATL-Hawks.png')
+BKN_logo = Image.open('images/east/BKN-Nets.png')
 BOS_logo = Image.open('images/east/BOS-Celtics.png')
 CHI_logo = Image.open('images/east/CHI-Bulls.png')
 CHA_logo = Image.open('images/east/CHA-Hornets.png')
@@ -62,7 +63,6 @@ DET_logo = Image.open('images/east/DET-Pistons.png')
 IND_logo = Image.open('images/east/IND-Pacers.png')
 MIA_logo = Image.open('images/east/MIA-Heat.png')
 MIL_logo = Image.open('images/east/MIL-Bucks.png')
-BKN_logo = Image.open('images/east/BKN-Nets.png')
 NYK_logo = Image.open('images/east/NYK-Knicks.png')
 ORL_logo = Image.open('images/east/ORL-Magic.png')
 PHI_logo = Image.open('images/east/PHI-Sixers.png')
@@ -144,15 +144,26 @@ viz_cols = ['YEAR', 'TEAM', 'PLAYER',
                'RAPTOR', 'USG%',
                ]
 
-chart_labels = {'W-SPAN (IN)':'WINGSPAN',
-                # '':'',
-                # '':'',
-                # '':'',
-                # '':'',
-                # '':'',
+chart_labels = {'W-SPAN (IN)':'WINGSPAN (IN)',
+                'APE':'APE INDEX',
                 # '':'',
                 # '':'',
                 }
+
+team_logos_dict = {'ATL':Image.open('images/east/ATL-Hawks.png'),
+                   'BKN':Image.open('images/east/BKN-Nets.png'),
+                   'BOS':Image.open('images/east/BOS-Celtics.png'),
+                   'CHI':Image.open('images/east/CHI-Bulls.png'),
+                   'CHA':Image.open('images/east/CHA-Hornets.png'),
+                   'CLE':Image.open('images/east/CLE-Cavaliers.png'),
+
+                   }
+
+# layout= go.Layout(images= [dict(
+#                   source= Image.open('assets\\MiniLogo.png'),
+#                   ...)])
+
+
 
 ## FEATURED VARIABLES ##
 
@@ -161,6 +172,21 @@ college_list = list(champion_players['COLLEGE'].unique())
 conference_list = list(champion_players['CONFERENCE'].unique())
 country_list = list(champion_players['COUNTRY'].unique())
 region_list = list(champion_players['GLOBAL REGION'].unique())
+
+team_logos_list = [ATL_logo, BKN_logo, BOS_logo, CHI_logo, CHA_logo,
+                    CLE_logo, DET_logo, IND_logo, MIA_logo, MIL_logo,
+                    NYK_logo, ORL_logo, PHI_logo, TOR_logo, WAS_logo,
+                    DAL_logo, DEN_logo, HOU_logo, LAC_logo, LAL_logo,
+                    GSW_logo, MEM_logo, MIN_logo, MEM_logo, PHX_logo,
+                    SAS_logo, SAC_logo, OKC_logo, UTA_logo, POR_logo]
+
+eastconf_logos_list = [ATL_logo, BKN_logo, BOS_logo, CHI_logo, CHA_logo,
+                       CLE_logo, DET_logo, IND_logo, MIA_logo, MIL_logo,
+                       NYK_logo, ORL_logo, PHI_logo, TOR_logo, WAS_logo]
+westconf_logos_list = [DAL_logo, DEN_logo, HOU_logo, LAC_logo, LAL_logo,
+                       GSW_logo, MEM_logo, MIN_logo, MEM_logo, PHX_logo,
+                       SAS_logo, SAC_logo, OKC_logo, UTA_logo, POR_logo]
+
 
 # print(team_list)
 # print(college_list)
@@ -177,9 +203,10 @@ region_list = list(champion_players['GLOBAL REGION'].unique())
 # college_raptor = champion_players.groupby(['TEAM', 'COLLEGE']).mean()
 # print(college_raptor)
 
+champion_players['LOGO'] = champion_players.TEAM.map(team_logos_dict)
 
 
-#%%
+
 
 
 
@@ -206,7 +233,7 @@ scatter_3d_wingspan1 = px.scatter_3d(champion_players,
                                      color_continuous_midpoint=3,
                                      title='NBA CHAMPIONS -- HEIGHT / WEIGHT / WINGSPAN',
                                      hover_name=champion_players['PLAYER'],
-                                     hover_data=champion_players[['TEAM', 'YEAR']],
+                                     hover_data=champion_players[['TEAM', 'YEAR', 'LOGO']],
                                      # size=champion_players['pl_rade'],
                                      # size_max=50,
                                      # symbol=champion_players['disc_year'],
@@ -223,25 +250,27 @@ scatter_3d_wingspan1 = px.scatter_3d(champion_players,
 scatter_matrix_teams = px.scatter_matrix(champion_players,
                                      dimensions=['RAPTOR', 'WS', 'USG%'],
                                      color=champion_players['TEAM'],
-                                     color_continuous_scale=PuOr,
-                                     color_discrete_sequence=PuOr,
+                                     color_continuous_scale=Dense,
+                                     color_discrete_sequence=Dense,
                                      hover_name=champion_players['PLAYER'],
-                                     hover_data=champion_players[['PLAYER', 'TEAM', 'YEAR']],
-                                     title='CHAMPIONSHIP CONTRIBUTIONS',
+                                     hover_data=champion_players[['MP', 'TEAM', 'YEAR']],
+                                     title='PLAYER PERFORMANCE BY TEAM',
                                      labels=chart_labels,
+                                     custom_data= [league_logo_list],
                                      # height=800,
                                      # width=800,
                                      )
 
 scatter_matrix_positions = px.scatter_matrix(champion_players,
-                                     dimensions=['RAPTOR', 'WS', 'USG%'],
-                                     color=champion_players['WTD POS'],
-                                     color_continuous_scale=Dense,
-                                     color_discrete_sequence=Dense,
-                                     hover_name=champion_players['PLAYER'],
-                                     hover_data=champion_players[['PLAYER', 'TEAM', 'YEAR']],
-                                     title='CHAMPIONSHIP CONTRIBUTIONS',
-                                     labels=chart_labels,
+                                             dimensions=['RAPTOR', 'WS', 'USG%'],
+                                             color=champion_players['WTD POS'],
+                                             color_continuous_scale=Dense,
+                                             color_discrete_sequence=Dense,
+                                             hover_name=champion_players['PLAYER'],
+                                             hover_data=champion_players[['MP', 'PLAYER', 'TEAM', 'YEAR']],
+                                             title='PLAYER PERFORMANCE BY WTD. POSITION',
+                                             labels=chart_labels,
+                                             custom_data=[league_logo_list],
                                      # height=800,
                                      # width=800,
                                      )
@@ -346,15 +375,15 @@ sidebar_header = st.sidebar.subheader('DIRECTORY:')
 ## HEADER ##
 st.container()
 
-st.title('WINNING COMPOSITION -- ANALYZING CHAMPIONSHIP TEAMS IN PROFESSIONAL SPORTS')
-st.write('*STATISTICAL BREAKDOWN OF MODERN-DAY NBA CHAMPIONSHIP ROSTERS*')
+st.title('CHAMPIONSHIP-CALIBER ROSTER CONSTRUCTION IN PROFESSIONAL SPORTS')
+st.write('*STATISTICAL BREAKDOWN OF HISTORICAL AND MODERN-DAY NBA CHAMPIONSHIP ROSTERS*')
 
 ## EAST LOGOS ##
 EA_col_1, EA_col_2, EA_col_3, EA_col_4, EA_col_5, \
 EC_col_1, EC_col_2, EC_col_3, EC_col_4, EC_col_5, \
 ES_col_1, ES_col_2, ES_col_3, ES_col_4, ES_col_5 = st.columns(15)
-EA_col_1.image(BOS_logo, caption='BOS', width=35)
-EA_col_2.image(BKN_logo, caption='BKN', width=35)
+EA_col_1.image(BKN_logo, caption='BKN', width=35)
+EA_col_2.image(BOS_logo, caption='BOS', width=35)
 EA_col_3.image(NYK_logo, caption='NYK', width=35)
 EA_col_4.image(PHI_logo, caption='PHI', width=35)
 EA_col_5.image(TOR_logo, caption='TOR', width=35)
