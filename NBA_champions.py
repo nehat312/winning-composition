@@ -258,7 +258,7 @@ scatter_3d_wingspan1 = px.scatter_3d(champion_players,
                                      # range_color=Sunsetdark,
                                      opacity=.8,
                                      height=1200,
-                                     width=800,
+                                     width=1200,
                                      )
 
 scatter_matrix_teams = px.scatter_matrix(champion_players,
