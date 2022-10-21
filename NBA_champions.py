@@ -199,8 +199,7 @@ westconf_logos_list = [DAL_logo, DEN_logo, HOU_logo, LAC_logo, LAL_logo,
 # print(region_list)
 #
 # #%%
-# champion_players = champion_players[viz_cols]
-# print(champion_players.info())
+champion_players = champion_players[viz_cols]
 #
 # #%%
 # # group_cols = ['']
@@ -219,7 +218,7 @@ champion_players['LOGO'] = champion_players.TEAM.map(team_logos_dict)
 #
 # HTML(champion_players[['LOGO']].to_html(escape=False, formatters=dict(image=path_to_image_html)))
 
-# print(champion_players)
+print(champion_players.info())
 #%%
 
 
@@ -249,7 +248,7 @@ scatter_3d_wingspan1 = px.scatter_3d(champion_players,
                                      hover_data=champion_players[['TEAM', 'YEAR']], #'LOGO'
                                      # custom_data=['LOGO'],
                                      size=champion_players['BMI'],
-                                     size_max=100,
+                                     # size_max=100,
                                      # symbol=champion_players['disc_year'],
                                      labels=chart_labels,
                                      # range_x=[0,360],
