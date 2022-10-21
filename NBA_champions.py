@@ -201,8 +201,8 @@ scatter_3d_wingspan1 = px.scatter_3d(champion_players,
                                      y=champion_players['WEIGHT (LBS)'],
                                      z=champion_players['W-SPAN (IN)'],
                                      color=champion_players['WTD POS'],
-                                     color_discrete_sequence=Tropic,
-                                     color_continuous_scale=Tropic,
+                                     color_discrete_sequence=PuOr,
+                                     color_continuous_scale=PuOr,
                                      color_continuous_midpoint=3,
                                      title='NBA CHAMPIONS -- HEIGHT / WEIGHT / WINGSPAN',
                                      hover_name=champion_players['PLAYER'],
@@ -217,14 +217,14 @@ scatter_3d_wingspan1 = px.scatter_3d(champion_players,
                                      # range_color=Sunsetdark,
                                      opacity=.8,
                                      height=800,
-                                     width=800,
+                                     width=1200,
                                      )
 
 scatter_matrix_teams = px.scatter_matrix(champion_players,
                                      dimensions=['RAPTOR', 'WS', 'USG%'],
                                      color=champion_players['TEAM'],
-                                     color_continuous_scale=Tropic,
-                                     color_discrete_sequence=Tropic,
+                                     color_continuous_scale=PuOr,
+                                     color_discrete_sequence=PuOr,
                                      hover_name=champion_players['PLAYER'],
                                      hover_data=champion_players[['PLAYER', 'TEAM', 'YEAR']],
                                      title='CHAMPIONSHIP CONTRIBUTIONS',
@@ -236,8 +236,8 @@ scatter_matrix_teams = px.scatter_matrix(champion_players,
 scatter_matrix_positions = px.scatter_matrix(champion_players,
                                      dimensions=['RAPTOR', 'WS', 'USG%'],
                                      color=champion_players['WTD POS'],
-                                     color_continuous_scale=Ice_r,
-                                     color_discrete_sequence=Ice_r,
+                                     color_continuous_scale=PuOr,
+                                     color_discrete_sequence=PuOr,
                                      hover_name=champion_players['PLAYER'],
                                      hover_data=champion_players[['PLAYER', 'TEAM', 'YEAR']],
                                      title='CHAMPIONSHIP CONTRIBUTIONS',
@@ -382,7 +382,10 @@ WS_col_5.image(MEM_logo, caption='MEM', width=45)
 st.plotly_chart(scatter_3d_wingspan1, use_container_width=False, sharing="streamlit")
 
 ## SCATTER MATRIX ##
-st.plotly_chart(scatter_matrix_raptor1, use_container_width=False, sharing="streamlit")
+st.plotly_chart(scatter_matrix_teams, use_container_width=False, sharing="streamlit")
+
+
+st.plotly_chart(scatter_matrix_positions, use_container_width=False, sharing="streamlit")
 
 
 ## LEAGUE LOGOS ##
