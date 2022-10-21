@@ -126,9 +126,17 @@ all_cols = ['YR_TM_PLR', 'YEARS', 'YEAR',
             ]
 
 
-# output_cols = ['',
-#                ''
-#                ]
+viz_cols = ['YEAR', 'TEAM', 'PLAYER',
+               'WTD POS',
+               'HEIGHT (IN)', 'WEIGHT (LBS)', 'BMI', 'W-SPAN (IN)',
+               'AGE',  'EXPERIENCE',
+               'NATION', 'COUNTRY',
+               'CONTINENT', 'GLOBAL REGION',
+               'CONFERENCE', 'COLLEGE',
+               'SALARY', '% SALARY', 'MP', #'PER', 'WTD-PER',
+               'D-WS', 'O-WS', 'WS', # 'TM-WS', 'TM-RAPTOR',
+               'RAPTOR', 'USG%',
+               ]
 
 chart_labels = {'W-SPAN (IN)':'WINGSPAN',
                 # '':'',
@@ -142,11 +150,30 @@ chart_labels = {'W-SPAN (IN)':'WINGSPAN',
 
 ## FEATURED VARIABLES ##
 
-team_list = list(champion_players['TEAM'])
-college_list = list(champion_players['COLLEGE'])
-conference_list = list(champion_players['CONFERENCE'])
-country_list = list(champion_players['COUNTRY'])
-region_list = list(champion_players['GLOBAL REGION'])
+team_list = list(champion_players['TEAM'].unique())
+college_list = list(champion_players['COLLEGE'].unique())
+conference_list = list(champion_players['CONFERENCE'].unique())
+country_list = list(champion_players['COUNTRY'].unique())
+region_list = list(champion_players['GLOBAL REGION'].unique())
+
+# print(team_list)
+# print(college_list)
+# print(conference_list)
+# print(country_list)
+# print(region_list)
+#
+# #%%
+# champion_players = champion_players[viz_cols]
+# print(champion_players.info())
+#
+# #%%
+# # group_cols = ['']
+# college_raptor = champion_players.groupby(['TEAM', 'COLLEGE']).mean()
+# print(college_raptor)
+
+
+
+#%%
 
 
 
@@ -183,12 +210,12 @@ scatter_3d_wingspan1 = px.scatter_3d(champion_players,
                                      # range_z=[0,2500],
                                      # range_color=Sunsetdark,
                                      opacity=.8,
-                                     height=800,
-                                     width=1600,
+                                     # height=800,
+                                     width=800,
                                      )
 
 scatter_matrix_raptor1 = px.scatter_matrix(champion_players,
-                                     dimensions=['RAPTOR', 'D-WS', 'O-WS', 'WS', 'USG%'],
+                                     dimensions=['RAPTOR', 'WS', 'USG%'],
                                      color=champion_players['TEAM'],
                                      color_continuous_scale=Ice_r,
                                      color_discrete_sequence=Ice_r,
@@ -196,12 +223,12 @@ scatter_matrix_raptor1 = px.scatter_matrix(champion_players,
                                      hover_data=champion_players[['PLAYER', 'TEAM', 'YEAR']],
                                      title='CHAMPIONSHIP CONTRIBUTIONS',
                                      labels=chart_labels,
-                                     # height=850,
-                                     # width=800,
+                                     # height=800,
+                                     width=800,
                                      )
 
 
-#
+
 # disc_info_1 = px.histogram(disc_facility_filter,
 #                            y=disc_facility_filter['disc_facility'],
 #                            color=disc_facility_filter['disc_method'],
@@ -290,7 +317,7 @@ df_styles = [dict(selector="th", props=th_props),
 st.container()
 
 st.title('WINNING COMPOSITION OF NBA CHAMPIONS')
-st.write('*CHAMPIONSHIP-CALIBER ROSTER CONSTRUCTION FOR MODERN-DAY BASKETBALL*')
+st.write('*ROSTER CONSTRUCTION BREAKDOWN OF MODERN-DAY LEAGUE CHAMPIONS*')
 
 ## EAST LOGOS ##
 EA_col_1, EA_col_2, EA_col_3, EA_col_4, EA_col_5, \
