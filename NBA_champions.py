@@ -278,7 +278,7 @@ scatter_matrix_teams = px.scatter_matrix(champion_players,
                                          )
 
 scatter_matrix_positions = px.scatter_matrix(champion_players,
-                                             dimensions=['RAPTOR', 'WS', 'USG%'],
+                                             dimensions=['MP', 'RAPTOR', 'LEBRON', 'WS', 'USG%'],
                                              color=champion_players['WTD POS'],
                                              color_continuous_scale=Dense,
                                              color_discrete_sequence=Dense,
@@ -442,7 +442,7 @@ with middle:
     st.plotly_chart(scatter_3d_wingspan1, use_container_width=False, sharing="streamlit")
 
 ## SCATTER MATRIX ##
-st.plotly_chart(scatter_matrix_teams, use_container_width=True, sharing="streamlit")
+# st.plotly_chart(scatter_matrix_teams, use_container_width=True, sharing="streamlit")
 st.plotly_chart(scatter_matrix_positions, use_container_width=True, sharing="streamlit")
 
 
