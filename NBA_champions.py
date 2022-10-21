@@ -238,7 +238,7 @@ champion_players = champion_players[champion_players['MP'] > 100]
 
 scatter_3d_wingspan1 = px.scatter_3d(champion_players,
                                      x=champion_players['BMI'],
-                                     y=champion_players['WEIGHT'],
+                                     y=champion_players['WEIGHT (LBS)'],
                                      z=champion_players['APE'],
                                      color=champion_players['WTD POS'],
                                      color_discrete_sequence=Dense,
