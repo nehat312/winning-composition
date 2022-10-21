@@ -198,10 +198,8 @@ westconf_logos_list = [DAL_logo, DEN_logo, HOU_logo, LAC_logo, LAL_logo,
 # print(conference_list)
 # print(country_list)
 # print(region_list)
-#
-# #%%
-champion_players = champion_players[viz_cols]
-#
+
+
 # #%%
 # # group_cols = ['']
 # college_raptor = champion_players.groupby(['TEAM', 'COLLEGE']).mean()
@@ -220,7 +218,6 @@ champion_players['LOGO'] = champion_players.TEAM.map(team_logos_dict)
 # HTML(champion_players[['LOGO']].to_html(escape=False, formatters=dict(image=path_to_image_html)))
 
 # print(champion_players.info())
-#%%
 
 
 ## PRE-PROCESSING ##
@@ -229,28 +226,27 @@ champion_players['LOGO'] = champion_players.TEAM.map(team_logos_dict)
 
 
 ## FILTER DATA ##
-champion_players = champion_players[champion_players['MP'] > 50]
-
-# facility_filtered = disc_facility_filter['disc_facility'].unique()
+champion_players = champion_players[viz_cols]
+champion_players = champion_players[champion_players['MP'] > 100]
 
 
 ## VISUALIZATIONS ##
 
 scatter_3d_wingspan1 = px.scatter_3d(champion_players,
-                                     x=champion_players['HEIGHT (IN)'],
-                                     y=champion_players['WEIGHT (LBS)'],
-                                     z=champion_players['W-SPAN (IN)'],
+                                     x=champion_players['BMI'],
+                                     y=champion_players['APE'],
+                                     z=champion_players['AGE'],
                                      color=champion_players['WTD POS'],
                                      color_discrete_sequence=Dense,
                                      color_continuous_scale=Dense,
                                      color_continuous_midpoint=3,
-                                     title='NBA CHAMPIONS -- HEIGHT / WEIGHT / WINGSPAN / BMI',
+                                     title='NBA CHAMPIONS -- HEIGHT / WEIGHT / WINGSPAN / BMI / AGE / APE INDE',
                                      hover_name=champion_players['PLAYER'],
                                      hover_data=champion_players[['TEAM', 'YEAR']], #'LOGO'
                                      # 'HEIGHT (IN)' 'WEIGHT (LBS)' 'BMI' 'W-SPAN (IN)'
                                      # custom_data=['LOGO'],
-                                     size=champion_players['BMI'],
-                                     # size_max=100,
+                                     size=champion_players['W-SPAN (IN)'],
+                                     size_max=50,
                                      # symbol=champion_players['disc_year'],
                                      labels=chart_labels,
                                      # range_x=[0,360],
@@ -287,7 +283,7 @@ scatter_matrix_positions = px.scatter_matrix(champion_players,
                                              title='PLAYER PERFORMANCE BY WTD. POSITION',
                                              labels=chart_labels,
                                              # custom_data=[team_logos_dict],
-                                             # height=800,
+                                             height=800,
                                              # width=800,
                                              )
 
