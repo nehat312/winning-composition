@@ -257,8 +257,8 @@ scatter_3d_wingspan1 = px.scatter_3d(champion_players,
                                      # range_z=[0,2500],
                                      # range_color=Sunsetdark,
                                      opacity=.8,
-                                     # height=800,
-                                     # width=1200,
+                                     height=800,
+                                     width=1200,
                                      )
 
 scatter_matrix_teams = px.scatter_matrix(champion_players,
@@ -439,7 +439,7 @@ WS_col_5.image(MEM_logo, caption='MEM', width=35)
 # left, middle, right = stl.columns((2, 5, 2))
 # with middle:
 #     plot_open_close_chart()
-st.plotly_chart(scatter_3d_wingspan1, use_container_width=True, sharing="streamlit")
+st.plotly_chart(scatter_3d_wingspan1, use_container_width=False, sharing="streamlit")
 
 ## SCATTER MATRIX ##
 st.plotly_chart(scatter_matrix_teams, use_container_width=True, sharing="streamlit")
