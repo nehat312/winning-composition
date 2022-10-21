@@ -149,7 +149,7 @@ viz_cols = ['YEAR', 'TEAM', 'CHAMP', 'PLAYER', 'WTD POS',
 
 chart_labels = {'W-SPAN (IN)':'WINGSPAN (IN)',
                 'APE':'APE INDEX',
-                # '':'',
+                'CHAMP':'YR-TM',
                 # '':'',
                 }
 
@@ -238,8 +238,8 @@ champion_players = champion_players[champion_players['MP'] > 100]
 
 scatter_3d_wingspan1 = px.scatter_3d(champion_players,
                                      x=champion_players['BMI'],
-                                     y=champion_players['APE'],
-                                     z=champion_players['AGE'],
+                                     y=champion_players['WEIGHT'],
+                                     z=champion_players['APE'],
                                      color=champion_players['WTD POS'],
                                      color_discrete_sequence=Dense,
                                      color_continuous_scale=Dense,
@@ -249,7 +249,7 @@ scatter_3d_wingspan1 = px.scatter_3d(champion_players,
                                      hover_data=champion_players[['TEAM', 'YEAR']], #'LOGO'
                                      # 'HEIGHT (IN)' 'WEIGHT (LBS)' 'BMI' 'W-SPAN (IN)'
                                      # custom_data=['LOGO'],
-                                     size=champion_players['W-SPAN (IN)'],
+                                     size=champion_players['RAPTOR'],
                                      size_max=50,
                                      # symbol=champion_players['disc_year'],
                                      labels=chart_labels,
