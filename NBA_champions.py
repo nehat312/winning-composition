@@ -150,19 +150,23 @@ chart_labels = {'W-SPAN (IN)':'WINGSPAN (IN)',
                 # '':'',
                 }
 
-team_logos_dict = {'ATL':Image.open('images/east/ATL-Hawks.png'),
-                   'BKN':Image.open('images/east/BKN-Nets.png'),
-                   'BOS':Image.open('images/east/BOS-Celtics.png'),
-                   'CHI':Image.open('images/east/CHI-Bulls.png'),
-                   'CHA':Image.open('images/east/CHA-Hornets.png'),
-                   'CLE':Image.open('images/east/CLE-Cavaliers.png'),
+team_logos_dict = {'ATL':ATL_logo,
+                   'BKN':BKN_logo,
+                   'BOS':BOS_logo,
+                   'CHI':CHI_logo,
+                   'CHA':CHA_logo,
+                   'CLE':CLE_logo,
+                   'DET':DET_logo,
+                   'IND':IND_logo,
+                   'MIL':MIL_logo,
+                   'MIA':MIA_logo,
+                   'NYK':NYK_logo,
+                   'ORL':ORL_logo,
+                   'PHI':PHI_logo,
+                   'TOR':TOR_logo,
+                   'WAS':WAS_logo,
 
                    }
-
-# layout= go.Layout(images= [dict(
-#                   source= Image.open('assets\\MiniLogo.png'),
-#                   ...)])
-
 
 
 ## FEATURED VARIABLES ##
@@ -203,21 +207,30 @@ westconf_logos_list = [DAL_logo, DEN_logo, HOU_logo, LAC_logo, LAL_logo,
 # college_raptor = champion_players.groupby(['TEAM', 'COLLEGE']).mean()
 # print(college_raptor)
 
+
 champion_players['LOGO'] = champion_players.TEAM.map(team_logos_dict)
 
+# from IPython.display import HTML
+# import base64
+#
+# # convert your links to html tags
+# def path_to_image_html(path):
+#     return '<img src="'+ path + '" width="60" >'
+#
+# HTML(champion_players[['LOGO']].to_html(escape=False, formatters=dict(image=path_to_image_html)))
 
-
-
+# print(champion_players)
+#%%
 
 
 ## PRE-PROCESSING ##
 # exo_drop_na = champion_players.dropna()
 # exo_with_temp = champion_players[['st_temp_eff_k']].dropna()
-# exo_with_dist = champion_players[['sy_distance_pc']].dropna()
 
 
 ## FILTER DATA ##
-# disc_facility_filter = champion_players[champion_players['facility_count'] > 1]
+champion_players = champion_players[champion_players['MP'] > 50]
+
 # facility_filtered = disc_facility_filter['disc_facility'].unique()
 
 
@@ -231,12 +244,12 @@ scatter_3d_wingspan1 = px.scatter_3d(champion_players,
                                      color_discrete_sequence=Dense,
                                      color_continuous_scale=Dense,
                                      color_continuous_midpoint=3,
-                                     title='NBA CHAMPIONS -- HEIGHT / WEIGHT / WINGSPAN',
+                                     title='NBA CHAMPIONS -- HEIGHT / WEIGHT / WINGSPAN / BMI',
                                      hover_name=champion_players['PLAYER'],
-                                     hover_data=champion_players[['TEAM', 'YEAR', 'LOGO']],
-                                     custom_data=['LOGO'],
-                                     # size=champion_players['pl_rade'],
-                                     # size_max=50,
+                                     hover_data=champion_players[['TEAM', 'YEAR']], #'LOGO'
+                                     # custom_data=['LOGO'],
+                                     size=champion_players['BMI'],
+                                     size_max=50,
                                      # symbol=champion_players['disc_year'],
                                      labels=chart_labels,
                                      # range_x=[0,360],
@@ -244,23 +257,24 @@ scatter_3d_wingspan1 = px.scatter_3d(champion_players,
                                      # range_z=[0,2500],
                                      # range_color=Sunsetdark,
                                      opacity=.8,
-                                     height=800,
-                                     width=1200,
+                                     # height=800,
+                                     # width=1200,
                                      )
 
 scatter_matrix_teams = px.scatter_matrix(champion_players,
-                                     dimensions=['RAPTOR', 'WS', 'USG%'],
-                                     color=champion_players['TEAM'],
-                                     color_continuous_scale=Dense,
-                                     color_discrete_sequence=Dense,
-                                     hover_name=champion_players['PLAYER'],
-                                     hover_data=champion_players[['MP', 'TEAM', 'YEAR']],
-                                     title='PLAYER PERFORMANCE BY TEAM',
-                                     labels=chart_labels,
-                                     # custom_data= [league_logo_list],
-                                     # height=800,
-                                     # width=800,
-                                     )
+                                         dimensions=['RAPTOR', 'WS', 'USG%'],
+                                         color=champion_players['TEAM'],
+                                         color_continuous_scale=Dense,
+                                         color_discrete_sequence=Dense,
+                                         color_discrete_map=team_logos_dict,
+                                         hover_name=champion_players['PLAYER'],
+                                         hover_data=champion_players[['MP', 'TEAM', 'YEAR']],
+                                         title='PLAYER PERFORMANCE BY TEAM',
+                                         labels=chart_labels,
+                                         # custom_data= [league_logo_list],
+                                         # height=800,
+                                         # width=800,
+                                         )
 
 scatter_matrix_positions = px.scatter_matrix(champion_players,
                                              dimensions=['RAPTOR', 'WS', 'USG%'],
@@ -272,9 +286,9 @@ scatter_matrix_positions = px.scatter_matrix(champion_players,
                                              title='PLAYER PERFORMANCE BY WTD. POSITION',
                                              labels=chart_labels,
                                              # custom_data=[team_logos_dict],
-                                     # height=800,
-                                     # width=800,
-                                     )
+                                             # height=800,
+                                             # width=800,
+                                             )
 
 
 
@@ -425,7 +439,7 @@ WS_col_5.image(MEM_logo, caption='MEM', width=35)
 # left, middle, right = stl.columns((2, 5, 2))
 # with middle:
 #     plot_open_close_chart()
-st.plotly_chart(scatter_3d_wingspan1, use_container_width=False, sharing="streamlit")
+st.plotly_chart(scatter_3d_wingspan1, use_container_width=True, sharing="streamlit")
 
 ## SCATTER MATRIX ##
 st.plotly_chart(scatter_matrix_teams, use_container_width=True, sharing="streamlit")
@@ -443,15 +457,8 @@ west_col_3.image(West_logo, width=250) # caption='EASTERN CONFERENCE'
 ## NEO4J / MONGO ?? ##
 
 
-
-
-## SELECTION FORM ##
-# exo_drop_cols = ['', '']
-
-
 ## FORM FUNCTIONS ##
 # @st.cache(persist=True, allow_output_mutation=True, suppress_st_warning=True)
-
 
 
 ## DISCOVERY INFORMATION ##
@@ -485,41 +492,6 @@ st.stop()
 
 
 ### SCRATCH NOTES ###
-
-
-
-
-
-
-## FONTS ##
-
-# t = st.radio("Toggle to see font change", [True, False])
-#
-# if t:
-#     st.markdown(
-#         """
-#         <style>
-# @font-face {
-#   font-family: 'Tangerine';
-#   font-style: normal;
-#   font-weight: 400;
-#   src: url(https://fonts.gstatic.com/s/tangerine/v12/IurY6Y5j_oScZZow4VOxCZZM.woff2) format('woff2');
-#   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-# }
-#
-#     html, body, [class*="css"]  {
-#     font-family: 'Tangerine';
-#     font-size: 48px;
-#     }
-#     </style>
-#
-#     """,
-#         unsafe_allow_html=True,
-#     )
-#
-# "# Hello"
-#
-# """This font will look different, based on your choice of radio button"""
 
 # CONFIG TEMPLATE
     # st.set_page_config(page_title="CSS hacks", page_icon=":smirk:")
