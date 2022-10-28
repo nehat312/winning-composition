@@ -236,7 +236,27 @@ champion_players = champion_players[champion_players['MP'] > 100]
 
 ## VISUALIZATIONS ##
 
-scatter_3d_wingspan1 = px.scatter_3d(champion_players,
+bar_adv_matrics = px.bar(data_frame=champion_players,
+                         x=champion_players['CHAMP'],
+                         y=champion_players['RAPTOR'],
+                         color=champion_players['% SALARY'], ##EXPERIENCE  AGE MP APE
+                         color_continuous_scale=Dense,
+                         color_discrete_sequence=Dense,
+                         # color_discrete_map=team_logos_dict,
+                         hover_name=champion_players['PLAYER'],
+                         hover_data=champion_players[['MP', 'CHAMP']],
+                         title='PLAYER PERFORMANCE BY CHAMPIONSHIP TEAM',
+                         labels=chart_labels,
+                         height=750,
+                         width=1000,
+
+
+                         )
+
+
+# bar_nations_regions =
+
+scatter_3d_wingspan1 = px.scatter_3d(data_frame=champion_players,
                                      x=champion_players['BMI'],
                                      y=champion_players['WEIGHT (LBS)'],
                                      z=champion_players['APE'],
@@ -244,7 +264,7 @@ scatter_3d_wingspan1 = px.scatter_3d(champion_players,
                                      color_discrete_sequence=Dense,
                                      color_continuous_scale=Dense,
                                      color_continuous_midpoint=3,
-                                     title='NBA CHAMPIONS -- HEIGHT / WEIGHT / WINGSPAN / BMI / AGE / APE INDE',
+                                     title='NBA CHAMPIONS -- HEIGHT / WEIGHT / WINGSPAN / BMI / AGE / APE INDEX',
                                      hover_name=champion_players['PLAYER'],
                                      hover_data=champion_players[['TEAM', 'YEAR']], #'LOGO'
                                      # 'HEIGHT (IN)' 'WEIGHT (LBS)' 'BMI' 'W-SPAN (IN)'
