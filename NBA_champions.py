@@ -127,9 +127,9 @@ all_cols = ['YR_TM_PLR', 'YEARS', 'YEAR',
             'CONFERENCE', 'COLLEGE',
             'SALARY', '% SALARY',
             'MP', 'PER', 'WTD-PER', 'AGE',
-            'D-WS', 'O-WS', 'WS', 'WS-VAL', 'TM-WS',
-            'RAPTOR', 'RAPTOR-VAL', 'TM-RAPTOR',
-            'LEBRON', 'LEBRON-VAL', 'TM-LEBRON', #D #O
+            'D-WS', 'O-WS', 'WS', 'WS_VAL', 'TM-WS',
+            'RAPTOR', 'RAPTOR_VAL', 'TM-RAPTOR',
+            'LEBRON', 'LEBRON_VAL', 'TM-LEBRON', #D #O
             'USG%',
             ]
 
@@ -144,7 +144,7 @@ viz_cols = ['YEAR', 'TEAM', 'CHAMP', 'PLAYER', 'WTD POS',
             'MP', #'PER', 'WTD-PER',
             'D-WS', 'O-WS', 'WS',  # 'TM-WS', 'TM-RAPTOR',
             'RAPTOR', 'LEBRON', 'USG%',
-            'RAPTOR-VAL', 'LEBRON-VAL', 'WS-VAL',
+            'RAPTOR_VAL', 'LEBRON_VAL', 'WS_VAL',
 
             ]
 
@@ -152,9 +152,9 @@ viz_cols = ['YEAR', 'TEAM', 'CHAMP', 'PLAYER', 'WTD POS',
 chart_labels = {'W-SPAN (IN)':'WINGSPAN (IN)',
                 'APE':'APE INDEX',
                 'CHAMP':'YR-TM',
-                'LEBRON-VAL':'LEBRON/$',
-                'RAPTOR-VAL':'RAPTOR/$',
-                'WS-VAL':'WS/$',
+                'LEBRON_VAL':'LEBRON/$',
+                'RAPTOR_VAL':'RAPTOR/$',
+                'WS_VAL':'WS/$',
                 # '':'',
                 }
 
