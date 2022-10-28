@@ -238,8 +238,8 @@ champion_players = champion_players[champion_players['MP'] > 100]
 
 bar_raptor_sal = px.bar(data_frame=champion_players,
                          x=champion_players['CHAMP'],
-                         y=champion_players['RAPTOR'],
-                         color=champion_players['% SALARY'], ##EXPERIENCE  AGE MP APE
+                         y=champion_players['% SALARY'],
+                         color=champion_players['RAPTOR'], ##EXPERIENCE  AGE MP APE
                          color_continuous_scale=Dense,
                          color_discrete_sequence=Dense,
                          # color_discrete_map=team_logos_dict,
@@ -454,7 +454,7 @@ WS_col_5.image(MEM_logo, caption='MEM', width=35)
 
 
 ## 3D SCATTER ##
-st.plotly_chart(bar_raptor_sal, use_container_width=False, sharing="streamlit")
+st.plotly_chart(bar_raptor_sal.update_xaxes(rangeorder='reversed'), use_container_width=False, sharing="streamlit")
 
 
 ## 3D SCATTER ##
