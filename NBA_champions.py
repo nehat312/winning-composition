@@ -454,7 +454,7 @@ WS_col_5.image(MEM_logo, caption='MEM', width=35)
 
 
 ## 3D SCATTER ##
-st.plotly_chart(bar_raptor_sal.update_xaxes(rangeorder='reversed'), use_container_width=False, sharing="streamlit")
+st.plotly_chart(bar_raptor_sal.update_xaxes(categoryorder='total ascending'), use_container_width=False, sharing="streamlit")
 
 
 ## 3D SCATTER ##
