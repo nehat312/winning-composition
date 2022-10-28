@@ -236,7 +236,7 @@ champion_players = champion_players[champion_players['MP'] > 100]
 
 ## VISUALIZATIONS ##
 
-bar_adv_matrics = px.bar(data_frame=champion_players,
+bar_raptor_sal = px.bar(data_frame=champion_players,
                          x=champion_players['CHAMP'],
                          y=champion_players['RAPTOR'],
                          color=champion_players['% SALARY'], ##EXPERIENCE  AGE MP APE
@@ -245,12 +245,10 @@ bar_adv_matrics = px.bar(data_frame=champion_players,
                          # color_discrete_map=team_logos_dict,
                          hover_name=champion_players['PLAYER'],
                          hover_data=champion_players[['MP', 'CHAMP']],
-                         title='PLAYER PERFORMANCE BY CHAMPIONSHIP TEAM',
+                         title='RAPTOR BY SALARY',
                          labels=chart_labels,
                          height=750,
                          width=1000,
-
-
                          )
 
 
@@ -454,6 +452,11 @@ WS_col_3.image(HOU_logo, caption='HOU', width=35)
 WS_col_4.image(SAS_logo, caption='SAS', width=35)
 WS_col_5.image(MEM_logo, caption='MEM', width=35)
 
+
+## 3D SCATTER ##
+left, middle, right = st.columns((2, 5, 2))
+with middle:
+    st.plotly_chart(bar_raptor_sal, use_container_width=False, sharing="streamlit")
 
 
 ## 3D SCATTER ##
