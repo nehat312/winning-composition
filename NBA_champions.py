@@ -243,7 +243,7 @@ champion_players = champion_players[champion_players['MP'] > 100]
 bar_raptor_salary = px.bar(data_frame=champion_players,
                          x=champion_players['CHAMP'],
                          y=champion_players['% SALARY'],
-                         color=champion_players['RAPTOR/$'], ##EXPERIENCE  AGE MP APE
+                         color=champion_players['RAPTOR_$'], ##EXPERIENCE  AGE MP APE
                          color_continuous_scale=Sunsetdark,
                          color_discrete_sequence=Sunsetdark,
                          # color_discrete_map=team_logos_dict,
@@ -258,7 +258,22 @@ bar_raptor_salary = px.bar(data_frame=champion_players,
 bar_lebron_salary = px.bar(data_frame=champion_players,
                          x=champion_players['CHAMP'],
                          y=champion_players['% SALARY'],
-                         color=champion_players['LEBRON/$'], ##EXPERIENCE  AGE MP APE
+                         color=champion_players['LEBRON_$'], ##EXPERIENCE  AGE MP APE
+                         color_continuous_scale=Dense,
+                         color_discrete_sequence=Dense,
+                         # color_discrete_map=team_logos_dict,
+                         hover_name=champion_players['PLAYER'],
+                         hover_data=champion_players[['MP', 'CHAMP']],
+                         title='RAPTOR BY SALARY',
+                         labels=chart_labels,
+                         height=750,
+                         width=1000,
+                         )
+
+bar_WS_salary = px.bar(data_frame=champion_players,
+                         x=champion_players['CHAMP'],
+                         y=champion_players['% SALARY'],
+                         color=champion_players['WS_$'], ##EXPERIENCE  AGE MP APE
                          color_continuous_scale=Dense,
                          color_discrete_sequence=Dense,
                          # color_discrete_map=team_logos_dict,
