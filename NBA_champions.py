@@ -454,13 +454,13 @@ WS_col_5.image(MEM_logo, caption='MEM', width=35)
 
 
 ## 3D SCATTER ##
-left, middle, right = st.columns((1, 7, 1))
+left, middle, right = st.columns((0, 7, 0))
 with middle:
     st.plotly_chart(bar_raptor_sal, use_container_width=False, sharing="streamlit")
 
 
 ## 3D SCATTER ##
-left, middle, right = st.columns((1, 7, 1))
+left, middle, right = st.columns((0, 7, 0))
 with middle:
     st.plotly_chart(scatter_3d_wingspan1, use_container_width=False, sharing="streamlit")
 
