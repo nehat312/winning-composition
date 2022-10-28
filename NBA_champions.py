@@ -492,10 +492,10 @@ WS_col_5.image(MEM_logo, caption='MEM', width=35)
 
 
 ## BAR - RAPTOR SALARY ##
-st.plotly_chart(bar_raptor_salary.update_xaxes(categoryorder='ascending'), use_container_width=False, sharing="streamlit")
+st.plotly_chart(bar_raptor_salary.update_xaxes(categoryorder='category ascending'), use_container_width=False, sharing="streamlit")
 
 ## BAR - LEBRON SALARY ##
-st.plotly_chart(bar_lebron_salary.update_xaxes(categoryorder='ascending'), use_container_width=False, sharing="streamlit")
+st.plotly_chart(bar_lebron_salary.update_xaxes(categoryorder='category ascending'), use_container_width=False, sharing="streamlit")
 
 
 ## 3D SCATTER ##
