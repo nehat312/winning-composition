@@ -212,6 +212,10 @@ westconf_logos_list = [DAL_logo, DEN_logo, HOU_logo, LAC_logo, LAL_logo,
 
 champion_players['LOGO'] = champion_players.TEAM.map(team_logos_dict)
 
+#**#value per dollar is the key AKA secret sauce *** #
+
+
+
 # from IPython.display import HTML
 # import base64
 #
@@ -236,10 +240,25 @@ champion_players = champion_players[champion_players['MP'] > 100]
 
 ## VISUALIZATIONS ##
 
-bar_raptor_sal = px.bar(data_frame=champion_players,
+bar_raptor_salary = px.bar(data_frame=champion_players,
                          x=champion_players['CHAMP'],
                          y=champion_players['% SALARY'],
-                         color=champion_players['RAPTOR'], ##EXPERIENCE  AGE MP APE
+                         color=champion_players['RAPTOR/$'], ##EXPERIENCE  AGE MP APE
+                         color_continuous_scale=Sunsetdark,
+                         color_discrete_sequence=Sunsetdark,
+                         # color_discrete_map=team_logos_dict,
+                         hover_name=champion_players['PLAYER'],
+                         hover_data=champion_players[['MP', 'CHAMP']],
+                         title='RAPTOR BY SALARY',
+                         labels=chart_labels,
+                         height=750,
+                         width=1000,
+                         )
+
+bar_lebron_salary = px.bar(data_frame=champion_players,
+                         x=champion_players['CHAMP'],
+                         y=champion_players['% SALARY'],
+                         color=champion_players['LEBRON/$'], ##EXPERIENCE  AGE MP APE
                          color_continuous_scale=Dense,
                          color_discrete_sequence=Dense,
                          # color_discrete_map=team_logos_dict,
@@ -250,7 +269,6 @@ bar_raptor_sal = px.bar(data_frame=champion_players,
                          height=750,
                          width=1000,
                          )
-
 
 # bar_nations_regions =
 
@@ -453,8 +471,11 @@ WS_col_4.image(SAS_logo, caption='SAS', width=35)
 WS_col_5.image(MEM_logo, caption='MEM', width=35)
 
 
-## 3D SCATTER ##
-st.plotly_chart(bar_raptor_sal.update_xaxes(categoryorder='total ascending'), use_container_width=False, sharing="streamlit")
+## BAR - RAPTOR SALARY ##
+st.plotly_chart(bar_raptor_salary.update_xaxes(categoryorder='ascending'), use_container_width=False, sharing="streamlit")
+
+## BAR - LEBRON SALARY ##
+st.plotly_chart(bar_lebron_salary.update_xaxes(categoryorder='ascending'), use_container_width=False, sharing="streamlit")
 
 
 ## 3D SCATTER ##
