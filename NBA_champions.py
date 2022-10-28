@@ -241,6 +241,7 @@ champion_players['LOGO'] = champion_players.TEAM.map(team_logos_dict)
 ## FILTER DATA ##
 champion_players = champion_players[viz_cols]
 champion_players = champion_players[champion_players['MP'] > 100]
+lebron_val_players = champion_players[champion_players['YEAR'] >= 2010]
 
 
 ## VISUALIZATIONS ##
@@ -249,27 +250,27 @@ bar_raptor_salary = px.bar(data_frame=champion_players,
                          x=champion_players['CHAMP'],
                          y=champion_players['% SALARY'],
                          color=champion_players['RAPTOR_VAL'], ##EXPERIENCE  AGE MP APE
-                         color_continuous_scale=Sunsetdark,
-                         color_discrete_sequence=Sunsetdark,
+                         color_continuous_scale=Tropic,
+                         color_discrete_sequence=Tropic,
                          # color_discrete_map=team_logos_dict,
                          hover_name=champion_players['PLAYER'],
                          hover_data=champion_players[['MP', 'CHAMP']],
-                         title='RAPTOR BY SALARY',
+                         title='RAPTOR/SALARY',
                          labels=chart_labels,
                          height=750,
                          width=1000,
                          )
 
-bar_lebron_salary = px.bar(data_frame=champion_players,
-                         x=champion_players['CHAMP'],
-                         y=champion_players['% SALARY'],
-                         color=champion_players['LEBRON_VAL'], ##EXPERIENCE  AGE MP APE
-                         color_continuous_scale=Dense,
-                         color_discrete_sequence=Dense,
+bar_lebron_salary = px.bar(data_frame=lebron_val_players,
+                         x=lebron_val_players['CHAMP'],
+                         y=lebron_val_players['% SALARY'],
+                         color=lebron_val_players['LEBRON_VAL'], ##EXPERIENCE  AGE MP APE
+                         color_continuous_scale=Sunsetdark,
+                         color_discrete_sequence=Sunsetdark,
                          # color_discrete_map=team_logos_dict,
-                         hover_name=champion_players['PLAYER'],
-                         hover_data=champion_players[['MP', 'CHAMP']],
-                         title='RAPTOR BY SALARY',
+                         hover_name=lebron_val_players['PLAYER'],
+                         hover_data=lebron_val_players[['MP', 'CHAMP']],
+                         title='LEBRON/SALARY',
                          labels=chart_labels,
                          height=750,
                          width=1000,
@@ -279,12 +280,12 @@ bar_WS_salary = px.bar(data_frame=champion_players,
                          x=champion_players['CHAMP'],
                          y=champion_players['% SALARY'],
                          color=champion_players['WS_VAL'], ##EXPERIENCE  AGE MP APE
-                         color_continuous_scale=Dense,
-                         color_discrete_sequence=Dense,
+                         color_continuous_scale=Ice_r,
+                         color_discrete_sequence=Ice_r,
                          # color_discrete_map=team_logos_dict,
                          hover_name=champion_players['PLAYER'],
                          hover_data=champion_players[['MP', 'CHAMP']],
-                         title='RAPTOR BY SALARY',
+                         title='WS/SALARY',
                          labels=chart_labels,
                          height=750,
                          width=1000,
@@ -496,6 +497,9 @@ st.plotly_chart(bar_raptor_salary.update_xaxes(categoryorder='category ascending
 
 ## BAR - LEBRON SALARY ##
 st.plotly_chart(bar_lebron_salary.update_xaxes(categoryorder='category ascending'), use_container_width=False, sharing="streamlit")
+
+## BAR - WS SALARY ##
+st.plotly_chart(bar_WS_salary.update_xaxes(categoryorder='category ascending'), use_container_width=False, sharing="streamlit")
 
 
 ## 3D SCATTER ##
