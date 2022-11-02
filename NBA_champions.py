@@ -278,7 +278,7 @@ bar_champions_salary = px.bar(data_frame=champion_players,
                               x=champion_players['SALARY'],
                               barmode='group',
                               animation_group=champion_players['CHAMP'],
-                              animation_frame=champion_players['CHAMP'],
+                              animation_frame=champion_players['YEAR'],
                               # facet_row=[['WS', 'RAPTOR', 'LEBRON']],
                               color=champion_players['WS'], ##EXPERIENCE  AGE MP APE
                               color_continuous_scale=Tropic,
