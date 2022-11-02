@@ -274,9 +274,9 @@ mms = MinMaxScaler()
 ## VISUALIZATIONS ##
 
 bar_champions_salary = px.bar(data_frame=champion_players,
-                              y=champion_players['CHAMP'],
+                              y=champion_players['WS'],
                               x=champion_players['SALARY'],
-                              facet_row=champion_players['WS'],
+                              facet_row=champion_players['CHAMP'],
                               barmode='group',
                               # facet_row=[['WS', 'RAPTOR', 'LEBRON']],
                               color=champion_players['WS'], ##EXPERIENCE  AGE MP APE
