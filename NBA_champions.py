@@ -282,7 +282,7 @@ bar_champs_salary = px.bar(data_frame=champion_players,
                          title='WS/SALARY',
                          labels=chart_labels,
                            orientation='h',
-                         height=1000,
+                         height=750,
                          # width=1000,
                          )
 
