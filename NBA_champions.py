@@ -103,7 +103,7 @@ Sunset = px.colors.sequential.Sunset
 Tropic = px.colors.diverging.Tropic
 Temps = px.colors.diverging.Temps
 Tealrose = px.colors.diverging.Tealrose
-Blackbody = px.colors.sequential.Blackbody
+
 Ice = px.colors.sequential.ice
 Ice_r = px.colors.sequential.ice_r
 Dense = px.colors.sequential.dense
@@ -111,6 +111,9 @@ Deep = px.colors.sequential.deep
 PuOr = px.colors.diverging.PuOr
 Speed = px.colors.sequential.speed
 # IceFire = px.colors.diverging.
+
+Blackbody = px.colors.sequential.Blackbody
+BlueRed = px.colors.sequential.Bluered
 
 
 
@@ -274,12 +277,12 @@ bar_champs_salary = px.bar(data_frame=champion_players,
                          y=champion_players['CHAMP'],
                          x=champion_players['SALARY'],
                          color=champion_players['WS'], ##EXPERIENCE  AGE MP APE
-                         color_continuous_scale=Ice_r,
-                         color_discrete_sequence=Ice_r,
+                         color_continuous_scale=Blackbody,
+                         color_discrete_sequence=Blackbody,
                          # color_discrete_map=team_logos_dict,
                          hover_name=champion_players['PLAYER'],
                          hover_data=champion_players[['SALARY', 'MP', 'WS']], #'WS/$',
-                         title='WS/SALARY',
+                         title='PLAYER WIN SHARES (WS) RELATIVE TO CHAMPIONSHIP TEAM SALARY',
                          labels=chart_labels,
                            orientation='h',
                          height=750,
