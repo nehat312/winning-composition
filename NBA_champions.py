@@ -271,8 +271,8 @@ mms = MinMaxScaler()
 ## VISUALIZATIONS ##
 
 bar_champs_salary = px.bar(data_frame=champion_players,
-                         x=champion_players['CHAMP'],
-                         y=champion_players['SALARY'],
+                         y=champion_players['CHAMP'],
+                         x=champion_players['SALARY'],
                          color=champion_players['WS'], ##EXPERIENCE  AGE MP APE
                          color_continuous_scale=Ice_r,
                          color_discrete_sequence=Ice_r,
@@ -533,8 +533,8 @@ WS_col_5.image(MEM_logo, caption='MEM', width=35)
 
 
 ## BAR - CHAMPS SALARY ##
-bar_champs_salary = bar_champs_salary.update_yaxes(categoryorder='total descending')
-st.plotly_chart(bar_champs_salary.update_xaxes(categoryorder='category ascending'), use_container_width=True, sharing="streamlit")
+# bar_champs_salary = bar_champs_salary.update_yaxes(categoryorder='total descending')
+st.plotly_chart(bar_champs_salary.update_yaxes(categoryorder='category descending'), use_container_width=True, sharing="streamlit")
 #
 
 ## BAR - RAPTOR SALARY ##
