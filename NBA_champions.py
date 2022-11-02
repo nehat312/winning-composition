@@ -273,11 +273,14 @@ mms = MinMaxScaler()
 
 ## VISUALIZATIONS ##
 
-bar_champs_salary = px.bar(data_frame=champion_players,
-                         y=champion_players['CHAMP'],
-                         x=champion_players['SALARY'],
-                         color=champion_players['WS'], ##EXPERIENCE  AGE MP APE
-                         color_continuous_scale=Tropic,
+bar_champions_salary = px.bar(data_frame=champion_players,
+                              y=champion_players['CHAMP'],
+                              x=champion_players['SALARY'],
+                              facet_row=['WS'],
+                              barmode='group',
+                              # facet_row=[['WS', 'RAPTOR', 'LEBRON']],
+                              color=champion_players['WS'], ##EXPERIENCE  AGE MP APE
+                              color_continuous_scale=Tropic,
                          color_discrete_sequence=Tropic,
                          # color_discrete_map=team_logos_dict,
                          hover_name=champion_players['PLAYER'],
