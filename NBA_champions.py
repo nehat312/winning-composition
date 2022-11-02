@@ -534,7 +534,7 @@ WS_col_5.image(MEM_logo, caption='MEM', width=35)
 
 ## BAR - CHAMPS SALARY ##
 # bar_champs_salary = bar_champs_salary.update_yaxes(categoryorder='total descending')
-st.plotly_chart(bar_champs_salary.update_yaxes(categoryorder='category descending'), use_container_width=True, sharing="streamlit")
+st.plotly_chart(bar_champs_salary.update_yaxes(categoryorder='category ascending'), use_container_width=True, sharing="streamlit")
 #
 
 ## BAR - RAPTOR SALARY ##
