@@ -13,6 +13,10 @@ import plotly.graph_objects as go
 from PIL import Image
 import datetime
 
+from sklearn.preprocessing import StandardScaler
+from sklearn.decomposition import PCA
+from sklearn.preprocessing import MinMaxScaler
+
 # import matplotlib.pyplot as plt
 # import seaborn as sns
 # import dash as dash
@@ -149,6 +153,10 @@ viz_cols = ['YEAR', 'TEAM', 'CHAMP', 'PLAYER', 'WTD POS',
             ]
 
 
+scale_cols = [
+            'RAPTOR', 'LEBRON',
+            ]
+
 chart_labels = {'W-SPAN (IN)':'WINGSPAN (IN)',
                 'APE':'APE INDEX',
                 'CHAMP':'YR-TM',
@@ -243,8 +251,39 @@ champion_players = champion_players[viz_cols]
 champion_players = champion_players[champion_players['MP'] > 100]
 lebron_val_players = champion_players[champion_players['YEAR'] >= 2010]
 
+# MinMaxScaler
+
+ss = StandardScaler()
+mms = MinMaxScaler()
+
+# Normalize the training data
+
+# champion_players_ss = ss.fit_transform(champion_players)
+# champion_players_mms = mms.fit_transform(champion_players)
+#
+# #%%
+#
+# print(champion_players_ss)
+
+
+#%%
 
 ## VISUALIZATIONS ##
+
+bar_champs_salary = px.bar(data_frame=champion_players,
+                         x=champion_players['CHAMP'],
+                         y=champion_players['SALARY'],
+                         color=champion_players['WS_VAL'], ##EXPERIENCE  AGE MP APE
+                         color_continuous_scale=Ice_r,
+                         color_discrete_sequence=Ice_r,
+                         # color_discrete_map=team_logos_dict,
+                         hover_name=champion_players['PLAYER'],
+                         hover_data=champion_players[['SALARY', 'MP', 'WS', ]],
+                         title='WS/SALARY',
+                         labels=chart_labels,
+                         height=750,
+                         width=1000,
+                         )
 
 bar_raptor_salary = px.bar(data_frame=champion_players,
                          x=champion_players['CHAMP'],
@@ -491,6 +530,9 @@ WS_col_3.image(HOU_logo, caption='HOU', width=35)
 WS_col_4.image(SAS_logo, caption='SAS', width=35)
 WS_col_5.image(MEM_logo, caption='MEM', width=35)
 
+
+## BAR - CHAMPS SALARY ##
+st.plotly_chart(bar_champs_salary.update_xaxes(categoryorder='category ascending'), use_container_width=False, sharing="streamlit")
 
 ## BAR - RAPTOR SALARY ##
 st.plotly_chart(bar_raptor_salary.update_xaxes(categoryorder='category ascending'), use_container_width=False, sharing="streamlit")
