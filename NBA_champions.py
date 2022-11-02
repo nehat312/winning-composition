@@ -273,16 +273,16 @@ mms = MinMaxScaler()
 bar_champs_salary = px.bar(data_frame=champion_players,
                          x=champion_players['CHAMP'],
                          y=champion_players['SALARY'],
-                         color=champion_players['WS_VAL'], ##EXPERIENCE  AGE MP APE
+                         color=champion_players['WS'], ##EXPERIENCE  AGE MP APE
                          color_continuous_scale=Ice_r,
                          color_discrete_sequence=Ice_r,
                          # color_discrete_map=team_logos_dict,
                          hover_name=champion_players['PLAYER'],
-                         hover_data=champion_players[['SALARY', 'MP', 'WS', ]],
+                         hover_data=champion_players[['SALARY', 'MP', 'WS']], #'WS/$',
                          title='WS/SALARY',
                          labels=chart_labels,
-                         height=750,
-                         width=1000,
+                         # height=750,
+                         # width=1000,
                          )
 
 bar_raptor_salary = px.bar(data_frame=champion_players,
@@ -532,7 +532,8 @@ WS_col_5.image(MEM_logo, caption='MEM', width=35)
 
 
 ## BAR - CHAMPS SALARY ##
-st.plotly_chart(bar_champs_salary.update_xaxes(categoryorder='category ascending'), use_container_width=False, sharing="streamlit")
+bar_champs_salary.update_yaxes(categoryorder='total descending')
+st.plotly_chart(bar_champs_salary.update_xaxes(categoryorder='category ascending'), use_container_width=True, sharing="streamlit")
 
 ## BAR - RAPTOR SALARY ##
 st.plotly_chart(bar_raptor_salary.update_xaxes(categoryorder='category ascending'), use_container_width=False, sharing="streamlit")
