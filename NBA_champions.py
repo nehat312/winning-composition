@@ -281,6 +281,7 @@ bar_champs_salary = px.bar(data_frame=champion_players,
                          hover_data=champion_players[['SALARY', 'MP', 'WS']], #'WS/$',
                          title='WS/SALARY',
                          labels=chart_labels,
+                           orientation='h',
                          # height=750,
                          # width=1000,
                          )
