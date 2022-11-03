@@ -554,8 +554,8 @@ st.plotly_chart(bar_champions_salary.add_layout_image(
     dict(source=court_img_1,#'images/Court1.png', #
          xref="paper",
          yref="paper",
-         x=0,
-         y=0,
+         x=0.5,
+         y=0.5,
          sizex=1.9,
          sizey=1.2,
          sizing="contain", #"stretch"
