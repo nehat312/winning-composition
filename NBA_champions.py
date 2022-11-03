@@ -290,6 +290,7 @@ bar_champions_salary = px.bar(data_frame=champion_players,
                               color=champion_players['WS'],     # EXPERIENCE AGE MP APE
                               color_continuous_scale=Tropic,
                               color_discrete_sequence=Tropic,
+                              color_continuous_midpoint=10,
                               # color_discrete_map=team_logos_dict,
                               hover_name=champion_players['PLAYER'],
                               hover_data=champion_players[['CHAMP', 'SALARY', 'MP', 'WS']], #'WS/$',
@@ -559,7 +560,7 @@ st.plotly_chart(bar_champions_salary.add_layout_image(
          y=0.5,
          sizex=2.5,
          sizey=1,
-         opacity=.6,
+         opacity=.5,
          xanchor="center",
          yanchor="middle", #top #bottom
          visible=True,
