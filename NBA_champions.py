@@ -553,13 +553,13 @@ st.plotly_chart(bar_champions_salary.add_layout_image(
     dict(source=court_img_1,#'images/Court1.png', #
         xref="x",
         yref="y",
-            x=0,
-            y=1,
+            x=1995,
+            y=20000000,
             sizex=500,
-            sizey=150000000,
+            sizey=500,
             sizing="stretch",
             opacity=1,
-            layer="below",
+            # layer="below",
          )),
     use_container_width=True, sharing="streamlit")
 
