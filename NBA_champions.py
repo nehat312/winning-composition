@@ -296,6 +296,7 @@ bar_champions_salary = px.bar(data_frame=champion_players,
                               barmode='group',
                               title='PLAYER WIN SHARES (WS) RELATIVE TO CHAMPIONSHIP TEAM SALARY',
                               labels=chart_labels,
+                              template='simple_white+gridon',
                               # range_x=[1991,2022],
                               # range_y=[0,200000000],
                               height=750,
@@ -551,15 +552,18 @@ WS_col_5.image(MEM_logo, caption='MEM', width=35)
 # st.plotly_chart(bar_champions_salary.update_yaxes(categoryorder='category ascending'), use_container_width=True, sharing="streamlit")
 st.plotly_chart(bar_champions_salary.add_layout_image(
     dict(source=court_img_1,#'images/Court1.png', #
-        xref="x",
-        yref="y",
-            x=1995,
-            y=20000000,
-            sizex=2,
-            sizey=3,
-            sizing="stretch",
-            opacity=1,
-            # layer="below",
+         xref="x",
+         yref="y",
+         x=0,
+         y=0,
+         sizex=2,
+         sizey=3,
+         sizing="contain", #"stretch"
+            opacity=.9,
+         xanchor="center",
+         yanchor="bottom",
+         visible=True,
+        layer="below",
          )),
     use_container_width=True, sharing="streamlit")
 
