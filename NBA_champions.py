@@ -285,8 +285,8 @@ mms = MinMaxScaler()
 ## VISUALIZATIONS ##
 
 bar_champions_salary = px.bar(data_frame=champion_players,
-                              y=champion_players['YEAR'],
-                              x=champion_players['SALARY'],
+                              x=champion_players['YEAR'],
+                              y=champion_players['SALARY'],
                               color=champion_players['WS'],     # EXPERIENCE AGE MP APE
                               color_continuous_scale=Tropic,
                               color_discrete_sequence=Tropic,
@@ -296,9 +296,9 @@ bar_champions_salary = px.bar(data_frame=champion_players,
                               barmode='group',
                               title='PLAYER WIN SHARES (WS) RELATIVE TO CHAMPIONSHIP TEAM SALARY',
                               labels=chart_labels,
-                              orientation='h',
-                              range_x=[0,200000000],
-                              range_y=[1991,2022],
+                              custom_data=chart_labels,
+                              range_x=[1991,2022],
+                              range_y=[0,200000000],
                               height=750,
                               )
 
