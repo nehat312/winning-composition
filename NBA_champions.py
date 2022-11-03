@@ -296,8 +296,8 @@ bar_champions_salary = px.bar(data_frame=champion_players,
                               barmode='group',
                               title='PLAYER WIN SHARES (WS) RELATIVE TO CHAMPIONSHIP TEAM SALARY',
                               labels=chart_labels,
-                              range_x=[1991,2022],
-                              range_y=[0,200000000],
+                              # range_x=[1991,2022],
+                              # range_y=[0,200000000],
                               height=750,
                               )
 
@@ -555,27 +555,13 @@ st.plotly_chart(bar_champions_salary.add_layout_image(
         yref="y",
             x=0,
             y=1,
-            sizex=150000000,
-            sizey=20,
+            sizex=500,
+            sizey=150000000,
             sizing="stretch",
             opacity=1,
-            # layer="below",
-)))
-
-## BACKGROUND IMAGE ##
-# bar_champions_salary.add_layout_image(
-#     dict(
-#         source=court_img_1,
-#         xref="x",
-#         yref="y",
-#             x=0,
-#             y=3,
-#             sizex=2,
-#             sizey=2,
-#             sizing="stretch",
-#             opacity=0.5,
-#             layer="below")
-# )
+            layer="below",
+         )),
+    use_container_width=True, sharing="streamlit")
 
 ## BAR - RAPTOR SALARY ##
 st.plotly_chart(bar_raptor_salary.update_xaxes(categoryorder='category ascending'), use_container_width=True, sharing="streamlit")
