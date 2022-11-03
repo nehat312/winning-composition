@@ -167,6 +167,16 @@ chart_labels = {'W-SPAN (IN)':'WINGSPAN (IN)',
                 'LEBRON_VAL':'LEBRON/$',
                 'RAPTOR_VAL':'RAPTOR/$',
                 'WS_VAL':'WS/$',
+                '1991':'1991-CHI', '1992':'1992-CHI', '1993':'1993-CHI',
+                '1994':'1994-HOU', '1995':'1995-HOU',
+                '1996':'1996-CHI', '1997':'1997-CHI', '1998':'1998-CHI',
+                '1999':'1999-SAS', '2000':'2000-LAL', '2001':'2001-LAL', '2002':'2002-LAL',
+                '2003':'2003-SAS', '2004':'2004-DET', '2005':'2005-SAS',
+                '2006':'2006-MIA', '2007':'2007-SAS', '2008':'2008-BOS',
+                '2009':'2009-LAL', '2010':'2010-LAL',
+                '2011':'2011-DAL', '2012':'2012-MIA', '2013':'2013-MIA', '2014':'2014-SAS',
+                '2015':'2015-GSW', '2016':'2016-CLE', '2017':'2017-GSW', '2018':'2018-GSW',
+                '2019':'2019-TOR', '2020':'2020-LAL', '2021':'2021-MIL', '2022':'2022-GSW',
                 # '':'',
                 }
 
@@ -275,18 +285,20 @@ mms = MinMaxScaler()
 ## VISUALIZATIONS ##
 
 bar_champions_salary = px.bar(data_frame=champion_players,
-                              y=champion_players['CHAMP'],
+                              y=champion_players['YEAR'],
                               x=champion_players['SALARY'],
                               color=champion_players['WS'],     # EXPERIENCE AGE MP APE
                               color_continuous_scale=Tropic,
                               color_discrete_sequence=Tropic,
                               # color_discrete_map=team_logos_dict,
                               hover_name=champion_players['PLAYER'],
-                              hover_data=champion_players[['SALARY', 'MP', 'WS']], #'WS/$',
+                              hover_data=champion_players[['CHAMP', 'SALARY', 'MP', 'WS']], #'WS/$',
                               barmode='group',
                               title='PLAYER WIN SHARES (WS) RELATIVE TO CHAMPIONSHIP TEAM SALARY',
                               labels=chart_labels,
                               orientation='h',
+                              range_x=[0,200000000],
+                              range_y=[1991,2022],
                               height=750,
                               )
 
