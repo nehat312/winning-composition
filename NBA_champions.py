@@ -543,9 +543,9 @@ st.plotly_chart(bar_champions_salary.add_layout_image(
         xref="x",
         yref="y",
             x=0,
-            y=3,
-            sizex=2,
-            sizey=2,
+            # y=3,
+            sizex=150000000,
+            # sizey=,
             sizing="stretch",
             opacity=0.5,
             # layer="below",
@@ -605,7 +605,21 @@ west_col_3.image(West_logo, width=250) # caption='EASTERN CONFERENCE'
 # st.plotly_chart(disc_info_1.update_yaxes(categoryorder='total ascending'), use_container_width=True, sharing="streamlit")
 
 
+def add_bg_from_url():
+    st.markdown(
+         f"""
+         <style>
+         .stApp {{
+             background-image: url("images/Court1.png");
+             background-attachment: fixed;
+             background-size: cover
+         }}
+         </style>
+         """,
+         unsafe_allow_html=True
+     )
 
+add_bg_from_url()
 
 ## EXTERNAL LINKS ##
 
