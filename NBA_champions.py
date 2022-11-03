@@ -317,7 +317,7 @@ bar_lebron_salary = px.bar(data_frame=lebron_val_players,
                          title='LEBRON/SALARY',
                          labels=chart_labels,
                          height=750,
-                         width=1000,
+                         # width=1000,
                          )
 
 bar_WS_salary = px.bar(data_frame=champion_players,
@@ -332,7 +332,7 @@ bar_WS_salary = px.bar(data_frame=champion_players,
                          title='WS/SALARY',
                          labels=chart_labels,
                          height=750,
-                         width=1000,
+                         # width=1000,
                          )
 
 # bar_nations_regions =
@@ -360,7 +360,7 @@ scatter_3d_wingspan1 = px.scatter_3d(data_frame=champion_players,
                                      # range_color=Sunsetdark,
                                      opacity=.8,
                                      height=750,
-                                     width=1000,
+                                     # width=1000,
                                      )
 
 scatter_matrix_teams = px.scatter_matrix(champion_players,
@@ -538,10 +538,8 @@ WS_col_5.image(MEM_logo, caption='MEM', width=35)
 
 ## BAR - CHAMPS SALARY ##
 # bar_champs_salary = bar_champs_salary.update_yaxes(categoryorder='total descending')
-st.plotly_chart(bar_champions_salary.update_yaxes(categoryorder='category ascending'), use_container_width=True, sharing="streamlit")
-
-## BACKGROUND IMAGE ##
-bar_champions_salary.add_layout_image(
+# st.plotly_chart(bar_champions_salary.update_yaxes(categoryorder='category ascending'), use_container_width=True, sharing="streamlit")
+st.plotly_chart(bar_champions_salary.add_layout_image(
     dict(
         source=court_img_1,
         xref="x",
@@ -553,7 +551,22 @@ bar_champions_salary.add_layout_image(
             sizing="stretch",
             opacity=0.5,
             layer="below")
-)
+))
+
+## BACKGROUND IMAGE ##
+# bar_champions_salary.add_layout_image(
+#     dict(
+#         source=court_img_1,
+#         xref="x",
+#         yref="y",
+#             x=0,
+#             y=3,
+#             sizex=2,
+#             sizey=2,
+#             sizing="stretch",
+#             opacity=0.5,
+#             layer="below")
+# )
 
 ## BAR - RAPTOR SALARY ##
 st.plotly_chart(bar_raptor_salary.update_xaxes(categoryorder='category ascending'), use_container_width=False, sharing="streamlit")
