@@ -559,7 +559,7 @@ st.plotly_chart(bar_champions_salary.add_layout_image(
             sizex=150000000,
             sizey=20,
             sizing="stretch",
-            opacity=0.5,
+            opacity=1,
             # layer="below",
 )))
 
@@ -617,22 +617,6 @@ west_col_3.image(West_logo, width=250) # caption='EASTERN CONFERENCE'
 # st.plotly_chart(disc_info_1.update_yaxes(categoryorder='total ascending'), use_container_width=True, sharing="streamlit")
 
 
-def add_bg_from_url():
-    st.markdown(
-         f"""
-         <style>
-         .stApp {{
-             background-image: url("images/Court1.png");
-             background-attachment: fixed;
-             background-size: cover
-         }}
-         </style>
-         """,
-         unsafe_allow_html=True
-     )
-
-add_bg_from_url()
-
 ## EXTERNAL LINKS ##
 
 github_link = '[GITHUB REPOSITORY](https://github.com/nehat312/NBA-championship-caliber/)'
@@ -658,6 +642,26 @@ st.stop()
 
 
 ### SCRATCH NOTES ###
+
+
+## PAGE BACKGROUND ##
+
+# def add_bg_from_url():
+#     st.markdown(
+#          f"""
+#          <style>
+#          .stApp {{
+#              background-image: url("images/Court1.png");
+#              background-attachment: fixed;
+#              background-size: cover
+#          }}
+#          </style>
+#          """,
+#          unsafe_allow_html=True
+#      )
+#
+# add_bg_from_url()
+
 
 # CONFIG TEMPLATE
     # st.set_page_config(page_title="CSS hacks", page_icon=":smirk:")
