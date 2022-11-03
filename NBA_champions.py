@@ -552,8 +552,8 @@ WS_col_5.image(MEM_logo, caption='MEM', width=35)
 # st.plotly_chart(bar_champions_salary.update_yaxes(categoryorder='category ascending'), use_container_width=True, sharing="streamlit")
 st.plotly_chart(bar_champions_salary.add_layout_image(
     dict(source=court_img_1,#'images/Court1.png', #
-         xref="x", #"paper"
-         yref="y", #"paper"
+         xref="paper", #"paper"
+         yref="paper", #"paper"
          x=0,
          y=1,
          sizex=0.5,
