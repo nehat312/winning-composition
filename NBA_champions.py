@@ -198,6 +198,21 @@ team_logos_dict = {'ATL':ATL_logo,
 
                    }
 
+## COURT BACKGROUND ##
+court_img_dict = dict(source=court_img_1,#'images/Court1.png', #
+                                                           xref="paper",
+                                                           yref="paper",
+                                                           x=0.5,
+                                                           y=0.5,
+                                                           sizex=2.5,
+                                                           sizey=1,
+                                                           opacity=.5,
+                                                           xanchor="center",
+                                                           yanchor="middle", #top #bottom
+                                                           visible=True,
+                                                           layer="below",
+                                                           # sizing="contain",
+                                                           )
 
 
 ## FEATURED VARIABLES ##
@@ -562,62 +577,19 @@ WS_col_3.image(HOU_logo, caption='HOU', width=35)
 WS_col_4.image(SAS_logo, caption='SAS', width=35)
 WS_col_5.image(MEM_logo, caption='MEM', width=35)
 
-
 ## BAR - CHAMPS SALARY ##
 # bar_champs_salary = bar_champs_salary.update_yaxes(categoryorder='total descending')
 # st.plotly_chart(bar_champions_salary.update_yaxes(categoryorder='category ascending'), use_container_width=True, sharing="streamlit")
-st.plotly_chart(bar_champions_salary.add_layout_image(dict(source=court_img_1,#'images/Court1.png', #
-                                                           xref="paper",
-                                                           yref="paper",
-                                                           x=0.5,
-                                                           y=0.5,
-                                                           sizex=2.5,
-                                                           sizey=1,
-                                                           opacity=.5,
-                                                           xanchor="center",
-                                                           yanchor="middle", #top #bottom
-                                                           visible=True,
-                                                           layer="below",
-                                                           # sizing="contain",
-                                                           )
-                                                      ), use_container_width=True, sharing="streamlit")
+st.plotly_chart(bar_champions_salary.add_layout_image(court_img_dict), xaxis = dict(tickmode = 'linear', tick0 = 1991, dtick = 1), use_container_width=True, sharing="streamlit")
 
 
 ## BAR - RAPTOR SALARY ##
 # st.plotly_chart(bar_raptor_salary.update_xaxes(categoryorder='category ascending'), use_container_width=True, sharing="streamlit")
-st.plotly_chart(bar_raptor_salary.add_layout_image(dict(source=court_img_1,#'images/Court1.png', #
-                                                           xref="paper",
-                                                           yref="paper",
-                                                           x=0.5,
-                                                           y=0.5,
-                                                           sizex=2.5,
-                                                           sizey=1,
-                                                           opacity=.5,
-                                                           xanchor="center",
-                                                           yanchor="middle", #top #bottom
-                                                           visible=True,
-                                                           layer="below",
-                                                           # sizing="contain",
-                                                           )
-                                                      ), use_container_width=True, sharing="streamlit")
+st.plotly_chart(bar_raptor_salary.add_layout_image(court_img_dict), xaxis = dict(tickmode = 'linear', tick0 = 1991, dtick = 1), use_container_width=True, sharing="streamlit")
 
 ## BAR - LEBRON SALARY ##
 # st.plotly_chart(bar_lebron_salary.update_xaxes(categoryorder='category ascending'), use_container_width=True, sharing="streamlit")
-st.plotly_chart(bar_lebron_salary.add_layout_image(dict(source=court_img_1,#'images/Court1.png', #
-                                                           xref="paper",
-                                                           yref="paper",
-                                                           x=0.5,
-                                                           y=0.5,
-                                                           sizex=2.5,
-                                                           sizey=1,
-                                                           opacity=.5,
-                                                           xanchor="center",
-                                                           yanchor="middle", #top #bottom
-                                                           visible=True,
-                                                           layer="below",
-                                                           # sizing="contain",
-                                                           )
-                                                      ), use_container_width=True, sharing="streamlit")
+st.plotly_chart(bar_lebron_salary.add_layout_image(court_img_dict), xaxis = dict(tickmode = 'linear', tick0 = 2010, dtick = 1), use_container_width=True, sharing="streamlit")
 
 
 
