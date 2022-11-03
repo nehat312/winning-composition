@@ -96,12 +96,14 @@ UTA_logo = Image.open('images/west/UTA-Jazz.png')
 ## FORMAT / STYLE ##
 
 ## COLOR SCALES ##
-YlOrRd = px.colors.sequential.YlOrRd
-Mint = px.colors.sequential.Mint
-Electric = px.colors.sequential.Electric
+
+
+Tropic = px.colors.diverging.Tropic
+Blackbody = px.colors.sequential.Blackbody
+BlueRed = px.colors.sequential.Bluered
+
 Sunsetdark = px.colors.sequential.Sunsetdark
 Sunset = px.colors.sequential.Sunset
-Tropic = px.colors.diverging.Tropic
 Temps = px.colors.diverging.Temps
 Tealrose = px.colors.diverging.Tealrose
 
@@ -112,11 +114,9 @@ Deep = px.colors.sequential.deep
 PuOr = px.colors.diverging.PuOr
 Speed = px.colors.sequential.speed
 # IceFire = px.colors.diverging.
-
-Blackbody = px.colors.sequential.Blackbody
-BlueRed = px.colors.sequential.Bluered
-
-
+# YlOrRd = px.colors.sequential.YlOrRd
+# Mint = px.colors.sequential.Mint
+# Electric = px.colors.sequential.Electric
 
 # pd.options.display.float_format = '${:,.2f}'.format
 # pd.set_option('display.max_colwidth', 200)
@@ -302,7 +302,6 @@ bar_raptor_salary = px.bar(data_frame=champion_players,
                          title='RAPTOR/SALARY',
                          labels=chart_labels,
                          height=750,
-                         width=1000,
                          )
 
 bar_lebron_salary = px.bar(data_frame=lebron_val_players,
@@ -317,7 +316,6 @@ bar_lebron_salary = px.bar(data_frame=lebron_val_players,
                          title='LEBRON/SALARY',
                          labels=chart_labels,
                          height=750,
-                         # width=1000,
                          )
 
 bar_WS_salary = px.bar(data_frame=champion_players,
@@ -332,10 +330,11 @@ bar_WS_salary = px.bar(data_frame=champion_players,
                          title='WS/SALARY',
                          labels=chart_labels,
                          height=750,
-                         # width=1000,
                          )
 
 # bar_nations_regions =
+
+
 
 scatter_3d_wingspan1 = px.scatter_3d(data_frame=champion_players,
                                      x=champion_players['BMI'],
@@ -359,7 +358,7 @@ scatter_3d_wingspan1 = px.scatter_3d(data_frame=champion_players,
                                      # range_z=[0,2500],
                                      # range_color=Sunsetdark,
                                      opacity=.8,
-                                     height=750,
+                                     height=800,
                                      # width=1000,
                                      )
 
@@ -374,7 +373,7 @@ scatter_matrix_teams = px.scatter_matrix(champion_players,
                                          title='PLAYER PERFORMANCE BY CHAMPIONSHIP TEAM',
                                          labels=chart_labels,
                                          # custom_data= [league_logo_list],
-                                         # height=800,
+                                         height=800,
                                          # width=800,
                                          )
 
@@ -388,7 +387,7 @@ scatter_matrix_positions = px.scatter_matrix(champion_players,
                                              title='PLAYER PERFORMANCE BY WTD. POSITION',
                                              labels=chart_labels,
                                              # custom_data=[team_logos_dict],
-                                             height=800,
+                                             height=750,
                                              # width=800,
                                              )
 
@@ -544,14 +543,14 @@ st.plotly_chart(bar_champions_salary.add_layout_image(
         source=court_img_1,
         xref="x",
         yref="y",
-            x=0,
-            y=3,
-            sizex=2,
-            sizey=2,
-            sizing="stretch",
-            opacity=0.5,
-            layer="below")
-))
+            # x=0,
+            # y=3,
+            # sizex=2,
+            # sizey=2,
+            # sizing="stretch",
+            # opacity=0.5,
+            # layer="below",
+)))
 
 ## BACKGROUND IMAGE ##
 # bar_champions_salary.add_layout_image(
@@ -569,19 +568,19 @@ st.plotly_chart(bar_champions_salary.add_layout_image(
 # )
 
 ## BAR - RAPTOR SALARY ##
-st.plotly_chart(bar_raptor_salary.update_xaxes(categoryorder='category ascending'), use_container_width=False, sharing="streamlit")
+st.plotly_chart(bar_raptor_salary.update_xaxes(categoryorder='category ascending'), use_container_width=True, sharing="streamlit")
 
 ## BAR - LEBRON SALARY ##
-st.plotly_chart(bar_lebron_salary.update_xaxes(categoryorder='category ascending'), use_container_width=False, sharing="streamlit")
+st.plotly_chart(bar_lebron_salary.update_xaxes(categoryorder='category ascending'), use_container_width=True, sharing="streamlit")
 
 ## BAR - WS SALARY ##
-st.plotly_chart(bar_WS_salary.update_xaxes(categoryorder='category ascending'), use_container_width=False, sharing="streamlit")
+st.plotly_chart(bar_WS_salary.update_xaxes(categoryorder='category ascending'), use_container_width=True, sharing="streamlit")
 
 
 ## 3D SCATTER ##
 left, middle, right = st.columns(3)
 with middle:
-    st.plotly_chart(scatter_3d_wingspan1, use_container_width=False, sharing="streamlit")
+    st.plotly_chart(scatter_3d_wingspan1, use_container_width=True, sharing="streamlit")
 
 ## SCATTER MATRIX ##
 # st.plotly_chart(scatter_matrix_teams, use_container_width=True, sharing="streamlit")
