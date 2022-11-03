@@ -295,9 +295,9 @@ bar_champions_salary = px.bar(data_frame=champion_players,
                               hover_name=champion_players['PLAYER'],
                               hover_data=champion_players[['CHAMP', 'SALARY', 'MP', 'WS']], #'WS/$',
                               barmode='group',
-                              title='PLAYER WIN SHARES (WS) RELATIVE TO CHAMPIONSHIP TEAM SALARY',
+                              title='WIN SHARES (WS) METRIC RELATIVE TO CHAMPIONSHIP TEAM SALARY',
                               labels=chart_labels,
-                              template='simple_white+gridon',
+                              # template='simple_white+gridon',
                               # range_x=[1991,2022],
                               # range_y=[0,200000000],
                               height=750,
@@ -305,46 +305,45 @@ bar_champions_salary = px.bar(data_frame=champion_players,
                               )
 
 bar_raptor_salary = px.bar(data_frame=champion_players,
-                         x=champion_players['CHAMP'],
-                         y=champion_players['% SALARY'],
-                         color=champion_players['RAPTOR_VAL'], ##EXPERIENCE  AGE MP APE
-                         color_continuous_scale=Ice_r,
-                         color_discrete_sequence=Ice_r,
-                         # color_discrete_map=team_logos_dict,
-                         hover_name=champion_players['PLAYER'],
-                         hover_data=champion_players[['SALARY', 'MP', 'RAPTOR', ]],
-                         title='RAPTOR/SALARY',
-                         labels=chart_labels,
-                         height=750,
-                         )
+                              x=champion_players['YEAR'],
+                              y=champion_players['SALARY'],
+                              color=champion_players['RAPTOR'],     # EXPERIENCE AGE MP APE
+                              color_continuous_scale=Tropic,
+                              color_discrete_sequence=Tropic,
+                              color_continuous_midpoint=10,
+                              # color_discrete_map=team_logos_dict,
+                              hover_name=champion_players['PLAYER'],
+                              hover_data=champion_players[['CHAMP', 'SALARY', 'MP', 'RAPTOR']],
+                              barmode='group',
+                              title='RAPTOR METRIC RELATIVE TO CHAMPIONSHIP TEAM SALARY',
+                              labels=chart_labels,
+                              # template='simple_white+gridon',
+                              # range_x=[1991,2022],
+                              # range_y=[0,200000000],
+                              height=750,
+                              # width=1000,
+                              )
 
-bar_lebron_salary = px.bar(data_frame=lebron_val_players,
-                         x=lebron_val_players['CHAMP'],
-                         y=lebron_val_players['% SALARY'],
-                         color=lebron_val_players['LEBRON_VAL'], ##EXPERIENCE  AGE MP APE
-                         color_continuous_scale=Ice_r,
-                         color_discrete_sequence=Ice_r,
-                         # color_discrete_map=team_logos_dict,
-                         hover_name=lebron_val_players['PLAYER'],
-                         hover_data=lebron_val_players[['SALARY', 'MP', 'LEBRON', ]],
-                         title='LEBRON/SALARY',
-                         labels=chart_labels,
-                         height=750,
-                         )
+bar_lebron_salary = px.bar(data_frame=champion_players,
+                              x=champion_players['YEAR'],
+                              y=champion_players['SALARY'],
+                              color=champion_players['LEBRON'],     # EXPERIENCE AGE MP APE
+                              color_continuous_scale=Tropic,
+                              color_discrete_sequence=Tropic,
+                              color_continuous_midpoint=10,
+                              # color_discrete_map=team_logos_dict,
+                              hover_name=champion_players['PLAYER'],
+                              hover_data=champion_players[['CHAMP', 'SALARY', 'MP', 'LEBRON']],
+                              barmode='group',
+                              title='LEBRON METRIC RELATIVE TO CHAMPIONSHIP TEAM SALARY',
+                              labels=chart_labels,
+                              # template='simple_white+gridon',
+                              # range_x=[1991,2022],
+                              # range_y=[0,200000000],
+                              height=750,
+                              # width=1000,
+                              )
 
-bar_WS_salary = px.bar(data_frame=champion_players,
-                         x=champion_players['CHAMP'],
-                         y=champion_players['% SALARY'],
-                         color=champion_players['WS_VAL'], ##EXPERIENCE  AGE MP APE
-                         color_continuous_scale=Ice_r,
-                         color_discrete_sequence=Ice_r,
-                         # color_discrete_map=team_logos_dict,
-                         hover_name=champion_players['PLAYER'],
-                         hover_data=champion_players[['SALARY', 'MP', 'WS', ]],
-                         title='WS/SALARY',
-                         labels=chart_labels,
-                         height=750,
-                         )
 
 # bar_nations_regions =
 
@@ -376,9 +375,24 @@ scatter_3d_wingspan1 = px.scatter_3d(data_frame=champion_players,
                                      # width=1000,
                                      )
 
-scatter_matrix_teams = px.scatter_matrix(champion_players,
+scatter_matrix_metrics = px.scatter_matrix(champion_players,
                                          dimensions=['RAPTOR', 'WS', 'USG%'],
-                                         color=champion_players['CHAMP'],
+                                         color=champion_players['WTD POS'],
+                                         color_continuous_scale=Dense,
+                                         color_discrete_sequence=Dense,
+                                         # color_discrete_map=team_logos_dict,
+                                         hover_name=champion_players['PLAYER'],
+                                         hover_data=champion_players[['MP', 'CHAMP']],
+                                         title='PLAYER PERFORMANCE BY CHAMPIONSHIP TEAM',
+                                         labels=chart_labels,
+                                         # custom_data= [league_logo_list],
+                                         height=800,
+                                         # width=800,
+                                         )
+
+scatter_matrix_measurables = px.scatter_matrix(champion_players,
+                                         dimensions=['BMI', 'APE', 'WS', 'RAPTOR', 'LEBRON'],
+                                         color=champion_players['WTD POS'],
                                          color_continuous_scale=Dense,
                                          color_discrete_sequence=Dense,
                                          # color_discrete_map=team_logos_dict,
@@ -552,31 +566,59 @@ WS_col_5.image(MEM_logo, caption='MEM', width=35)
 ## BAR - CHAMPS SALARY ##
 # bar_champs_salary = bar_champs_salary.update_yaxes(categoryorder='total descending')
 # st.plotly_chart(bar_champions_salary.update_yaxes(categoryorder='category ascending'), use_container_width=True, sharing="streamlit")
-st.plotly_chart(bar_champions_salary.add_layout_image(
-    dict(source=court_img_1,#'images/Court1.png', #
-         xref="paper",
-         yref="paper",
-         x=0.5,
-         y=0.5,
-         sizex=2.5,
-         sizey=1,
-         opacity=.5,
-         xanchor="center",
-         yanchor="middle", #top #bottom
-         visible=True,
-         layer="below",
-         # sizing="contain",
-         )
-), use_container_width=True, sharing="streamlit")
+st.plotly_chart(bar_champions_salary.add_layout_image(dict(source=court_img_1,#'images/Court1.png', #
+                                                           xref="paper",
+                                                           yref="paper",
+                                                           x=0.5,
+                                                           y=0.5,
+                                                           sizex=2.5,
+                                                           sizey=1,
+                                                           opacity=.5,
+                                                           xanchor="center",
+                                                           yanchor="middle", #top #bottom
+                                                           visible=True,
+                                                           layer="below",
+                                                           # sizing="contain",
+                                                           )
+                                                      ), use_container_width=True, sharing="streamlit")
+
 
 ## BAR - RAPTOR SALARY ##
-st.plotly_chart(bar_raptor_salary.update_xaxes(categoryorder='category ascending'), use_container_width=True, sharing="streamlit")
+# st.plotly_chart(bar_raptor_salary.update_xaxes(categoryorder='category ascending'), use_container_width=True, sharing="streamlit")
+st.plotly_chart(bar_raptor_salary.add_layout_image(dict(source=court_img_1,#'images/Court1.png', #
+                                                           xref="paper",
+                                                           yref="paper",
+                                                           x=0.5,
+                                                           y=0.5,
+                                                           sizex=2.5,
+                                                           sizey=1,
+                                                           opacity=.5,
+                                                           xanchor="center",
+                                                           yanchor="middle", #top #bottom
+                                                           visible=True,
+                                                           layer="below",
+                                                           # sizing="contain",
+                                                           )
+                                                      ), use_container_width=True, sharing="streamlit")
 
 ## BAR - LEBRON SALARY ##
-st.plotly_chart(bar_lebron_salary.update_xaxes(categoryorder='category ascending'), use_container_width=True, sharing="streamlit")
+# st.plotly_chart(bar_lebron_salary.update_xaxes(categoryorder='category ascending'), use_container_width=True, sharing="streamlit")
+st.plotly_chart(bar_lebron_salary.add_layout_image(dict(source=court_img_1,#'images/Court1.png', #
+                                                           xref="paper",
+                                                           yref="paper",
+                                                           x=0.5,
+                                                           y=0.5,
+                                                           sizex=2.5,
+                                                           sizey=1,
+                                                           opacity=.5,
+                                                           xanchor="center",
+                                                           yanchor="middle", #top #bottom
+                                                           visible=True,
+                                                           layer="below",
+                                                           # sizing="contain",
+                                                           )
+                                                      ), use_container_width=True, sharing="streamlit")
 
-## BAR - WS SALARY ##
-st.plotly_chart(bar_WS_salary.update_xaxes(categoryorder='category ascending'), use_container_width=True, sharing="streamlit")
 
 
 ## 3D SCATTER ##
@@ -586,7 +628,11 @@ with middle:
 
 ## SCATTER MATRIX ##
 # st.plotly_chart(scatter_matrix_teams, use_container_width=True, sharing="streamlit")
+st.plotly_chart(scatter_matrix_measurables, use_container_width=True, sharing="streamlit")
+
+st.plotly_chart(scatter_matrix_metrics, use_container_width=True, sharing="streamlit")
 st.plotly_chart(scatter_matrix_positions, use_container_width=True, sharing="streamlit")
+
 
 
 ## LEAGUE LOGOS ##
