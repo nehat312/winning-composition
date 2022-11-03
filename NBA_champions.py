@@ -561,7 +561,7 @@ st.plotly_chart(bar_champions_salary.add_layout_image(
          # sizing="contain", #"stretch"
             opacity=.9,
          xanchor="center",
-         yanchor="center",
+         yanchor="middle", #top #bottom
          visible=True,
         layer="above",
          )),
