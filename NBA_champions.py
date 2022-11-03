@@ -276,23 +276,18 @@ mms = MinMaxScaler()
 bar_champions_salary = px.bar(data_frame=champion_players,
                               y=champion_players['CHAMP'],
                               x=champion_players['SALARY'],
-                              barmode='group',
-                              # animation_group=champion_players['CHAMP'],
-                              animation_frame=champion_players['YEAR'],
-                              # facet_row=[['WS', 'RAPTOR', 'LEBRON']],
-                              color=champion_players['WS'], ##EXPERIENCE  AGE MP APE
+                              color=champion_players['WS'],     # EXPERIENCE AGE MP APE
                               color_continuous_scale=Tropic,
-                         color_discrete_sequence=Tropic,
-                         # color_discrete_map=team_logos_dict,
-                         hover_name=champion_players['PLAYER'],
-                         hover_data=champion_players[['SALARY', 'MP', 'WS']], #'WS/$',
-                         title='PLAYER WIN SHARES (WS) RELATIVE TO CHAMPIONSHIP TEAM SALARY',
-                         labels=chart_labels,
-                           orientation='h',
-                         height=750,
-                              range_x=[0,180]
-                         # width=1000,
-                         )
+                              color_discrete_sequence=Tropic,
+                              # color_discrete_map=team_logos_dict,
+                              hover_name=champion_players['PLAYER'],
+                              hover_data=champion_players[['SALARY', 'MP', 'WS']], #'WS/$',
+                              barmode='group',
+                              title='PLAYER WIN SHARES (WS) RELATIVE TO CHAMPIONSHIP TEAM SALARY',
+                              labels=chart_labels,
+                              orientation='h',
+                              height=750,
+                              )
 
 bar_raptor_salary = px.bar(data_frame=champion_players,
                          x=champion_players['CHAMP'],
