@@ -300,7 +300,7 @@ mms = MinMaxScaler()
 ## VISUALIZATIONS ##
 
 bar_champions_salary = px.bar(data_frame=champion_players,
-                              x=champion_players['YEAR'],
+                              x=champion_players['CHAMP'],
                               y=champion_players['SALARY'],
                               color=champion_players['WS'],     # EXPERIENCE AGE MP APE
                               color_continuous_scale=Tropic,
@@ -320,7 +320,7 @@ bar_champions_salary = px.bar(data_frame=champion_players,
                               )
 
 bar_raptor_salary = px.bar(data_frame=champion_players,
-                              x=champion_players['YEAR'],
+                              x=champion_players['CHAMP'],
                               y=champion_players['SALARY'],
                               color=champion_players['RAPTOR'],     # EXPERIENCE AGE MP APE
                               color_continuous_scale=Tropic,
@@ -340,7 +340,7 @@ bar_raptor_salary = px.bar(data_frame=champion_players,
                               )
 
 bar_lebron_salary = px.bar(data_frame=lebron_val_players,
-                              x=lebron_val_players['YEAR'],
+                              x=lebron_val_players['CHAMP'],
                               y=lebron_val_players['SALARY'],
                               color=lebron_val_players['LEBRON'],     # EXPERIENCE AGE MP APE
                               color_continuous_scale=Tropic,
