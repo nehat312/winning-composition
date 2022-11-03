@@ -313,7 +313,7 @@ bar_champions_salary = px.bar(data_frame=champion_players,
                               title='WIN SHARES (WS) METRIC RELATIVE TO CHAMPIONSHIP TEAM SALARY',
                               labels=chart_labels,
                               # template='simple_white+gridon',
-                              range_x=[1991,2023],
+                              # range_x=[1991,2023],
                               # range_y=[0,200000000],
                               height=750,
                               # width=1000,
@@ -580,16 +580,17 @@ WS_col_5.image(MEM_logo, caption='MEM', width=35)
 ## BAR - CHAMPS SALARY ##
 # bar_champs_salary = bar_champs_salary.update_yaxes(categoryorder='total descending')
 # st.plotly_chart(bar_champions_salary.update_yaxes(categoryorder='category ascending'), use_container_width=True, sharing="streamlit")
-st.plotly_chart(bar_champions_salary.add_layout_image(court_img_dict), xaxis = dict(tickmode = 'linear', tick0 = 1991, dtick = 1), use_container_width=True, sharing="streamlit")
+st.plotly_chart(bar_champions_salary.add_layout_image(court_img_dict), use_container_width=True, sharing="streamlit")
+#, xaxis = dict(tickmode = 'linear', tick0 = 1991, dtick = 1),
 
 
 ## BAR - RAPTOR SALARY ##
 # st.plotly_chart(bar_raptor_salary.update_xaxes(categoryorder='category ascending'), use_container_width=True, sharing="streamlit")
-st.plotly_chart(bar_raptor_salary.add_layout_image(court_img_dict), xaxis = dict(tickmode = 'linear', tick0 = 1991, dtick = 1), use_container_width=True, sharing="streamlit")
+st.plotly_chart(bar_raptor_salary.add_layout_image(court_img_dict), use_container_width=True, sharing="streamlit")
 
 ## BAR - LEBRON SALARY ##
 # st.plotly_chart(bar_lebron_salary.update_xaxes(categoryorder='category ascending'), use_container_width=True, sharing="streamlit")
-st.plotly_chart(bar_lebron_salary.add_layout_image(court_img_dict), xaxis = dict(tickmode = 'linear', tick0 = 2010, dtick = 1), use_container_width=True, sharing="streamlit")
+st.plotly_chart(bar_lebron_salary.add_layout_image(court_img_dict), use_container_width=True, sharing="streamlit")
 
 
 
