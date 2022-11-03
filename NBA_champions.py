@@ -556,7 +556,7 @@ st.plotly_chart(bar_champions_salary.add_layout_image(
          yref="paper",
          x=0.5,
          y=0.5,
-         sizex=2.5,
+         sizex=3,
          sizey=1,
          # sizing="contain",
             opacity=.65,
