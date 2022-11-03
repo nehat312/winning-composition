@@ -300,7 +300,7 @@ bar_champions_salary = px.bar(data_frame=champion_players,
                               # range_x=[1991,2022],
                               # range_y=[0,200000000],
                               height=750,
-                              width=1000,
+                              # width=1000,
                               )
 
 bar_raptor_salary = px.bar(data_frame=champion_players,
@@ -569,7 +569,7 @@ st.plotly_chart(bar_champions_salary.add_layout_image(
 ), use_container_width=True, sharing="streamlit")
 
 ## BAR - RAPTOR SALARY ##
-st.plotly_chart(bar_raptor_salary.update_xaxes(categoryorder='category ascending'), use_container_width=False, sharing="streamlit")
+st.plotly_chart(bar_raptor_salary.update_xaxes(categoryorder='category ascending'), use_container_width=True, sharing="streamlit")
 
 ## BAR - LEBRON SALARY ##
 st.plotly_chart(bar_lebron_salary.update_xaxes(categoryorder='category ascending'), use_container_width=True, sharing="streamlit")
