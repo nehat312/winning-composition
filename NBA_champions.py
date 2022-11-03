@@ -559,14 +559,14 @@ st.plotly_chart(bar_champions_salary.add_layout_image(
          y=0.5,
          sizex=2.5,
          sizey=1,
-         # sizing="contain",
-            opacity=.65,
+         opacity=.6,
          xanchor="center",
          yanchor="middle", #top #bottom
          visible=True,
-        layer="below",
-         )),
-    use_container_width=True, sharing="streamlit")
+         layer="below",
+         # sizing="contain",
+         )
+), use_container_width=True, sharing="streamlit")
 
 ## BAR - RAPTOR SALARY ##
 st.plotly_chart(bar_raptor_salary.update_xaxes(categoryorder='category ascending'), use_container_width=False, sharing="streamlit")
