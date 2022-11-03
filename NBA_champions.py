@@ -279,6 +279,7 @@ bar_champions_salary = px.bar(data_frame=champion_players,
                               color=champion_players['WS'],     # EXPERIENCE AGE MP APE
                               color_continuous_scale=Tropic,
                               color_discrete_sequence=Tropic,
+                              facet_col=champion_players['LEBRON'],
                               # color_discrete_map=team_logos_dict,
                               hover_name=champion_players['PLAYER'],
                               hover_data=champion_players[['SALARY', 'MP', 'WS']], #'WS/$',
