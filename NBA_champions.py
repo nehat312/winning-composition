@@ -555,11 +555,11 @@ st.plotly_chart(bar_champions_salary.add_layout_image(
          xref="paper", #"paper"
          yref="paper", #"paper"
          x=0,
-         y=1,
-         sizex=1,
-         sizey=1,
+         y=0,
+         sizex=2,
+         sizey=1.5,
          sizing="stretch", #"stretch"
-            opacity=.7,
+            opacity=.8,
          xanchor="center",
          yanchor="middle", #top #bottom
          visible=True,
