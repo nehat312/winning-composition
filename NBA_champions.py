@@ -539,7 +539,7 @@ WS_col_5.image(MEM_logo, caption='MEM', width=35)
 # bar_champs_salary = bar_champs_salary.update_yaxes(categoryorder='total descending')
 # st.plotly_chart(bar_champions_salary.update_yaxes(categoryorder='category ascending'), use_container_width=True, sharing="streamlit")
 st.plotly_chart(bar_champions_salary.add_layout_image(
-    dict(source='images/Court1.png', #court_img_1,
+    dict(source=court_img_1,#'images/Court1.png', #
         xref="x",
         yref="y",
             x=0,
