@@ -54,6 +54,7 @@ champion_players = pd.read_csv(players_path, index_col='YR_TM_PLR', header=0)
 ## DESIGN IMAGES ##
 nba_logo_1 = Image.open('images/NBA_Logo.png')
 nba_logo_2 = Image.open('images/NBA_Logo2.png')
+court_img_1 = Image.open('images/Court1.png')
 
 ## EASTERN CONFERENCE LOGOS ##
 East_logo = Image.open('images/east/NBA_East.png')
@@ -279,7 +280,6 @@ bar_champions_salary = px.bar(data_frame=champion_players,
                               color=champion_players['WS'],     # EXPERIENCE AGE MP APE
                               color_continuous_scale=Tropic,
                               color_discrete_sequence=Tropic,
-                              facet_col=champion_players['LEBRON'],
                               # color_discrete_map=team_logos_dict,
                               hover_name=champion_players['PLAYER'],
                               hover_data=champion_players[['SALARY', 'MP', 'WS']], #'WS/$',
@@ -539,7 +539,21 @@ WS_col_5.image(MEM_logo, caption='MEM', width=35)
 ## BAR - CHAMPS SALARY ##
 # bar_champs_salary = bar_champs_salary.update_yaxes(categoryorder='total descending')
 st.plotly_chart(bar_champions_salary.update_yaxes(categoryorder='category ascending'), use_container_width=True, sharing="streamlit")
-#
+
+## BACKGROUND IMAGE ##
+bar_champions_salary.add_layout_image(
+    dict(
+        source=court_img_1,
+        xref="x",
+        yref="y",
+            x=0,
+            y=3,
+            sizex=2,
+            sizey=2,
+            sizing="stretch",
+            opacity=0.5,
+            layer="below")
+)
 
 ## BAR - RAPTOR SALARY ##
 st.plotly_chart(bar_raptor_salary.update_xaxes(categoryorder='category ascending'), use_container_width=False, sharing="streamlit")
