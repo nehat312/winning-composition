@@ -385,8 +385,8 @@ scatter_ternary_1 = px.scatter_ternary(data_frame=champion_players,
                                        )
 
 scatter_ternary_adv_metrics = px.scatter_ternary(data_frame=champion_players,
-                                       a=champion_players['RAPTOR'],
-                                       b=champion_players['LEBRON'],
+                                       a=champion_players['TS%'],
+                                       b=champion_players['USG%'],
                                        c=champion_players['WS'],
                                        color=champion_players['WTD POS'],
                                         color_discrete_sequence=Dense,
