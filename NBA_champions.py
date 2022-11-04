@@ -326,7 +326,7 @@ bar_usg_salary = px.bar(data_frame=champion_players,
                               color=champion_players['USG%'],     # EXPERIENCE AGE MP APE
                               color_continuous_scale=Tropic,
                               color_discrete_sequence=Tropic,
-                              color_continuous_midpoint=10,
+                              # color_continuous_midpoint=10,
                               # color_discrete_map=team_logos_dict,
                               hover_name=champion_players['PLAYER'],
                               hover_data=champion_players[['CHAMP', 'SALARY', 'MP']], #'WS/$',
