@@ -367,8 +367,8 @@ scatter_ternary_1 = px.scatter_ternary(data_frame=champion_players,
                                        c=champion_players['WTD POS'],
                                        color=champion_players['WTD POS'],
                                        symbol=champion_players['WTD POS'],
-                                       size=champion_players['BMI'],
-                                       size_max=champion_players['20'],
+                                       size=champion_players['WEIGHT (LBS)'],
+                                       size_max=25,
                                        opacity=.8,
                                        color_discrete_sequence=Dense,
                                        color_continuous_scale=Dense,
@@ -613,12 +613,9 @@ st.plotly_chart(bar_lebron_salary.add_layout_image(court_img_dict), use_containe
 
 ## SCATTER TERNARY ##
 # st.plotly_chart(bar_lebron_salary.update_xaxes(categoryorder='category ascending'), use_container_width=True, sharing="streamlit")
-st.plotly_chart(scatter_ternary_1.add_layout_image(court_img_dict), use_container_width=True, sharing="streamlit")
+st.plotly_chart(scatter_ternary_1, use_container_width=True, sharing="streamlit") #.add_layout_image(court_img_dict)
 
-## 3D SCATTER ##
-left, middle, right = st.columns(3)
-with middle:
-    st.plotly_chart(scatter_3d_wingspan1, use_container_width=True, sharing="streamlit")
+
 
 ## SCATTER MATRIX ##
 # st.plotly_chart(scatter_matrix_teams, use_container_width=True, sharing="streamlit")
@@ -626,6 +623,14 @@ st.plotly_chart(scatter_matrix_measurables, use_container_width=True, sharing="s
 
 st.plotly_chart(scatter_matrix_metrics, use_container_width=True, sharing="streamlit")
 st.plotly_chart(scatter_matrix_positions, use_container_width=True, sharing="streamlit")
+
+
+
+## 3D SCATTER ##
+st.plotly_chart(scatter_3d_wingspan1, use_container_width=True, sharing="streamlit")
+# left, middle, right = st.columns(3)
+# with middle:
+#     st.plotly_chart(scatter_3d_wingspan1, use_container_width=True, sharing="streamlit")
 
 
 
