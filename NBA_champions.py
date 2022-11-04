@@ -687,7 +687,30 @@ st.plotly_chart(scatter_matrix_measurables, use_container_width=True, sharing="s
 
 ## 3D SCATTER ##
 # st.plotly_chart(scatter_3D_to_ast_usg.add_layout_image(court_img_dict_3D), use_container_width=True, sharing="streamlit")
-st.plotly_chart(scatter_3D_to_ast_usg.add_trace(scatter_3D_court_img), use_container_width=True, sharing="streamlit")
+st.plotly_chart(scatter_3D_to_ast_usg.add_trace(go.Surface(surfacecolor=court_img_1,
+                                                           cmin=0,
+                                                           cmax=255,
+                                                           showscale=False,
+                                                           lighting_diffuse=1,
+                                                           lighting_ambient=1,
+                                                           lighting_fresnel=1,
+                                                           lighting_roughness=1,
+                                                           lighting_specular=0.5,
+                                                           )),
+                use_container_width=True, sharing="streamlit")
+
+# scatter_3D_to_ast_usg.add_trace(go.Surface(x=x, y=y, z=z,
+#     surfacecolor=eight_bit_img,
+#     cmin=0,
+#     cmax=255,
+#     colorscale=colorscale,
+#     showscale=False,
+#     lighting_diffuse=1,
+#     lighting_ambient=1,
+#     lighting_fresnel=1,
+#     lighting_roughness=1,
+#     lighting_specular=0.5,
+
 # left, middle, right = st.columns(3)
 # with middle:
 #     st.plotly_chart(scatter_3d_wingspan1, use_container_width=True, sharing="streamlit")
