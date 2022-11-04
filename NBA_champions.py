@@ -440,6 +440,7 @@ scatter_ternary_ast_to_usg = px.scatter_ternary(data_frame=champion_players,
 
 ####################################################################################################################
 
+## SCATTER MATRIX ##
 scatter_matrix_metrics = px.scatter_matrix(champion_players,
                                          dimensions=['USG%', 'TS%', 'AST%/TO%', 'STOCK%', 'RAPTOR', 'LEBRON', 'WS', ],
                                          color=champion_players['WTD POS'],
@@ -473,7 +474,9 @@ scatter_matrix_measurables = px.scatter_matrix(champion_players,
 
 ####################################################################################################################
 
-scatter_3d_to_ast_usg = px.scatter_3d(data_frame=champion_players,
+## SCATTER 3D ##
+
+scatter_3D_to_ast_usg = px.scatter_3d(data_frame=champion_players,
                                      x=champion_players['TO%'],
                                      y=champion_players['AST%'],
                                      z=champion_players['USG%'],
@@ -498,6 +501,20 @@ scatter_3d_to_ast_usg = px.scatter_3d(data_frame=champion_players,
                                      height=1000,
                                      # width=1000,
                                      )
+
+#%%
+
+scatter_3D_court_img = px.scatter_3d(#data_frame=champion_players,
+                                     # x=,
+                                     # y=,
+                                     z=court_img_dict,
+                                     labels=chart_labels,
+                                     # height=1000,
+                                     )
+
+# print(scatter_3D_court_img)
+
+#%%
 
 ####################################################################################################################
 
@@ -669,7 +686,8 @@ st.plotly_chart(scatter_matrix_measurables, use_container_width=True, sharing="s
 
 
 ## 3D SCATTER ##
-st.plotly_chart(scatter_3d_to_ast_usg.add_layout_image(court_img_dict_3D), use_container_width=True, sharing="streamlit")
+# st.plotly_chart(scatter_3D_to_ast_usg.add_layout_image(court_img_dict_3D), use_container_width=True, sharing="streamlit")
+st.plotly_chart(scatter_3D_to_ast_usg.add_trace(scatter_3D_court_img), use_container_width=True, sharing="streamlit")
 # left, middle, right = st.columns(3)
 # with middle:
 #     st.plotly_chart(scatter_3d_wingspan1, use_container_width=True, sharing="streamlit")
