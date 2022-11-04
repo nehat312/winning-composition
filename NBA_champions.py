@@ -286,7 +286,7 @@ champion_players['LOGO'] = champion_players.TEAM.map(team_logos_dict)
 
 ## FILTER DATA ##
 champion_players = champion_players[viz_cols]
-champion_players = champion_players[champion_players['MP'] > 175]
+champion_players = champion_players[champion_players['MP'] > 200] #175
 lebron_val_players = champion_players[champion_players['YEAR'] >= 2010]
 
 
