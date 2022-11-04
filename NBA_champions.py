@@ -304,7 +304,7 @@ print(champion_players[['RAPTOR', 'LEBRON', 'WS']].describe())
 bar_champions_salary = px.bar(data_frame=champion_players,
                               x=champion_players['CHAMP'],
                               y=champion_players['SALARY'],
-                              facet_row=champion_players['CHAMP'],
+                              facet_row=champion_players['% SALARY'],
                               color=champion_players['WS'],     # EXPERIENCE AGE MP APE
                               color_continuous_scale=Tropic,
                               color_discrete_sequence=Tropic,
