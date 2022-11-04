@@ -475,47 +475,32 @@ scatter_matrix_measurables = px.scatter_matrix(champion_players,
                                          # width=800,
                                          )
 
-scatter_matrix_positions = px.scatter_matrix(champion_players,
-                                             dimensions=['MP', 'RAPTOR', 'LEBRON', 'WS', 'USG%'],
-                                             color=champion_players['WTD POS'],
-                                             color_continuous_scale=Dense,
-                                             color_discrete_sequence=Dense,
-                                             hover_name=champion_players['PLAYER'],
-                                             hover_data=champion_players[['MP', 'CHAMP']],
-                                             title='PLAYER PERFORMANCE BY WTD. POSITION',
-                                             labels=chart_labels,
-                                             # custom_data=[team_logos_dict],
-                                             height=750,
-                                             # width=800,
-                                             )
-
-
 
 ####################################################################################################################
 
-scatter_3d_wingspan1 = px.scatter_3d(data_frame=champion_players,
-                                     x=champion_players['BMI'],
-                                     y=champion_players['WEIGHT (LBS)'],
-                                     z=champion_players['APE'],
+scatter_3d_to_ast_usg = px.scatter_3d(data_frame=champion_players,
+                                     x=champion_players['TO%'],
+                                     y=champion_players['AST%'],
+                                     z=champion_players['USG%'],
                                      color=champion_players['WTD POS'],
+                                      symbol=champion_players['RD POS'],
                                      color_discrete_sequence=Dense,
                                      color_continuous_scale=Dense,
                                      color_continuous_midpoint=3,
-                                     title='NBA CHAMPIONS -- HEIGHT / WEIGHT / WINGSPAN / BMI / AGE / APE INDEX',
+                                     title='NBA CHAMPIONS -- TO% / AST% / USG% BY POSITION',
                                      hover_name=champion_players['PLAYER'],
-                                     hover_data=champion_players[['TEAM', 'YEAR']], #'LOGO'
+                                     hover_data=champion_players[['CHAMP']], #'LOGO'
                                      # 'HEIGHT (IN)' 'WEIGHT (LBS)' 'BMI' 'W-SPAN (IN)'
                                      # custom_data=['LOGO'],
                                      # size=champion_players['WS'],
                                      # size_max=50,
-                                     # symbol=champion_players['disc_year'],
                                      labels=chart_labels,
                                      # range_x=[0,360],
                                      # range_y=[-50,50],
                                      # range_z=[0,2500],
                                      # range_color=Sunsetdark,
                                      opacity=.8,
-                                     height=800,
+                                     height=1000,
                                      # width=1000,
                                      )
 
@@ -685,12 +670,11 @@ with right:
 # st.plotly_chart(scatter_matrix_teams, use_container_width=True, sharing="streamlit")
 st.plotly_chart(scatter_matrix_metrics, use_container_width=True, sharing="streamlit")
 st.plotly_chart(scatter_matrix_measurables, use_container_width=True, sharing="streamlit")
-st.plotly_chart(scatter_matrix_positions, use_container_width=True, sharing="streamlit")
 
 
 
 ## 3D SCATTER ##
-st.plotly_chart(scatter_3d_wingspan1, use_container_width=True, sharing="streamlit")
+st.plotly_chart(scatter_3d_to_ast_usg, use_container_width=True, sharing="streamlit")
 # left, middle, right = st.columns(3)
 # with middle:
 #     st.plotly_chart(scatter_3d_wingspan1, use_container_width=True, sharing="streamlit")
