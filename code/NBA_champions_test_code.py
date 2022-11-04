@@ -17,7 +17,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import MinMaxScaler
 
-# import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 # import seaborn as sns
 # import dash as dash
 # from dash import dash_table
@@ -30,8 +30,6 @@ from sklearn.preprocessing import MinMaxScaler
 # import scipy.stats as stats
 # import statistics
 
-
-#%%
 
 ## DIRECTORY CONFIGURATION ##
 abs_path = r'https://raw.githubusercontent.com/nehat312/winning-composition/main'
@@ -160,10 +158,16 @@ viz_cols = ['YEAR', 'TEAM', 'CHAMP', 'PLAYER', 'WTD POS',
 
             ]
 
+scale_cols = ['WTD POS',
+              'RAPTOR', 'WS', #'LEBRON',
+              'USG%', 'WS',
+              'BMI', 'W-SPAN (IN)', 'APE',
+              'AGE', #'EXPERIENCE',
 
-scale_cols = [
-            'RAPTOR', 'LEBRON',
             ]
+
+
+## * DUMMIFICATION OF QUAL COLS
 
 chart_labels = {'W-SPAN (IN)':'WINGSPAN (IN)',
                 'APE':'APE INDEX',
@@ -283,6 +287,7 @@ champion_players['LOGO'] = champion_players.TEAM.map(team_logos_dict)
 champion_players = champion_players[viz_cols]
 champion_players = champion_players[champion_players['MP'] > 100]
 lebron_val_players = champion_players[champion_players['YEAR'] >= 2010]
+
 
 
 #%%
@@ -450,22 +455,119 @@ scatter_matrix_positions = px.scatter_matrix(champion_players,
 
 ## EFFICENCY VS USAGE VS MP VS PERFORMANCE
 
-#%%
-
-print(bar_champions_salary)
 
 #%%
+# features = champion_players.columns.to_list()[:]
+# print(features)
 
-print()
+numerical_champion_players = champion_players[scale_cols]
+print(numerical_champion_players.info())
+#%%
+
+X = champion_players[scale_cols].values
+X = StandardScaler().fit_transform(X)
+
+#%%
+pca = PCA(n_components='mle', svd_solver='full') # 'mle'
+
+pca.fit(X)
+X_PCA = pca.transform(X)
+print('ORIGINAL DIMENSIONS:', X.shape)
+print('TRANSFORMED DIMENSIONS:', X_PCA.shape)
+print(f'EXPLAINED VARIANCE RATIO: {pca.explained_variance_ratio_}')
+
+# 6 features explain ~95% of variance
+
+#%%
+x = np.arange(1, len(np.cumsum(pca.explained_variance_ratio_))+1, 1)
+
+plt.figure(figsize=(12,8))
+plt.plot(x, np.cumsum(pca.explained_variance_ratio_))
+plt.xticks(x)
+
+plt.show()
+
+#%%
+# AUTO DATASET
+
+numerics = ['int16', 'int32', 'int64', 'float16', 'float32', 'float64']
+champ_pca_cols = champion_players.select_dtypes(include=numerics)
+champ_pca_cols.info()
+
+X = champion_players[champion_players._get_numeric_data().columns.to_list()[:-1]]
+Y = champion_players['price']
+
+#X.drop(columns='price', inplace=True, axis=1)
+
+#%%
+print(X)
 
 #%%
 
-print()
+X = StandardScaler().fit_transform(X)
 
 #%%
 
-print()
+# pca = PCA(n_components='mle', svd_solver='full') # 'mle'
+pca = PCA(n_components=6, svd_solver='full') # 'mle'
+
+pca.fit(X)
+X_PCA = pca.transform(X)
+print('ORIGINAL DIMENSIONS:', X.shape)
+print('TRANSFORMED DIMENSIONS:', X_PCA.shape)
+print(f'EXPLAINED VARIANCE RATIO: {pca.explained_variance_ratio_}')
+
 
 #%%
+x = np.arange(1, len(np.cumsum(pca.explained_variance_ratio_))+1, 1)
 
-print()
+plt.figure(figsize=(12,8))
+plt.plot(x, np.cumsum(pca.explained_variance_ratio_))
+plt.xticks(x)
+#plt.grid()
+plt.show()
+
+# 6 features explain ~95% of variance
+
+#%%
+# SINGULAR VALUE DECOMPOSITION ANALYSIS [SVD]
+# CONDITION NUMBER
+
+# ORIGINAL DATA
+
+from numpy import linalg as LA
+
+H = np.matmul(X.T, X)
+_, d, _ = np.linalg.svd(H)
+print(f'ORIGINAL DATA: SINGULAR VALUES {d}')
+print(f'ORIGINAL DATA: CONDITIONAL NUMBER {LA.cond(X)}')
+
+
+#%%
+# TRANSFORMED DATA
+H_PCA = np.matmul(X_PCA.T, X_PCA)
+_, d_PCA, _ = np.linalg.svd(H_PCA)
+print(f'TRANSFORMED DATA: SINGULAR VALUES {d_PCA}')
+print(f'TRANSFORMED DATA: CONDITIONAL NUMBER {LA.cond(X_PCA)}')
+print('*'*58)
+
+#%%
+# CONSTRUCTION OF REDUCED DIMENSION DATASET
+
+#pca_df = pca.explained_variance_ratio_
+
+a, b = X_PCA.shape
+column = []
+
+for i in range(b):
+    column.append(f'PRINCIPAL COLUMN {i+1}')
+
+df_PCA = pd.DataFrame(data=X_PCA, columns=column)
+# df_PCA = pd.concat([df_PCA, Y], axis=1)
+
+df_PCA.info()
+
+#%%
+print(df_PCA.describe())
+
+#%%
