@@ -281,7 +281,7 @@ champion_players['LOGO'] = champion_players.TEAM.map(team_logos_dict)
 
 ## FILTER DATA ##
 champion_players = champion_players[viz_cols]
-champion_players = champion_players[champion_players['MP'] > 100]
+champion_players = champion_players[champion_players['MP'] > 175]
 lebron_val_players = champion_players[champion_players['YEAR'] >= 2010]
 
 # MinMaxScaler
@@ -369,10 +369,10 @@ bar_lebron_salary = px.bar(data_frame=lebron_val_players,
 
 ####################################################################################################################
 
-scatter_ternary_1 = px.scatter_ternary(data_frame=champion_players,
-                                       a=champion_players['BMI'],
-                                       b=champion_players['APE'],
-                                       c=champion_players['WTD POS'],
+scatter_ternary_usg_eff_mp = px.scatter_ternary(data_frame=champion_players,
+                                       a=champion_players['TS%'],
+                                       b=champion_players['USG%'],
+                                       c=champion_players['MP'],
                                        color=champion_players['WTD POS'],
                                        symbol=champion_players['WTD POS'],
                                        size=champion_players['WEIGHT (LBS)'],
@@ -380,17 +380,17 @@ scatter_ternary_1 = px.scatter_ternary(data_frame=champion_players,
                                        opacity=.8,
                                        color_discrete_sequence=Dense,
                                        color_continuous_scale=Dense,
-                                       title='NBA CHAMPIONS -- BMI / APE INDEX / POSITION',
+                                       title='NBA CHAMPIONS -- TS% / USG% / MP',
                                        hover_name=champion_players['PLAYER'],
                                        hover_data=champion_players[['CHAMP', 'SALARY', 'MP',]],
                                        labels=chart_labels,
                                        height=750,
                                        )
 
-scatter_ternary_adv_metrics = px.scatter_ternary(data_frame=champion_players,
+scatter_ternary_usg_eff_sal = px.scatter_ternary(data_frame=champion_players,
                                        a=champion_players['TS%'],
                                        b=champion_players['USG%'],
-                                       c=champion_players['WS'],
+                                       c=champion_players['% SALARY'],
                                        color=champion_players['WTD POS'],
                                         color_discrete_sequence=Dense,
                                        color_continuous_scale=Dense,
@@ -400,11 +400,11 @@ scatter_ternary_adv_metrics = px.scatter_ternary(data_frame=champion_players,
                                        size_max=25,
                                        opacity=.8,
 
-                                       title='NBA CHAMPIONS -- BMI / APE INDEX / POSITION',
+                                       title='NBA CHAMPIONS -- TS% / USG% / % OF SALARY',
                                        hover_name=champion_players['PLAYER'],
                                        hover_data=champion_players[['CHAMP', 'SALARY', 'MP',]],
                                        labels=chart_labels,
-                                       height=900,
+                                       height=750,
                                        )
 
 ####################################################################################################################
@@ -634,14 +634,14 @@ st.plotly_chart(bar_lebron_salary.add_layout_image(court_img_dict), use_containe
 
 ## SCATTER TERNARY ##
 # st.plotly_chart(bar_lebron_salary.update_xaxes(categoryorder='category ascending'), use_container_width=True, sharing="streamlit")
-st.plotly_chart(scatter_ternary_adv_metrics, use_container_width=True, sharing="streamlit") #.add_layout_image(court_img_dict)
+st.plotly_chart(scatter_ternary_usg_eff_sal, use_container_width=True, sharing="streamlit") #.add_layout_image(court_img_dict)
+st.plotly_chart(scatter_ternary_usg_eff_mp, use_container_width=True, sharing="streamlit") #.add_layout_image(court_img_dict)
 
 
 
 ## SCATTER MATRIX ##
 # st.plotly_chart(scatter_matrix_teams, use_container_width=True, sharing="streamlit")
 st.plotly_chart(scatter_matrix_measurables, use_container_width=True, sharing="streamlit")
-
 st.plotly_chart(scatter_matrix_metrics, use_container_width=True, sharing="streamlit")
 st.plotly_chart(scatter_matrix_positions, use_container_width=True, sharing="streamlit")
 
