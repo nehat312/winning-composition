@@ -163,6 +163,7 @@ scale_cols = [
 
 chart_labels = {'W-SPAN (IN)':'WINGSPAN (IN)',
                 'APE':'APE INDEX',
+                'WTD POS':'POSITION',
                 'CHAMP':'YR-TM',
                 'LEBRON_VAL':'LEBRON/$',
                 'RAPTOR_VAL':'RAPTOR/$',
@@ -213,7 +214,6 @@ court_img_dict = dict(source=court_img_1,#'images/Court1.png', #
                                                            layer="below",
                                                            # sizing="contain",
                                                            )
-
 
 ## FEATURED VARIABLES ##
 
@@ -282,10 +282,10 @@ lebron_val_players = champion_players[champion_players['YEAR'] >= 2010]
 
 # MinMaxScaler
 
-ss = StandardScaler()
-mms = MinMaxScaler()
+# ss = StandardScaler()
+# mms = MinMaxScaler()
 
-# Normalize the training data
+# Normalize / standardize data
 
 # champion_players_ss = ss.fit_transform(champion_players)
 # champion_players_mms = mms.fit_transform(champion_players)
@@ -361,10 +361,23 @@ bar_lebron_salary = px.bar(data_frame=lebron_val_players,
                               # width=1000,
                               )
 
-
-# bar_nations_regions =
-
-
+scatter_ternary_1 = px.scatter_ternary(data_frame=champion_players,
+                                       a=champion_players['BMI'],
+                                       b=champion_players['APE'],
+                                       c=champion_players['WTD POS'],
+                                       color=champion_players['WTD POS'],
+                                       symbol=champion_players['WTD POS'],
+                                       size=champion_players['BMI'],
+                                       size_max=champion_players['20'],
+                                       opacity=.8,
+                                       color_discrete_sequence=Dense,
+                                       color_continuous_scale=Dense,
+                                       title='NBA CHAMPIONS -- BMI / APE INDEX / POSITION',
+                                       hover_name=champion_players['PLAYER'],
+                                       hover_data=champion_players[['CHAMP', 'SALARY', 'MP',]],
+                                       labels=chart_labels,
+                                       height=750,
+                                       )
 
 scatter_3d_wingspan1 = px.scatter_3d(data_frame=champion_players,
                                      x=champion_players['BMI'],
@@ -437,6 +450,10 @@ scatter_matrix_positions = px.scatter_matrix(champion_players,
                                              )
 
 
+
+# bar_nations_regions =
+## LOG TRANSFORM??
+## PCA From test code
 
 # disc_info_1 = px.histogram(disc_facility_filter,
 #                            y=disc_facility_filter['disc_facility'],
@@ -594,7 +611,9 @@ st.plotly_chart(bar_raptor_salary.add_layout_image(court_img_dict), use_containe
 # st.plotly_chart(bar_lebron_salary.update_xaxes(categoryorder='category ascending'), use_container_width=True, sharing="streamlit")
 st.plotly_chart(bar_lebron_salary.add_layout_image(court_img_dict), use_container_width=True, sharing="streamlit")
 
-
+## SCATTER TERNARY ##
+# st.plotly_chart(bar_lebron_salary.update_xaxes(categoryorder='category ascending'), use_container_width=True, sharing="streamlit")
+st.plotly_chart(scatter_ternary_1.add_layout_image(court_img_dict), use_container_width=True, sharing="streamlit")
 
 ## 3D SCATTER ##
 left, middle, right = st.columns(3)
