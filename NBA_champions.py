@@ -209,20 +209,15 @@ team_logos_dict = {'ATL':ATL_logo,
                    }
 
 ## COURT BACKGROUND ##
-court_img_dict = dict(source=court_img_1,#'images/Court1.png', #
-                                                           xref="paper",
-                                                           yref="paper",
-                                                           x=0.5,
-                                                           y=0.5,
-                                                           sizex=2.5,
-                                                           sizey=1,
-                                                           opacity=.35,
-                                                           xanchor="center", #left #right
-                                                           yanchor="middle", #top #bottom
-                                                           visible=True,
-                                                           layer="below",
-                                                           # sizing="contain",
-                                                           )
+court_img_dict = dict(source=court_img_1, xref="paper", yref="paper", x=0.5, y=0.5, sizex=2.5, sizey=1,
+                      xanchor="center", yanchor="middle", #left right  #top bottom
+                      opacity=.35, visible=True, layer="below", # sizing="contain",
+                      )
+
+court_img_dict_3D = dict(source=court_img_1, xref="paper", yref="paper", x=0.5, y=0.5, sizex=2.5, sizey=1,
+                      xanchor="center", yanchor="middle", #left right  #top bottom
+                      opacity=.35, visible=True, layer="below", # sizing="contain",
+                      )
 
 ## FEATURED VARIABLES ##
 
@@ -674,7 +669,7 @@ st.plotly_chart(scatter_matrix_measurables, use_container_width=True, sharing="s
 
 
 ## 3D SCATTER ##
-st.plotly_chart(scatter_3d_to_ast_usg, use_container_width=True, sharing="streamlit")
+st.plotly_chart(scatter_3d_to_ast_usg.add_layout_image(court_img_dict_3D), use_container_width=True, sharing="streamlit")
 # left, middle, right = st.columns(3)
 # with middle:
 #     st.plotly_chart(scatter_3d_wingspan1, use_container_width=True, sharing="streamlit")
