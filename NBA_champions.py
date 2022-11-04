@@ -397,11 +397,11 @@ scatter_ternary_stl_blk_ast_to = px.scatter_ternary(data_frame=champion_players,
                                        size_max=20,
                                        opacity=.8,
 
-                                       title='NBA CHAMPIONS -- TS% - USG% - AST%/TO%',
+                                       title='NBA CHAMPIONS -- STL% - BLK% - AST%/TO%',
                                        hover_name=champion_players['PLAYER'],
                                        hover_data=champion_players[['CHAMP', 'SALARY', 'MP',]],
                                        labels=chart_labels,
-                                       height=750,
+                                       height=900,
                                        )
 
 scatter_ternary_ast_to_usg = px.scatter_ternary(data_frame=champion_players,
@@ -420,13 +420,13 @@ scatter_ternary_ast_to_usg = px.scatter_ternary(data_frame=champion_players,
                                        hover_name=champion_players['PLAYER'],
                                        hover_data=champion_players[['CHAMP', 'SALARY', 'MP', 'STL%', 'BLK%']],
                                        labels=chart_labels,
-                                       height=750,
+                                       height=900,
                                        )
 
 ####################################################################################################################
 
 scatter_matrix_metrics = px.scatter_matrix(champion_players,
-                                         dimensions=['RAPTOR', 'WS', 'USG%'],
+                                         dimensions=['USG%', 'TS%', 'AST%/TO%', 'STOCK%', 'RAPTOR', 'LEBRON', 'WS', ],
                                          color=champion_players['WTD POS'],
                                          color_continuous_scale=Dense,
                                          color_discrete_sequence=Dense,
@@ -660,8 +660,8 @@ with right:
 
 ## SCATTER MATRIX ##
 # st.plotly_chart(scatter_matrix_teams, use_container_width=True, sharing="streamlit")
-st.plotly_chart(scatter_matrix_measurables, use_container_width=True, sharing="streamlit")
 st.plotly_chart(scatter_matrix_metrics, use_container_width=True, sharing="streamlit")
+st.plotly_chart(scatter_matrix_measurables, use_container_width=True, sharing="streamlit")
 st.plotly_chart(scatter_matrix_positions, use_container_width=True, sharing="streamlit")
 
 
