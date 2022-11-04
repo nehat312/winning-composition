@@ -30,6 +30,9 @@ from sklearn.preprocessing import MinMaxScaler
 # import scipy.stats as stats
 # import statistics
 
+
+#%%
+
 ## DIRECTORY CONFIGURATION ##
 abs_path = r'https://raw.githubusercontent.com/nehat312/winning-composition/main'
 players_path = abs_path + '/data/NBA_champs_python.csv'
@@ -93,10 +96,11 @@ OKC_logo = Image.open('images/west/OKC-Thunder.png')
 UTA_logo = Image.open('images/west/UTA-Jazz.png')
 
 
+#%%
+
 ## FORMAT / STYLE ##
 
 ## COLOR SCALES ##
-
 
 Tropic = px.colors.diverging.Tropic
 Blackbody = px.colors.sequential.Blackbody
@@ -206,8 +210,8 @@ court_img_dict = dict(source=court_img_1,#'images/Court1.png', #
                                                            y=0.5,
                                                            sizex=2.5,
                                                            sizey=1,
-                                                           opacity=.35,
-                                                           xanchor="center", #left #right
+                                                           opacity=.5,
+                                                           xanchor="center",
                                                            yanchor="middle", #top #bottom
                                                            visible=True,
                                                            layer="below",
@@ -280,6 +284,12 @@ champion_players = champion_players[viz_cols]
 champion_players = champion_players[champion_players['MP'] > 100]
 lebron_val_players = champion_players[champion_players['YEAR'] >= 2010]
 
+
+#%%
+
+print(champion_players.info())
+print(lebron_val_players.info())
+#%%
 # MinMaxScaler
 
 ss = StandardScaler()
@@ -295,8 +305,6 @@ mms = MinMaxScaler()
 # print(champion_players_ss)
 
 
-print(champion_players[['RAPTOR', 'LEBRON', 'WS']].describe())
-
 #%%
 
 ## VISUALIZATIONS ##
@@ -304,7 +312,6 @@ print(champion_players[['RAPTOR', 'LEBRON', 'WS']].describe())
 bar_champions_salary = px.bar(data_frame=champion_players,
                               x=champion_players['CHAMP'],
                               y=champion_players['SALARY'],
-                              facet_row=champion_players[['WS', 'RAPTOR', 'LEBRON']],
                               color=champion_players['WS'],     # EXPERIENCE AGE MP APE
                               color_continuous_scale=Tropic,
                               color_discrete_sequence=Tropic,
@@ -315,6 +322,7 @@ bar_champions_salary = px.bar(data_frame=champion_players,
                               barmode='group',
                               title='WIN SHARES (WS) METRIC RELATIVE TO CHAMPIONSHIP TEAM SALARY',
                               labels=chart_labels,
+                              text=champion_players['PLAYER'],
                               # template='simple_white+gridon',
                               # range_x=[1991,2023],
                               # range_y=[0,200000000],
@@ -328,7 +336,7 @@ bar_raptor_salary = px.bar(data_frame=champion_players,
                               color=champion_players['RAPTOR'],     # EXPERIENCE AGE MP APE
                               color_continuous_scale=Tropic,
                               color_discrete_sequence=Tropic,
-                              color_continuous_midpoint=0,
+                              # color_continuous_midpoint=10,
                               # color_discrete_map=team_logos_dict,
                               hover_name=champion_players['PLAYER'],
                               hover_data=champion_players[['CHAMP', 'SALARY', 'MP', 'RAPTOR']],
@@ -439,299 +447,25 @@ scatter_matrix_positions = px.scatter_matrix(champion_players,
 
 
 
-# disc_info_1 = px.histogram(disc_facility_filter,
-#                            y=disc_facility_filter['disc_facility'],
-#                            color=disc_facility_filter['disc_method'],
-#                            color_discrete_sequence=Ice_r,
-#                            hover_name=disc_facility_filter['pl_name'],
-#                            hover_data=disc_facility_filter[['host_name', 'disc_facility', 'disc_telescope', 'sy_star_count', 'sy_planet_count']],
-#                            # animation_frame=disc_facility_filter['disc_year'],
-#                            # animation_group=disc_facility_filter['disc_facility'],
-#                            title='EXOPLANET DISCOVERY FACILITY (BY DISCOVERY METHOD)',
-#                            labels=chart_labels,
-#                            range_x=[0,2500],
-#                            height=1000,
-#                            # width=800,
-#                            )
-#
-# density_map_1 = px.density_contour(exoplanets,
-#                                    x=exoplanets['ra'],
-#                                    y=exoplanets['dec'],
-#                                    z=exoplanets['sy_distance_pc'],
-#                                    color=exoplanets['disc_method'],
-#                                    color_discrete_sequence=Temps,
-#                                    hover_name=exoplanets['pl_name'],
-#                                    hover_data=exoplanets[['host_name', 'disc_facility', 'disc_telescope', 'sy_star_count', 'sy_planet_count']],
-#                                    title='EXOPLANET RIGHT ASCENSION / DECLINATION',
-#                                    labels=chart_labels,
-#                                    )
-#
 
+## EFFICENCY VS USAGE VS MP VS PERFORMANCE
 
-#####################
-### STREAMLIT APP ###
-#####################
+#%%
 
-## CONFIGURATION ##
-st.set_page_config(page_title='COMPOSITION OF NBA CHAMPIONS', layout='wide', initial_sidebar_state='auto') #, page_icon=":smirk:"
+print(bar_champions_salary)
 
-hide_menu_style = """
-        <style>
-        #MainMenu {visibility: hidden; }
-        footer {visibility: hidden;}
-        </style>
-        """
+#%%
 
-st.markdown(hide_menu_style, unsafe_allow_html=True)
+print()
 
-## CSS LAYOUT CUSTOMIZATION ##
+#%%
 
-th_props = [('font-size', '12px'),
-            ('text-align', 'center'),
-            ('font-weight', 'bold'),
-            ('color', '#EBEDE9'), #6d6d6d #29609C
-            ('background-color', '#29609C') #f7f7f9
-            ]
+print()
 
-td_props = [('font-size', '12px'),
-            # ('text-align', 'center'),
-            # ('font-weight', 'bold'),
-            # ('color', '#EBEDE9'), #6d6d6d #29609C
-            # ('background-color', '#29609C') #f7f7f9
-            ]
+#%%
 
-df_styles = [dict(selector="th", props=th_props),
-             dict(selector="td", props=td_props)]
+print()
 
+#%%
 
-# col_format_dict = {'BYE': "{:,}",
-#                    '': "{:,}",
-#                    '': "{:,}",
-#                    '': "{:,}",
-#                    '': "{:,}",
-#                    '': "{:,}",
-#                    '': "{:,}",
-#                    'O-WS': "{:,}",
-#                    'D-WS': "{:,}",
-#                    'WS': "{:,}",
-#                    'TM_WS': "{:,}",
-                   # #: "{:.1%}", #:"{:.1}x", "${:.2}", #"${:,}"
-#                   }
-
-
-## SIDEBAR ##
-# sidebar_header = st.sidebar.subheader('DIRECTORY:')
-
-# sector_sidebar_select = st.sidebar.selectbox('SECTOR', (sector_list_of_names), help='SELECT CRE SECTOR')
-# ticker_sidebar_select = st.sidebar.selectbox('TICKER', (sector_dict['apartment'])) #sector_sidebar_select
-
-# sidebar_start = st.sidebar.date_input('START DATE', before)
-# sidebar_end = st.sidebar.date_input('END DATE', today)
-# if sidebar_start < sidebar_end:
-#     st.sidebar.success('START DATE: `%s`\n\nEND DATE: `%s`' % (sidebar_start, sidebar_end))
-# else:
-#     st.sidebar.error('ERROR: END DATE BEFORE START DATE')
-
-
-
-## HEADER ##
-st.container()
-
-st.title('CHAMPIONSHIP-CALIBER ROSTER CONSTRUCTION IN PROFESSIONAL SPORTS')
-st.write('*STATISTICAL BREAKDOWN OF HISTORICAL AND MODERN-DAY NBA CHAMPIONSHIP ROSTERS*')
-
-## EAST LOGOS ##
-EA_col_1, EA_col_2, EA_col_3, EA_col_4, EA_col_5, \
-EC_col_1, EC_col_2, EC_col_3, EC_col_4, EC_col_5, \
-ES_col_1, ES_col_2, ES_col_3, ES_col_4, ES_col_5 = st.columns(15)
-EA_col_1.image(BKN_logo, caption='BKN', width=35)
-EA_col_2.image(BOS_logo, caption='BOS', width=35)
-EA_col_3.image(NYK_logo, caption='NYK', width=35)
-EA_col_4.image(PHI_logo, caption='PHI', width=35)
-EA_col_5.image(TOR_logo, caption='TOR', width=35)
-EC_col_1.image(CHI_logo, caption='CHI', width=35)
-EC_col_2.image(CLE_logo, caption='CLE', width=35)
-EC_col_3.image(DET_logo, caption='DET', width=35)
-EC_col_4.image(IND_logo, caption='IND', width=35)
-EC_col_5.image(MIL_logo, caption='MIL', width=35)
-ES_col_1.image(ATL_logo, caption='ATL', width=35)
-ES_col_2.image(MIA_logo, caption='MIA', width=35)
-ES_col_3.image(ORL_logo, caption='ORL', width=35)
-ES_col_4.image(WAS_logo, caption='WAS', width=35)
-ES_col_5.image(CHA_logo, caption='CHA', width=35)
-
-## WEST LOGOS ##
-WN_col_1, WN_col_2, WN_col_3, WN_col_4, WN_col_5, \
-WP_col_1, WP_col_2, WP_col_3, WP_col_4, WP_col_5, \
-WS_col_1, WS_col_2, WS_col_3, WS_col_4, WS_col_5 = st.columns(15)
-WN_col_1.image(DEN_logo, caption='DEN', width=35)
-WN_col_2.image(MIN_logo, caption='MIN', width=35)
-WN_col_3.image(POR_logo, caption='POR', width=35)
-WN_col_4.image(OKC_logo, caption='OKC', width=35)
-WN_col_5.image(UTA_logo, caption='UTA', width=35)
-WP_col_1.image(GSW_logo, caption='GSW', width=35)
-WP_col_2.image(LAC_logo, caption='LAC', width=35)
-WP_col_3.image(LAL_logo, caption='LAL', width=35)
-WP_col_4.image(PHX_logo, caption='PHX', width=35)
-WP_col_5.image(SAC_logo, caption='SAC', width=35)
-WS_col_1.image(NOP_logo, caption='NOP', width=35)
-WS_col_2.image(DAL_logo, caption='DAL', width=35)
-WS_col_3.image(HOU_logo, caption='HOU', width=35)
-WS_col_4.image(SAS_logo, caption='SAS', width=35)
-WS_col_5.image(MEM_logo, caption='MEM', width=35)
-
-## BAR - CHAMPS SALARY ##
-# bar_champs_salary = bar_champs_salary.update_yaxes(categoryorder='total descending')
-# st.plotly_chart(bar_champions_salary.update_yaxes(categoryorder='category ascending'), use_container_width=True, sharing="streamlit")
-st.plotly_chart(bar_champions_salary.add_layout_image(court_img_dict), use_container_width=True, sharing="streamlit")
-#, xaxis = dict(tickmode = 'linear', tick0 = 1991, dtick = 1),
-
-
-## BAR - RAPTOR SALARY ##
-# st.plotly_chart(bar_raptor_salary.update_xaxes(categoryorder='category ascending'), use_container_width=True, sharing="streamlit")
-st.plotly_chart(bar_raptor_salary.add_layout_image(court_img_dict), use_container_width=True, sharing="streamlit")
-
-## BAR - LEBRON SALARY ##
-# st.plotly_chart(bar_lebron_salary.update_xaxes(categoryorder='category ascending'), use_container_width=True, sharing="streamlit")
-st.plotly_chart(bar_lebron_salary.add_layout_image(court_img_dict), use_container_width=True, sharing="streamlit")
-
-
-
-## 3D SCATTER ##
-left, middle, right = st.columns(3)
-with middle:
-    st.plotly_chart(scatter_3d_wingspan1, use_container_width=True, sharing="streamlit")
-
-## SCATTER MATRIX ##
-# st.plotly_chart(scatter_matrix_teams, use_container_width=True, sharing="streamlit")
-st.plotly_chart(scatter_matrix_measurables, use_container_width=True, sharing="streamlit")
-
-st.plotly_chart(scatter_matrix_metrics, use_container_width=True, sharing="streamlit")
-st.plotly_chart(scatter_matrix_positions, use_container_width=True, sharing="streamlit")
-
-
-
-## LEAGUE LOGOS ##
-east_col_1, nba_col_2, west_col_3 = st.columns(3)
-east_col_1.image(East_logo, width=250) # caption='WESTERN CONFERENCE'
-nba_col_2.image(nba_logo_1, width=300) # caption='NATIONAL BASKETBALL ASSOCIATION'
-west_col_3.image(West_logo, width=250) # caption='EASTERN CONFERENCE'
-
-
-## TABLEAU ##
-## NEO4J / MONGO ?? ##
-
-
-## FORM FUNCTIONS ##
-# @st.cache(persist=True, allow_output_mutation=True, suppress_st_warning=True)
-
-
-## DISCOVERY INFORMATION ##
-# st.plotly_chart(disc_info_1.update_yaxes(categoryorder='total ascending'), use_container_width=True, sharing="streamlit")
-
-
-## EXTERNAL LINKS ##
-
-github_link = '[GITHUB REPOSITORY](https://github.com/nehat312/NBA-championship-caliber/)'
-nba_site_link = '[NBA.com](https://www.nba.com/)'
-bbref_site_link = '[BASKETBALL REFERENCE](https://www.basketball-reference.com/)'
-
-link_col_1, link_col_2, link_col_3 = st.columns(3)
-ext_link_1 = link_col_1.markdown(github_link, unsafe_allow_html=True)
-ext_link_2 = link_col_2.markdown(nba_site_link, unsafe_allow_html=True)
-ext_link_3 = link_col_3.markdown(bbref_site_link, unsafe_allow_html=True)
-
-
-## SCRIPT TERMINATION ##
-st.stop()
-
-
-
-
-### INTERPRETATION ###
-
-
-
-
-
-### SCRATCH NOTES ###
-
-
-## PAGE BACKGROUND ##
-
-# def add_bg_from_url():
-#     st.markdown(
-#          f"""
-#          <style>
-#          .stApp {{
-#              background-image: url("images/Court1.png");
-#              background-attachment: fixed;
-#              background-size: cover
-#          }}
-#          </style>
-#          """,
-#          unsafe_allow_html=True
-#      )
-#
-# add_bg_from_url()
-
-
-# CONFIG TEMPLATE
-    # st.set_page_config(page_title="CSS hacks", page_icon=":smirk:")
-    #
-    # c1 = st.container()
-    # st.markdown("---")
-    # c2 = st.container()
-    # with c1:
-    #     st.markdown("Hello")
-    #     st.slider("World", 0, 10, key="1")
-    # with c2:
-    #     st.markdown("Hello")
-    #     st.slider("World", 0, 10, key="2")
-
-# STYLE WITH CSS THROUGH MARKDOWN
-    # st.markdown("""
-    # <style>
-    # div[data-testid="stBlock"] {
-    #     padding: 1em 0;
-    #     border: thick double #32a1ce;
-    # }
-    # </style>
-    # """, unsafe_allow_html=True)
-
-
-# STYLE WITH JS THROUGH HTML IFRAME
-    # components.html("""
-    # <script>
-    # const elements = window.parent.document.querySelectorAll('div[data-testid="stBlock"]')
-    # console.log(elements)
-    # elements[0].style.backgroundColor = 'paleturquoise'
-    # elements[1].style.backgroundColor = 'lightgreen'
-    # </script>
-    # """, height=0, width=0)
-
-
-# st.markdown("""
-#             <style>
-#             div[data-testid="stBlock"] {padding: 1em 0; border: thick double #32a1ce; color: blue}
-#             </style>
-#             """,
-#             unsafe_allow_html=True)
-
-# style={'textAlign': 'Center', 'backgroundColor': 'rgb(223,187,133)',
-#                                            'color': 'black', 'fontWeight': 'bold', 'fontSize': '24px',
-#                                            'border': '4px solid black', 'font-family': 'Arial'}),
-
-#pattern_shape = "nation", pattern_shape_sequence = [".", "x", "+"]
-
-            # fig = px.bar(df, x="sex", y="total_bill", color="smoker", barmode="group", facet_row="time", facet_col="day",
-            #        category_orders={"day": ["Thur", "Fri", "Sat", "Sun"], "time": ["Lunch", "Dinner"]})
-
-            # fig = px.scatter_matrix(df, dimensions=["sepal_width", "sepal_length", "petal_width", "petal_length"], color="species")
-
-            # fig = px.parallel_categories(df, color="size", color_continuous_scale=px.colors.sequential.Inferno)
-
-            # fig = px.parallel_coordinates(df, color="species_id", labels={"species_id": "Species",
-            #                   "sepal_width": "Sepal Width", "sepal_length": "Sepal Length",
-            #                   "petal_width": "Petal Width", "petal_length": "Petal Length", },
-            #                     color_continuous_scale=px.colors.diverging.Tealrose, color_continuous_midpoint=2)
+print()
