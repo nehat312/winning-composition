@@ -320,7 +320,27 @@ lebron_val_players = champion_players[champion_players['YEAR'] >= 2010]
 
 ####################################################################################################################
 
-bar_champions_salary = px.bar(data_frame=champion_players,
+bar_usg_salary = px.bar(data_frame=champion_players,
+                              x=champion_players['CHAMP'],
+                              y=champion_players['SALARY'],
+                              color=champion_players['USG%'],     # EXPERIENCE AGE MP APE
+                              color_continuous_scale=Tropic,
+                              color_discrete_sequence=Tropic,
+                              color_continuous_midpoint=10,
+                              # color_discrete_map=team_logos_dict,
+                              hover_name=champion_players['PLAYER'],
+                              hover_data=champion_players[['CHAMP', 'SALARY', 'MP']], #'WS/$',
+                              barmode='group',
+                              title='USG% RELATIVE TO CHAMPIONSHIP TEAM SALARY',
+                              labels=chart_labels,
+                              # template='simple_white+gridon',
+                              # range_x=[1991,2023],
+                              # range_y=[0,200000000],
+                              height=750,
+                              # width=1000,
+                              )
+
+bar_WS_salary = px.bar(data_frame=champion_players,
                               x=champion_players['CHAMP'],
                               y=champion_players['SALARY'],
                               color=champion_players['WS'],     # EXPERIENCE AGE MP APE
@@ -633,20 +653,23 @@ WS_col_3.image(HOU_logo, caption='HOU', width=35)
 WS_col_4.image(SAS_logo, caption='SAS', width=35)
 WS_col_5.image(MEM_logo, caption='MEM', width=35)
 
-## BAR - CHAMPS SALARY ##
-# bar_champs_salary = bar_champs_salary.update_yaxes(categoryorder='total descending')
-# st.plotly_chart(bar_champions_salary.update_yaxes(categoryorder='category ascending'), use_container_width=True, sharing="streamlit")
-st.plotly_chart(bar_champions_salary.add_layout_image(court_img_dict), use_container_width=True, sharing="streamlit")
-#, xaxis = dict(tickmode = 'linear', tick0 = 1991, dtick = 1),
+## BAR - USG% SALARY ##
+st.plotly_chart(bar_usg_salary.add_layout_image(court_img_dict), use_container_width=True, sharing="streamlit")
+    # st.plotly_chart(bar_champions_salary.update_yaxes(categoryorder='category ascending'), use_container_width=True, sharing="streamlit")
+
+## BAR - WS SALARY ##
+st.plotly_chart(bar_WS_salary.add_layout_image(court_img_dict), use_container_width=True, sharing="streamlit")
+    # st.plotly_chart(bar_champions_salary.update_yaxes(categoryorder='category ascending'), use_container_width=True, sharing="streamlit")
 
 
 ## BAR - RAPTOR SALARY ##
-# st.plotly_chart(bar_raptor_salary.update_xaxes(categoryorder='category ascending'), use_container_width=True, sharing="streamlit")
 st.plotly_chart(bar_raptor_salary.add_layout_image(court_img_dict), use_container_width=True, sharing="streamlit")
+    # st.plotly_chart(bar_raptor_salary.update_xaxes(categoryorder='category ascending'), use_container_width=True, sharing="streamlit")
+
 
 ## BAR - LEBRON SALARY ##
-# st.plotly_chart(bar_lebron_salary.update_xaxes(categoryorder='category ascending'), use_container_width=True, sharing="streamlit")
 st.plotly_chart(bar_lebron_salary.add_layout_image(court_img_dict), use_container_width=True, sharing="streamlit")
+    # st.plotly_chart(bar_lebron_salary.update_xaxes(categoryorder='category ascending'), use_container_width=True, sharing="streamlit")
 
 ## SCATTER TERNARY ##
 
