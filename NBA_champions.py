@@ -125,7 +125,7 @@ Speed = px.colors.sequential.speed
 
 all_cols = ['YR_TM_PLR', 'YEARS', 'YEAR',
             'TEAM', 'CHAMP', 'PLAYER', 'NUMBER',
-            'POS', 'WTD POS',
+            'POS', 'WTD POS', 'RD POS',
             'HEIGHT (IN)',
             'WEIGHT (LBS)',
             'BMI', 'W-SPAN (IN)', 'APE',
@@ -142,7 +142,7 @@ all_cols = ['YR_TM_PLR', 'YEARS', 'YEAR',
             ]
 
 
-viz_cols = ['YEAR', 'TEAM', 'CHAMP', 'PLAYER', 'WTD POS',
+viz_cols = ['YEAR', 'TEAM', 'CHAMP', 'PLAYER', 'WTD POS', 'RD POS',
             'HEIGHT (IN)', 'WEIGHT (LBS)', 'BMI', 'W-SPAN (IN)', 'APE',
             'AGE',  'EXPERIENCE',
             'NATION', 'COUNTRY',
@@ -164,6 +164,7 @@ scale_cols = [
 chart_labels = {'W-SPAN (IN)':'WINGSPAN (IN)',
                 'APE':'APE INDEX',
                 'WTD POS':'POSITION',
+                'RD POS':'POSITION',
                 'CHAMP':'YR-TM',
                 'LEBRON_VAL':'LEBRON/$',
                 'RAPTOR_VAL':'RAPTOR/$',
@@ -301,6 +302,8 @@ print(champion_players[['RAPTOR', 'LEBRON', 'WS']].describe())
 
 ## VISUALIZATIONS ##
 
+####################################################################################################################
+
 bar_champions_salary = px.bar(data_frame=champion_players,
                               x=champion_players['CHAMP'],
                               y=champion_players['SALARY'],
@@ -361,6 +364,8 @@ bar_lebron_salary = px.bar(data_frame=lebron_val_players,
                               # width=1000,
                               )
 
+####################################################################################################################
+
 scatter_ternary_1 = px.scatter_ternary(data_frame=champion_players,
                                        a=champion_players['BMI'],
                                        b=champion_players['APE'],
@@ -379,31 +384,27 @@ scatter_ternary_1 = px.scatter_ternary(data_frame=champion_players,
                                        height=750,
                                        )
 
-scatter_3d_wingspan1 = px.scatter_3d(data_frame=champion_players,
-                                     x=champion_players['BMI'],
-                                     y=champion_players['WEIGHT (LBS)'],
-                                     z=champion_players['APE'],
-                                     color=champion_players['WTD POS'],
-                                     color_discrete_sequence=Dense,
-                                     color_continuous_scale=Dense,
-                                     color_continuous_midpoint=3,
-                                     title='NBA CHAMPIONS -- HEIGHT / WEIGHT / WINGSPAN / BMI / AGE / APE INDEX',
-                                     hover_name=champion_players['PLAYER'],
-                                     hover_data=champion_players[['TEAM', 'YEAR']], #'LOGO'
-                                     # 'HEIGHT (IN)' 'WEIGHT (LBS)' 'BMI' 'W-SPAN (IN)'
-                                     # custom_data=['LOGO'],
-                                     # size=champion_players['WS'],
-                                     # size_max=50,
-                                     # symbol=champion_players['disc_year'],
-                                     labels=chart_labels,
-                                     # range_x=[0,360],
-                                     # range_y=[-50,50],
-                                     # range_z=[0,2500],
-                                     # range_color=Sunsetdark,
-                                     opacity=.8,
-                                     height=800,
-                                     # width=1000,
-                                     )
+scatter_ternary_adv_metrics = px.scatter_ternary(data_frame=champion_players,
+                                       a=champion_players['RAPTOR'],
+                                       b=champion_players['LEBRON'],
+                                       c=champion_players['WS'],
+                                       color=champion_players['WTD POS'],
+                                        color_discrete_sequence=Dense,
+                                       color_continuous_scale=Dense,
+                                        color_continuous_midpoint=3,
+                                       symbol=champion_players['RD POS'],
+                                       size=champion_players['WEIGHT (LBS)'],
+                                       size_max=25,
+                                       opacity=.8,
+
+                                       title='NBA CHAMPIONS -- BMI / APE INDEX / POSITION',
+                                       hover_name=champion_players['PLAYER'],
+                                       hover_data=champion_players[['CHAMP', 'SALARY', 'MP',]],
+                                       labels=chart_labels,
+                                       height=900,
+                                       )
+
+####################################################################################################################
 
 scatter_matrix_metrics = px.scatter_matrix(champion_players,
                                          dimensions=['RAPTOR', 'WS', 'USG%'],
@@ -451,38 +452,55 @@ scatter_matrix_positions = px.scatter_matrix(champion_players,
 
 
 
+####################################################################################################################
+
+scatter_3d_wingspan1 = px.scatter_3d(data_frame=champion_players,
+                                     x=champion_players['BMI'],
+                                     y=champion_players['WEIGHT (LBS)'],
+                                     z=champion_players['APE'],
+                                     color=champion_players['WTD POS'],
+                                     color_discrete_sequence=Dense,
+                                     color_continuous_scale=Dense,
+                                     color_continuous_midpoint=3,
+                                     title='NBA CHAMPIONS -- HEIGHT / WEIGHT / WINGSPAN / BMI / AGE / APE INDEX',
+                                     hover_name=champion_players['PLAYER'],
+                                     hover_data=champion_players[['TEAM', 'YEAR']], #'LOGO'
+                                     # 'HEIGHT (IN)' 'WEIGHT (LBS)' 'BMI' 'W-SPAN (IN)'
+                                     # custom_data=['LOGO'],
+                                     # size=champion_players['WS'],
+                                     # size_max=50,
+                                     # symbol=champion_players['disc_year'],
+                                     labels=chart_labels,
+                                     # range_x=[0,360],
+                                     # range_y=[-50,50],
+                                     # range_z=[0,2500],
+                                     # range_color=Sunsetdark,
+                                     opacity=.8,
+                                     height=800,
+                                     # width=1000,
+                                     )
+
+####################################################################################################################
+
 # bar_nations_regions =
 ## LOG TRANSFORM??
 ## PCA From test code
 
+####################################################################################################################
+
 # disc_info_1 = px.histogram(disc_facility_filter,
 #                            y=disc_facility_filter['disc_facility'],
 #                            color=disc_facility_filter['disc_method'],
-#                            color_discrete_sequence=Ice_r,
-#                            hover_name=disc_facility_filter['pl_name'],
-#                            hover_data=disc_facility_filter[['host_name', 'disc_facility', 'disc_telescope', 'sy_star_count', 'sy_planet_count']],
-#                            # animation_frame=disc_facility_filter['disc_year'],
-#                            # animation_group=disc_facility_filter['disc_facility'],
-#                            title='EXOPLANET DISCOVERY FACILITY (BY DISCOVERY METHOD)',
-#                            labels=chart_labels,
-#                            range_x=[0,2500],
-#                            height=1000,
-#                            # width=800,
 #                            )
 #
 # density_map_1 = px.density_contour(exoplanets,
 #                                    x=exoplanets['ra'],
 #                                    y=exoplanets['dec'],
 #                                    z=exoplanets['sy_distance_pc'],
-#                                    color=exoplanets['disc_method'],
-#                                    color_discrete_sequence=Temps,
-#                                    hover_name=exoplanets['pl_name'],
-#                                    hover_data=exoplanets[['host_name', 'disc_facility', 'disc_telescope', 'sy_star_count', 'sy_planet_count']],
-#                                    title='EXOPLANET RIGHT ASCENSION / DECLINATION',
-#                                    labels=chart_labels,
 #                                    )
-#
 
+
+####################################################################################################################
 
 #####################
 ### STREAMLIT APP ###
@@ -613,7 +631,7 @@ st.plotly_chart(bar_lebron_salary.add_layout_image(court_img_dict), use_containe
 
 ## SCATTER TERNARY ##
 # st.plotly_chart(bar_lebron_salary.update_xaxes(categoryorder='category ascending'), use_container_width=True, sharing="streamlit")
-st.plotly_chart(scatter_ternary_1, use_container_width=True, sharing="streamlit") #.add_layout_image(court_img_dict)
+st.plotly_chart(scatter_ternary_adv_metrics, use_container_width=True, sharing="streamlit") #.add_layout_image(court_img_dict)
 
 
 
