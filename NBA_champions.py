@@ -138,7 +138,7 @@ all_cols = ['YR_TM_PLR', 'YEARS', 'YEAR',
             'D-WS', 'O-WS', 'WS', 'WS_VAL', 'TM-WS',
             'RAPTOR', 'RAPTOR_VAL', 'TM-RAPTOR',
             'LEBRON', 'LEBRON_VAL', 'TM-LEBRON', #D #O
-            'USG%',
+            'USG%', 'TS%',
             ]
 
 
@@ -151,14 +151,17 @@ viz_cols = ['YEAR', 'TEAM', 'CHAMP', 'PLAYER', 'WTD POS', 'RD POS',
             'SALARY', '% SALARY',
             'MP', #'PER', 'WTD-PER',
             'D-WS', 'O-WS', 'WS',  # 'TM-WS', 'TM-RAPTOR',
-            'RAPTOR', 'LEBRON', 'USG%',
+            'RAPTOR', 'LEBRON', 'USG%', 'TS%',
             'RAPTOR_VAL', 'LEBRON_VAL', 'WS_VAL',
 
             ]
 
 
-scale_cols = [
-            'RAPTOR', 'LEBRON',
+scale_cols = ['WTD POS',
+              'RAPTOR', 'WS', #'LEBRON',
+              'USG%', 'TS%',
+              'BMI', 'W-SPAN (IN)', 'APE',
+              'AGE', #'EXPERIENCE',
             ]
 
 chart_labels = {'W-SPAN (IN)':'WINGSPAN (IN)',
@@ -296,7 +299,7 @@ lebron_val_players = champion_players[champion_players['YEAR'] >= 2010]
 # print(champion_players_ss)
 
 
-print(champion_players[['RAPTOR', 'LEBRON', 'WS']].describe())
+# print(champion_players[['RAPTOR', 'LEBRON', 'WS']].describe())
 
 #%%
 
