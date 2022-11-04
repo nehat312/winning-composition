@@ -508,7 +508,7 @@ scatter_3D_court_img = px.scatter_3d(#data_frame=champion_players,
                                      # x=,
                                      # y=,
                                      z=court_img_dict,
-                                     labels=chart_labels,
+                                     # labels=chart_labels,
                                      # height=1000,
                                      )
 
@@ -690,7 +690,7 @@ st.plotly_chart(scatter_matrix_measurables, use_container_width=True, sharing="s
 st.plotly_chart(scatter_3D_to_ast_usg.add_trace(go.Surface(z=champion_players['USG%'],
                                                            x=champion_players['TO%'],
                                                            y=champion_players['AST%'],
-                                                           surfacecolor=court_img_1,
+                                                           surfacecolor=scatter_3D_court_img,
                                                            cmin=0,
                                                            cmax=255,
                                                            showscale=False,
