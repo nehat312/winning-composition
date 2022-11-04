@@ -687,7 +687,8 @@ st.plotly_chart(scatter_matrix_measurables, use_container_width=True, sharing="s
 
 ## 3D SCATTER ##
 # st.plotly_chart(scatter_3D_to_ast_usg.add_layout_image(court_img_dict_3D), use_container_width=True, sharing="streamlit")
-st.plotly_chart(scatter_3D_to_ast_usg.add_trace(go.Surface(surfacecolor=court_img_1,
+st.plotly_chart(scatter_3D_to_ast_usg.add_trace(go.Surface(z=champion_players['USG%'],
+                                                           surfacecolor=court_img_1,
                                                            cmin=0,
                                                            cmax=255,
                                                            showscale=False,
