@@ -168,8 +168,8 @@ scale_cols = ['WTD POS',
 
 chart_labels = {'W-SPAN (IN)':'WINGSPAN (IN)',
                 'APE':'APE INDEX',
-                'WTD POS':'POSITION',
-                'RD POS':'POSITION',
+                'WTD POS':'WTD POS',
+                'RD POS':'POS',
                 'CHAMP':'YR-TM',
                 'LEBRON_VAL':'LEBRON/$',
                 'RAPTOR_VAL':'RAPTOR/$',
@@ -390,8 +390,8 @@ scatter_ternary_usg_eff_ast_tov = px.scatter_ternary(data_frame=champion_players
                                        color_continuous_scale=Dense,
                                         color_continuous_midpoint=3,
                                        symbol=champion_players['RD POS'],
-                                       size=champion_players['BMI'],
-                                       size_max=10,
+                                       size=champion_players['WS'],
+                                       size_max=20,
                                        opacity=.8,
 
                                        title='NBA CHAMPIONS -- TS% - USG% - AST%/TO%',
@@ -410,12 +410,31 @@ scatter_ternary_usg_eff_stocks = px.scatter_ternary(data_frame=champion_players,
                                                 color_continuous_scale=Dense,
                                                 color_continuous_midpoint=3,
                                                 symbol=champion_players['RD POS'],
-                                                size=champion_players['BMI'],
-                                                size_max=10,
+                                                size=champion_players['WS'],
+                                                size_max=20,
                                        opacity=.8,
                                        title='NBA CHAMPIONS -- TS% - USG% - STOCK%',
                                        hover_name=champion_players['PLAYER'],
-                                       hover_data=champion_players[['CHAMP', 'SALARY', 'MP']],
+                                       hover_data=champion_players[['CHAMP', 'SALARY', 'MP', 'STL%', 'BLK%']],
+                                       labels=chart_labels,
+                                       height=800,
+                                       )
+
+scatter_ternary_ast_to_usg = px.scatter_ternary(data_frame=champion_players,
+                                       a=champion_players['AST%'],
+                                       b=champion_players['TO%'],
+                                       c=champion_players['USG%'],
+                                       color=champion_players['WTD POS'],
+                                                color_discrete_sequence=Dense,
+                                                color_continuous_scale=Dense,
+                                                color_continuous_midpoint=3,
+                                                symbol=champion_players['RD POS'],
+                                                size=champion_players['WS'],
+                                                size_max=20,
+                                       opacity=.8,
+                                       title='NBA CHAMPIONS -- TS% - USG% - STOCK%',
+                                       hover_name=champion_players['PLAYER'],
+                                       hover_data=champion_players[['CHAMP', 'SALARY', 'MP', 'STL%', 'BLK%']],
                                        labels=chart_labels,
                                        height=750,
                                        )
@@ -646,8 +665,8 @@ st.plotly_chart(bar_raptor_salary.add_layout_image(court_img_dict), use_containe
 st.plotly_chart(bar_lebron_salary.add_layout_image(court_img_dict), use_container_width=True, sharing="streamlit")
 
 ## SCATTER TERNARY ##
-# st.plotly_chart(bar_lebron_salary.update_xaxes(categoryorder='category ascending'), use_container_width=True, sharing="streamlit")
-st.plotly_chart(scatter_ternary_usg_eff_ast_tov, use_container_width=True, sharing="streamlit") #.add_layout_image(court_img_dict)
+st.plotly_chart(scatter_ternary_ast_to_usg, use_container_width=True, sharing="streamlit") #.add_layout_image(court_img_dict)
+# st.plotly_chart(scatter_ternary_usg_eff_ast_tov, use_container_width=True, sharing="streamlit") #.add_layout_image(court_img_dict)
 st.plotly_chart(scatter_ternary_usg_eff_stocks, use_container_width=True, sharing="streamlit") #.add_layout_image(court_img_dict)
 
 
