@@ -285,7 +285,7 @@ champion_players['LOGO'] = champion_players.TEAM.map(team_logos_dict)
 
 ## FILTER DATA ##
 champion_players = champion_players[viz_cols]
-champion_players = champion_players[champion_players['MP'] > 100]
+champion_players = champion_players[champion_players['MP'] > 300]
 lebron_val_players = champion_players[champion_players['YEAR'] >= 2010]
 
 
@@ -569,5 +569,223 @@ df_PCA.info()
 
 #%%
 print(df_PCA.describe())
+
+#%%
+
+
+
+#%%
+
+
+#%%
+
+
+
+#%%
+## ELO
+# import Elo_Rating as elo
+#
+# # %% ELO Rating System
+#
+# # instance of the Elo rating system. Uses a k-factor of 40 and 15 game for the provisional period
+# i = elo.Implementation(k=40, k_prov=40, prov_games=15)
+#
+#
+# def update_elo(game):
+#     '''
+#     For a given game, get the winning/losing jump ball player's id and name and update the Elo system
+#
+#     '''
+#     winner_id = game.WINNING_JUMP_ID
+#     loser_id = game.HOME_JUMPER_ID if game.HOME_JUMPER_ID != game.WINNING_JUMP_ID else game.AWAY_JUMPER_ID
+#
+#     winner_name = player_info[player_info.PLAYER_ID == winner_id].PLAYER_NAME.values[-1]
+#     loser_name = player_info[player_info.PLAYER_ID == loser_id].PLAYER_NAME.values[-1]
+#
+#     winner_info = [winner_id, winner_name]
+#     loser_info = [loser_id, loser_name]
+#
+#     if not i.getPlayer(winner_info):
+#         i.addPlayer(winner_info)
+#
+#     if not i.getPlayer(loser_info):
+#         i.addPlayer(loser_info)
+#
+#     i.recordMatch(winner_info, loser_info, winner=winner_info)
+#
+#
+# jumps.progress_apply(lambda x: update_elo(x), axis=1)
+#
+# # put the results of the Elo system into a data frame
+# player_df = pd.DataFrame()
+#
+# player_df['Player_ID'] = [player.name[0] for player in i.players]
+# player_df['Player_Name'] = [player.name[1] for player in i.players]
+# player_df['Rating'] = [player.rating for player in i.players]
+# player_df['Game_Count'] = [player.game_count for player in i.players]
+# player_df['Games_Won'] = player_df.Player_ID.progress_apply(lambda x: jumps[(jumps.WINNING_JUMP_ID == x)].shape[0])
+# player_df['Win%'] = player_df.Games_Won / player_df.Game_Count
+#
+# player_df.to_csv('jumpballs.csv')
+#
+# class Implementation:
+#     """
+#     A class that represents an implementation of the Elo Rating System
+#     """
+#
+#     def __init__(self, base_rating=1500, k=20, k_prov=40, prov_games=20):
+#         """
+#         Runs at initialization of class object.
+#         @param base_rating - The rating a new player would have
+#         """
+#         self.base_rating = base_rating
+#         self.k = k
+#         self.k_prov = k_prov
+#         self.prov_games = prov_games
+#         self.players = []
+#
+#     def __getPlayerList(self):
+#         """
+#         Returns this implementation's player list.
+#         @return - the list of all player objects in the implementation.
+#         """
+#         return self.players
+#
+#     def getPlayer(self, name):
+#         """
+#         Returns the player in the implementation with the given name.
+#         @param name - name of the player to return.
+#         @return - the player with the given name.
+#         """
+#         for player in self.players:
+#             if player.name == name:
+#                 return player
+#         return None
+#
+#     def contains(self, name):
+#         """
+#         Returns true if this object contains a player with the given name.
+#         Otherwise returns false.
+#         @param name - name to check for.
+#         """
+#         for player in self.players:
+#             if player.name == name:
+#                 return True
+#         return False
+#
+#     def addPlayer(self, name, rating=None):
+#         """
+#         Adds a new player to the implementation.
+#         @param name - The name to identify a specific player.
+#         @param rating - The player's rating.
+#         """
+#         if rating == None:
+#             rating = self.base_rating
+#
+#         self.players.append(_Player(name=name, rating=rating))
+#
+#     def removePlayer(self, name):
+#         """
+#         Adds a new player to the implementation.
+#         @param name - The name to identify a specific player.
+#         """
+#         self.__getPlayerList().remove(self.getPlayer(name))
+#
+#     def recordMatch(self, name1, name2, winner=None, draw=False):
+#         """
+#         Should be called after a game is played.
+#         @param name1 - name of the first player.
+#         @param name2 - name of the second player.
+#         """
+#         player1 = self.getPlayer(name1)
+#         player2 = self.getPlayer(name2)
+#
+#         expected1 = player1.compareRating(player2)
+#         expected2 = player2.compareRating(player1)
+#
+#         rating1 = player1.rating
+#         rating2 = player2.rating
+#
+#         if draw:
+#             score1 = 0.5
+#             score2 = 0.5
+#         elif winner == name1:
+#             score1 = 1.0
+#             score2 = 0.0
+#         elif winner == name2:
+#             score1 = 0.0
+#             score2 = 1.0
+#         else:
+#             raise InputError('One of the names must be the winner or draw must be True')
+#
+#         if player1.game_count <= self.prov_games:
+#             k_factor_1 = self.k_prov
+#         else:
+#             k_factor_1 = self.k
+#
+#         if player2.game_count <= self.prov_games:
+#             k_factor_2 = self.k_prov
+#         else:
+#             k_factor_2 = self.k
+#
+#         newRating1 = rating1 + k_factor_1 * (score1 - expected1)
+#         newRating2 = rating2 + k_factor_2 * (score2 - expected2)
+#
+#         if newRating1 < 0:
+#             newRating1 = 0
+#             newRating2 = rating2 - rating1
+#
+#         elif newRating2 < 0:
+#             newRating2 = 0
+#             newRating1 = rating1 - rating2
+#
+#         player1.rating = newRating1
+#         player2.rating = newRating2
+#
+#         player1.game_count += 1
+#         player2.game_count += 1
+#
+#     def getPlayerRating(self, name):
+#         """
+#         Returns the rating of the player with the given name.
+#         @param name - name of the player.
+#         @return - the rating of the player with the given name.
+#         """
+#         player = self.getPlayer(name)
+#         return player.rating
+#
+#     def getRatingList(self):
+#         """
+#         Returns a list of tuples in the form of ({name},{rating})
+#         @return - the list of tuples
+#         """
+#         lst = []
+#         for player in self.__getPlayerList():
+#             lst.append((player.name, player.rating))
+#         return lst
+#
+#
+# class _Player:
+#     """
+#     A class to represent a player in the Elo Rating System
+#     """
+#
+#     def __init__(self, name, rating):
+#         """
+#         Runs at initialization of class object.
+#         @param name - TODO
+#         @param rating - TODO
+#         """
+#         self.name = name
+#         self.rating = rating
+#         self.game_count = 0
+#
+#     def compareRating(self, opponent):
+#         """
+#         Compares the two ratings of the this player and the opponent.
+#         @param opponent - the player to compare against.
+#         @returns - The expected score between the two players.
+#         """
+#         return (1 + 10 ** ((opponent.rating - self.rating) / 400.0)) ** -1
 
 #%%
