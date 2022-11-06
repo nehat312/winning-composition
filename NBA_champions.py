@@ -121,7 +121,7 @@ Speed = px.colors.sequential.speed
 # pd.options.display.float_format = '${:,.2f}'.format
 # pd.set_option('display.max_colwidth', 200)
 
-## VISUALIATION LABELS ##
+## VISUALIZATION LABELS ##
 
 all_cols = ['YR_TM_PLR', 'YEARS', 'YEAR',
             'TEAM', 'CHAMP', 'PLAYER', 'NUMBER',
@@ -133,7 +133,7 @@ all_cols = ['YR_TM_PLR', 'YEARS', 'YEAR',
             'NATION', 'COUNTRY',
             'CONTINENT', 'GLOBAL REGION',
             'CONFERENCE', 'COLLEGE',
-            'SALARY', '% SALARY',
+            'SALARY', '% SALARY', 'TM TTL SAL', 'NBA SAL CAP', 'NBA TM AVG SAL',
             'MP', 'PER', 'WTD-PER', 'AGE',
             'TS%', 'AST%', 'STL%', 'BLK%', 'TO%',
             'AST%/TO%', 'STOCK%',
@@ -150,7 +150,7 @@ viz_cols = ['YEAR', 'TEAM', 'CHAMP', 'PLAYER', 'WTD POS', 'RD POS',
             'NATION', 'COUNTRY',
             'CONTINENT', 'GLOBAL REGION',
             'CONFERENCE', 'COLLEGE',
-            'SALARY', '% SALARY',
+            'SALARY', '% SALARY', 'TM TTL SAL', 'NBA SAL CAP', 'NBA TM AVG SAL',
             'MP', #'PER', 'WTD-PER',
             'USG%', 'TS%', 'AST%', 'STL%', 'BLK%', 'TO%',
             'AST%/TO%', 'STOCK%',
@@ -167,6 +167,7 @@ scale_cols = ['WTD POS',
               'AGE', #'EXPERIENCE',
               'USG%', 'TS%', 'AST%', 'STL%', 'BLK%', 'TO%',
               'AST%/TO%', 'STOCK%',
+              'SALARY', 'TM TTL SAL', 'NBA SAL CAP', 'NBA TM AVG SAL',
             ]
 
 chart_labels = {'W-SPAN (IN)':'WINGSPAN (IN)',
@@ -177,6 +178,9 @@ chart_labels = {'W-SPAN (IN)':'WINGSPAN (IN)',
                 'LEBRON_VAL':'LEBRON/$',
                 'RAPTOR_VAL':'RAPTOR/$',
                 'WS_VAL':'WS/$',
+                'TM TTL SAL':'TTL TEAM SALARY',
+                'NBA SAL CAP':'NBA SALARY CAP',
+                'NBA TM AVG SAL':'AVG NBA TEAM SALARY',
                 '1991':'1991-CHI', '1992':'1992-CHI', '1993':'1993-CHI',
                 '1994':'1994-HOU', '1995':'1995-HOU',
                 '1996':'1996-CHI', '1997':'1997-CHI', '1998':'1998-CHI',
@@ -190,22 +194,22 @@ chart_labels = {'W-SPAN (IN)':'WINGSPAN (IN)',
                 # '':'',
                 }
 
-team_logos_dict = {'ATL':ATL_logo,
-                   'BKN':BKN_logo,
-                   'BOS':BOS_logo,
-                   'CHI':CHI_logo,
-                   'CHA':CHA_logo,
-                   'CLE':CLE_logo,
-                   'DET':DET_logo,
-                   'IND':IND_logo,
-                   'MIL':MIL_logo,
-                   'MIA':MIA_logo,
-                   'NYK':NYK_logo,
-                   'ORL':ORL_logo,
-                   'PHI':PHI_logo,
-                   'TOR':TOR_logo,
-                   'WAS':WAS_logo,
+team_logos_dict = {'ATL':ATL_logo, 'BKN':BKN_logo, 'BOS':BOS_logo, 'CHI':CHI_logo, 'CHA':CHA_logo,
+                   'CLE':CLE_logo, 'DET':DET_logo, 'IND':IND_logo, 'MIL':MIL_logo, 'MIA':MIA_logo,
+                   'NYK':NYK_logo, 'ORL':ORL_logo, 'PHI':PHI_logo, 'TOR':TOR_logo, 'WAS':WAS_logo,
+                   'DAL':DAL_logo, 'DEN':DEN_logo, 'GSW':GSW_logo, 'HOU':HOU_logo, 'LAC':LAC_logo,
+                   'LAL':LAL_logo, 'MEM':MEM_logo, 'MIN':MIN_logo, 'NOP':NOP_logo, 'PHX':PHX_logo,
+                   'POR':POR_logo, 'SAC':SAC_logo, 'SAS':SAS_logo, 'OKC':OKC_logo, 'UTA':UTA_logo,
+                   }
 
+#https://nbacolors.com/team/washington-wizards-color
+#https://teamcolorcodes.com/nba-team-color-codes/
+team_colors_dict = {'ATL':['#E03A3E','#C1D32F','#26282A'], 'BKN':['#000000','#FFFFFF'], 'BOS':['#007A33','#007A33'],
+                    'CHI':[''], 'CHA':[], 'CLE':[], 'DET':[], 'IND':[], 'MIL':[], 'MIA':[],
+                   'NYK':[], 'ORL':[], 'PHI':[], 'TOR':[], 'WAS':[],
+                   'DAL':[], 'DEN':[], 'GSW':[], 'HOU':[], 'LAC':[],
+                   'LAL':[], 'MEM':[], 'MIN':[], 'NOP':[], 'PHX':[],
+                   'POR':[], 'SAC':[], 'SAS':[], 'OKC':[], 'UTA':[],
                    }
 
 ## COURT BACKGROUND ##
@@ -238,6 +242,7 @@ team_logos_list = [ATL_logo, BKN_logo, BOS_logo, CHI_logo, CHA_logo,
 eastconf_logos_list = [ATL_logo, BKN_logo, BOS_logo, CHI_logo, CHA_logo,
                        CLE_logo, DET_logo, IND_logo, MIA_logo, MIL_logo,
                        NYK_logo, ORL_logo, PHI_logo, TOR_logo, WAS_logo]
+
 westconf_logos_list = [DAL_logo, DEN_logo, HOU_logo, LAC_logo, LAL_logo,
                        GSW_logo, MEM_logo, MIN_logo, MEM_logo, PHX_logo,
                        SAS_logo, SAC_logo, OKC_logo, UTA_logo, POR_logo]
@@ -285,6 +290,8 @@ champion_players = champion_players[champion_players['MP'] > 350] #175
 lebron_val_players = champion_players[champion_players['YEAR'] >= 2010]
 
 
+#DK PTS/MIN
+
 # MinMaxScaler
 
 # ss = StandardScaler()
@@ -311,10 +318,18 @@ lebron_val_players = champion_players[champion_players['YEAR'] >= 2010]
 
 #%%
 
+## PAGES OR TABS FOR EACH ROSTER???
+
+## LOG TRANSFORM??
+## PCA From test code
+
+
+#%%
 ## VISUALIZATIONS ##
 
 ####################################################################################################################
 
+## BAR CHARTS ##
 bar_usg_salary = px.bar(data_frame=champion_players,
                               x=champion_players['CHAMP'],
                               y=champion_players['SALARY'],
@@ -326,13 +341,14 @@ bar_usg_salary = px.bar(data_frame=champion_players,
                               hover_name=champion_players['PLAYER'],
                               hover_data=champion_players[['CHAMP', 'SALARY', 'MP']], #'WS/$',
                               barmode='group',
-                              title='USG% RELATIVE TO CHAMPIONSHIP TEAM SALARY',
+                              title='USG% RELATIVE TO TEAM SALARY',
                               labels=chart_labels,
                               # template='simple_white+gridon',
                               # range_x=[1991,2023],
                               # range_y=[0,200000000],
                               height=750,
-                              # width=1000,
+                            # category_orders={"InternetService": ["DSL", "Fiber optic", "No"],
+#                               "gender": ["Female", "Male"]})
                               )
 
 bar_WS_salary = px.bar(data_frame=champion_players,
@@ -395,6 +411,44 @@ bar_lebron_salary = px.bar(data_frame=lebron_val_players,
                               # width=1000,
                               )
 
+
+####################################################################################################################
+
+## SCATTER MATRIX ##
+scatter_matrix_metrics = px.scatter_matrix(champion_players,
+                                         dimensions=['USG%', 'TS%', 'AST%/TO%', 'STOCK%', 'RAPTOR', 'LEBRON', 'WS', ],
+                                         color=champion_players['WTD POS'],
+                                         color_continuous_scale=Dense,
+                                         color_discrete_sequence=Dense,
+                                           symbol=team_logos_dict,
+                                           symbol_sequence=team_logos_dict,
+                                           symbol_map=team_logos_dict,
+                                         # color_discrete_map=team_logos_dict,
+                                         hover_name=champion_players['PLAYER'],
+                                         hover_data=champion_players[['MP', 'CHAMP']],
+                                         title='PLAYER PERFORMANCE BY CHAMPIONSHIP TEAM',
+                                         labels=chart_labels,
+                                         # custom_data= [league_logo_list],
+                                         height=800,
+                                         # width=800,
+                                         )
+
+scatter_matrix_measurables = px.scatter_matrix(champion_players,
+                                         dimensions=['BMI', 'APE', 'WS', 'RAPTOR', 'LEBRON'],
+                                         color=champion_players['WTD POS'],
+                                         color_continuous_scale=Dense,
+                                         color_discrete_sequence=Dense,
+                                         # color_discrete_map=team_logos_dict,
+                                         hover_name=champion_players['PLAYER'],
+                                         hover_data=champion_players[['MP', 'CHAMP']],
+                                         title='PLAYER PERFORMANCE BY CHAMPIONSHIP TEAM',
+                                         labels=chart_labels,
+                                         # custom_data= [league_logo_list],
+                                         height=800,
+                                         # width=800,
+                                         )
+
+
 ####################################################################################################################
 
 ## SCATTER TERNARY ##
@@ -407,11 +461,11 @@ scatter_ternary_stl_blk_ast_to = px.scatter_ternary(data_frame=champion_players,
                                         color_discrete_sequence=Dense,
                                        color_continuous_scale=Dense,
                                         color_continuous_midpoint=3,
-                                       symbol=champion_players['RD POS'],
+                                       symbol=champion_players['TEAM'], #'RD POS'
+                                                    symbol_map=team_logos_dict,
                                        size=champion_players['TS%'],
                                        size_max=20,
                                        opacity=.8,
-
                                        title='NBA CHAMPIONS -- STL% - BLK% - AST%/TO%',
                                        hover_name=champion_players['PLAYER'],
                                        hover_data=champion_players[['CHAMP', 'SALARY', 'MP',]],
@@ -437,39 +491,6 @@ scatter_ternary_ast_to_usg = px.scatter_ternary(data_frame=champion_players,
                                        labels=chart_labels,
                                        height=900,
                                        )
-
-####################################################################################################################
-
-## SCATTER MATRIX ##
-scatter_matrix_metrics = px.scatter_matrix(champion_players,
-                                         dimensions=['USG%', 'TS%', 'AST%/TO%', 'STOCK%', 'RAPTOR', 'LEBRON', 'WS', ],
-                                         color=champion_players['WTD POS'],
-                                         color_continuous_scale=Dense,
-                                         color_discrete_sequence=Dense,
-                                         # color_discrete_map=team_logos_dict,
-                                         hover_name=champion_players['PLAYER'],
-                                         hover_data=champion_players[['MP', 'CHAMP']],
-                                         title='PLAYER PERFORMANCE BY CHAMPIONSHIP TEAM',
-                                         labels=chart_labels,
-                                         # custom_data= [league_logo_list],
-                                         height=800,
-                                         # width=800,
-                                         )
-
-scatter_matrix_measurables = px.scatter_matrix(champion_players,
-                                         dimensions=['BMI', 'APE', 'WS', 'RAPTOR', 'LEBRON'],
-                                         color=champion_players['WTD POS'],
-                                         color_continuous_scale=Dense,
-                                         color_discrete_sequence=Dense,
-                                         # color_discrete_map=team_logos_dict,
-                                         hover_name=champion_players['PLAYER'],
-                                         hover_data=champion_players[['MP', 'CHAMP']],
-                                         title='PLAYER PERFORMANCE BY CHAMPIONSHIP TEAM',
-                                         labels=chart_labels,
-                                         # custom_data= [league_logo_list],
-                                         height=800,
-                                         # width=800,
-                                         )
 
 
 ####################################################################################################################
@@ -504,39 +525,38 @@ scatter_3D_to_ast_usg = px.scatter_3d(data_frame=champion_players,
 
 #%%
 
-scatter_3D_court_img = px.scatter_3d(#data_frame=champion_players,
-                                     # x=,
-                                     # y=,
-                                     z=court_img_dict,
-                                     # labels=chart_labels,
-                                     # height=1000,
-                                     )
+####################################################################################################################
+## TRACE LINES ##
 
-# print(scatter_3D_court_img)
-
-#%%
+line_NBA_salary = go.Scatter(x=champion_players['CHAMP'], y=champion_players['NBA TM AVG SAL'],
+                             line_color='#000000', mode='lines')
 
 ####################################################################################################################
 
-# bar_nations_regions =
-## LOG TRANSFORM??
-## PCA From test code
+## LOGO OVERLAY
+# for x,y, png in zip(fig.data[0].x, fig.data[0].y, Path.cwd().joinpath("nfl-logos").glob("*.png")):
+#     fig.add_layout_image(
+#         x=x,
+#         y=y,
+#         source=Image.open(png),
+#         xref="x",
+#         yref="y",
+#         sizex=2,
+#         sizey=2,
+#         xanchor="center",
+#         yanchor="middle",
+#     )
 
 ####################################################################################################################
 
-# disc_info_1 = px.histogram(disc_facility_filter,
-#                            y=disc_facility_filter['disc_facility'],
-#                            color=disc_facility_filter['disc_method'],
-#                            )
-#
 # density_map_1 = px.density_contour(exoplanets,
 #                                    x=exoplanets['ra'],
 #                                    y=exoplanets['dec'],
 #                                    z=exoplanets['sy_distance_pc'],
 #                                    )
 
-
 ####################################################################################################################
+#%%
 
 #####################
 ### STREAMLIT APP ###
@@ -651,7 +671,9 @@ WS_col_4.image(SAS_logo, caption='SAS', width=35)
 WS_col_5.image(MEM_logo, caption='MEM', width=35)
 
 ## BAR - USG% SALARY ##
-st.plotly_chart(bar_usg_salary.add_layout_image(court_img_dict), use_container_width=True, sharing="streamlit")
+# st.plotly_chart(bar_usg_salary.add_layout_image(court_img_dict), use_container_width=True, sharing="streamlit")
+st.plotly_chart(bar_usg_salary.add_traces(line_NBA_salary).add_layout_image(court_img_dict),
+                use_container_width=True, sharing="streamlit")
     # st.plotly_chart(bar_champions_salary.update_yaxes(categoryorder='category ascending'), use_container_width=True, sharing="streamlit")
 
 ## BAR - WS SALARY ##
@@ -670,11 +692,11 @@ st.plotly_chart(bar_lebron_salary.add_layout_image(court_img_dict), use_containe
 
 ## SCATTER TERNARY ##
 
-left, right = st.columns(2)
-with left:
-    st.plotly_chart(scatter_ternary_ast_to_usg, use_container_width=True, sharing="streamlit") #.add_layout_image(court_img_dict)
-with right:
-    st.plotly_chart(scatter_ternary_stl_blk_ast_to, use_container_width=True, sharing="streamlit") #.add_layout_image(court_img_dict)
+# left, right = st.columns(2)
+# with left:
+#     st.plotly_chart(scatter_ternary_ast_to_usg, use_container_width=True, sharing="streamlit") #.add_layout_image(court_img_dict)
+# with right:
+#     st.plotly_chart(scatter_ternary_stl_blk_ast_to, use_container_width=True, sharing="streamlit") #.add_layout_image(court_img_dict)
 
 
 
@@ -684,12 +706,8 @@ st.plotly_chart(scatter_matrix_metrics, use_container_width=True, sharing="strea
 st.plotly_chart(scatter_matrix_measurables, use_container_width=True, sharing="streamlit")
 
 
-
 ## 3D SCATTER ##
-st.plotly_chart(scatter_3D_to_ast_usg.add_layout_image(court_img_dict_3D), use_container_width=True, sharing="streamlit")
-
-
-
+# st.plotly_chart(scatter_3D_to_ast_usg.add_layout_image(court_img_dict_3D), use_container_width=True, sharing="streamlit")
 
 
 ## LEAGUE LOGOS ##
