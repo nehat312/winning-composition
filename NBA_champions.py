@@ -177,6 +177,7 @@ chart_labels = {'W-SPAN (IN)':'WINGSPAN (IN)',
                 'CHAMP':'YR-TM',
                 'LEBRON_VAL':'LEBRON/$',
                 'RAPTOR_VAL':'RAPTOR/$',
+                'SALARY':'SALARY ($)',
                 'WS_VAL':'WS/$',
                 'TM TTL SAL':'TTL TEAM SALARY',
                 'NBA SAL CAP':'NBA SALARY CAP',
@@ -248,6 +249,9 @@ westconf_logos_list = [DAL_logo, DEN_logo, HOU_logo, LAC_logo, LAL_logo,
                        SAS_logo, SAC_logo, OKC_logo, UTA_logo, POR_logo]
 
 
+
+#%%
+
 # print(team_list)
 # print(college_list)
 # print(conference_list)
@@ -317,6 +321,9 @@ lebron_val_players = champion_players[champion_players['YEAR'] >= 2010]
 # print(champion_players[['RAPTOR', 'LEBRON', 'WS']].describe())
 
 #%%
+
+## TABLEAU ##
+## NEO4J / MONGO ?? ##
 
 ## PAGES OR TABS FOR EACH ROSTER???
 
@@ -670,75 +677,86 @@ WS_col_3.image(HOU_logo, caption='HOU', width=35)
 WS_col_4.image(SAS_logo, caption='SAS', width=35)
 WS_col_5.image(MEM_logo, caption='MEM', width=35)
 
-## BAR - USG% SALARY ##
-# st.plotly_chart(bar_usg_salary.add_layout_image(court_img_dict), use_container_width=True, sharing="streamlit")
-st.plotly_chart(bar_usg_salary.add_traces(line_NBA_salary).add_layout_image(court_img_dict),
-                use_container_width=True, sharing="streamlit")
-    # st.plotly_chart(bar_champions_salary.update_yaxes(categoryorder='category ascending'), use_container_width=True, sharing="streamlit")
+tab_0, tab_1, tab_2, tab_3, tab_4, tab_5, tab_6, tab_7, tab_8, tab_9, tab_10, \
+tab_11, tab_12, tab_13, tab_14, tab_15, tab_16, tab_17, tab_18, tab_19, tab_20, \
+tab_21, tab_22, tab_23, tab_24, tab_25, tab_26, tab_27, tab_28, tab_29, tab_30, \
+    = st.tabs(['BKN', 'BOS', 'NYK', 'PHI', 'TOR',
+               'CHI', 'CLE', 'DET', 'IND', 'MIL',
+               'ATL', 'MIA', 'ORL', 'WAS', 'CHA',
+               'DEN', 'MIN', 'POR', 'OKC', 'UTA',
+               'GSW', 'LAC', 'LAL', 'PHX', 'SAC',
+               'NOP', 'DAL', 'HOU', 'SAS', 'MEM'
+               ])
 
-## BAR - WS SALARY ##
-st.plotly_chart(bar_WS_salary.add_layout_image(court_img_dict), use_container_width=True, sharing="streamlit")
-    # st.plotly_chart(bar_champions_salary.update_yaxes(categoryorder='category ascending'), use_container_width=True, sharing="streamlit")
+with tab_0:
+    # st.subheader('ALL SECTORS')
 
+    ## BAR - USG% SALARY ##
+    # st.plotly_chart(bar_usg_salary.add_layout_image(court_img_dict), use_container_width=True, sharing="streamlit")
+    st.plotly_chart(bar_usg_salary.add_traces(line_NBA_salary).add_layout_image(court_img_dict),
+                    use_container_width=True, sharing="streamlit")
+        # st.plotly_chart(bar_champions_salary.update_yaxes(categoryorder='category ascending'), use_container_width=True, sharing="streamlit")
 
-## BAR - RAPTOR SALARY ##
-st.plotly_chart(bar_raptor_salary.add_layout_image(court_img_dict), use_container_width=True, sharing="streamlit")
-    # st.plotly_chart(bar_raptor_salary.update_xaxes(categoryorder='category ascending'), use_container_width=True, sharing="streamlit")
-
-
-## BAR - LEBRON SALARY ##
-st.plotly_chart(bar_lebron_salary.add_layout_image(court_img_dict), use_container_width=True, sharing="streamlit")
-    # st.plotly_chart(bar_lebron_salary.update_xaxes(categoryorder='category ascending'), use_container_width=True, sharing="streamlit")
-
-## SCATTER TERNARY ##
-
-# left, right = st.columns(2)
-# with left:
-#     st.plotly_chart(scatter_ternary_ast_to_usg, use_container_width=True, sharing="streamlit") #.add_layout_image(court_img_dict)
-# with right:
-#     st.plotly_chart(scatter_ternary_stl_blk_ast_to, use_container_width=True, sharing="streamlit") #.add_layout_image(court_img_dict)
+    ## BAR - WS SALARY ##
+    st.plotly_chart(bar_WS_salary.add_layout_image(court_img_dict), use_container_width=True, sharing="streamlit")
+        # st.plotly_chart(bar_champions_salary.update_yaxes(categoryorder='category ascending'), use_container_width=True, sharing="streamlit")
 
 
-
-## SCATTER MATRIX ##
-# st.plotly_chart(scatter_matrix_teams, use_container_width=True, sharing="streamlit")
-st.plotly_chart(scatter_matrix_metrics, use_container_width=True, sharing="streamlit")
-st.plotly_chart(scatter_matrix_measurables, use_container_width=True, sharing="streamlit")
+    ## BAR - RAPTOR SALARY ##
+    st.plotly_chart(bar_raptor_salary.add_layout_image(court_img_dict), use_container_width=True, sharing="streamlit")
+        # st.plotly_chart(bar_raptor_salary.update_xaxes(categoryorder='category ascending'), use_container_width=True, sharing="streamlit")
 
 
-## 3D SCATTER ##
-# st.plotly_chart(scatter_3D_to_ast_usg.add_layout_image(court_img_dict_3D), use_container_width=True, sharing="streamlit")
+    ## BAR - LEBRON SALARY ##
+    st.plotly_chart(bar_lebron_salary.add_layout_image(court_img_dict), use_container_width=True, sharing="streamlit")
+        # st.plotly_chart(bar_lebron_salary.update_xaxes(categoryorder='category ascending'), use_container_width=True, sharing="streamlit")
+
+    ## SCATTER TERNARY ##
+
+    # left, right = st.columns(2)
+    # with left:
+    #     st.plotly_chart(scatter_ternary_ast_to_usg, use_container_width=True, sharing="streamlit") #.add_layout_image(court_img_dict)
+    # with right:
+    #     st.plotly_chart(scatter_ternary_stl_blk_ast_to, use_container_width=True, sharing="streamlit") #.add_layout_image(court_img_dict)
 
 
-## LEAGUE LOGOS ##
-east_col_1, nba_col_2, west_col_3 = st.columns(3)
-east_col_1.image(East_logo, width=250) # caption='WESTERN CONFERENCE'
-nba_col_2.image(nba_logo_1, width=300) # caption='NATIONAL BASKETBALL ASSOCIATION'
-west_col_3.image(West_logo, width=250) # caption='EASTERN CONFERENCE'
+
+    ## SCATTER MATRIX ##
+    # st.plotly_chart(scatter_matrix_teams, use_container_width=True, sharing="streamlit")
+    st.plotly_chart(scatter_matrix_metrics, use_container_width=True, sharing="streamlit")
+    st.plotly_chart(scatter_matrix_measurables, use_container_width=True, sharing="streamlit")
 
 
-## TABLEAU ##
-## NEO4J / MONGO ?? ##
+    ## 3D SCATTER ##
+    # st.plotly_chart(scatter_3D_to_ast_usg.add_layout_image(court_img_dict_3D), use_container_width=True, sharing="streamlit")
 
 
-## FORM FUNCTIONS ##
-# @st.cache(persist=True, allow_output_mutation=True, suppress_st_warning=True)
+    ## LEAGUE LOGOS ##
+    east_col_1, nba_col_2, west_col_3 = st.columns(3)
+    east_col_1.image(East_logo, width=250) # caption='WESTERN CONFERENCE'
+    nba_col_2.image(nba_logo_1, width=300) # caption='NATIONAL BASKETBALL ASSOCIATION'
+    west_col_3.image(West_logo, width=250) # caption='EASTERN CONFERENCE'
 
 
-## DISCOVERY INFORMATION ##
-# st.plotly_chart(disc_info_1.update_yaxes(categoryorder='total ascending'), use_container_width=True, sharing="streamlit")
+
+    ## FORM FUNCTIONS ##
+    # @st.cache(persist=True, allow_output_mutation=True, suppress_st_warning=True)
 
 
-## EXTERNAL LINKS ##
+    ## DISCOVERY INFORMATION ##
+    # st.plotly_chart(disc_info_1.update_yaxes(categoryorder='total ascending'), use_container_width=True, sharing="streamlit")
 
-github_link = '[GITHUB REPOSITORY](https://github.com/nehat312/NBA-championship-caliber/)'
-nba_site_link = '[NBA.com](https://www.nba.com/)'
-bbref_site_link = '[BASKETBALL REFERENCE](https://www.basketball-reference.com/)'
 
-link_col_1, link_col_2, link_col_3 = st.columns(3)
-ext_link_1 = link_col_1.markdown(github_link, unsafe_allow_html=True)
-ext_link_2 = link_col_2.markdown(nba_site_link, unsafe_allow_html=True)
-ext_link_3 = link_col_3.markdown(bbref_site_link, unsafe_allow_html=True)
+    ## EXTERNAL LINKS ##
+
+    github_link = '[GITHUB REPOSITORY](https://github.com/nehat312/NBA-championship-caliber/)'
+    nba_site_link = '[NBA.com](https://www.nba.com/)'
+    bbref_site_link = '[BASKETBALL REFERENCE](https://www.basketball-reference.com/)'
+
+    link_col_1, link_col_2, link_col_3 = st.columns(3)
+    ext_link_1 = link_col_1.markdown(github_link, unsafe_allow_html=True)
+    ext_link_2 = link_col_2.markdown(nba_site_link, unsafe_allow_html=True)
+    ext_link_3 = link_col_3.markdown(bbref_site_link, unsafe_allow_html=True)
 
 
 ## SCRIPT TERMINATION ##
@@ -754,6 +772,19 @@ st.stop()
 
 
 ### SCRATCH NOTES ###
+
+
+# top-level filters
+# job_filter = st.selectbox (“Select the status”, pd.unique (df(“job”)))
+# df = df [df [“status”] == status_filter]
+
+## METRICS - TOP of each team?
+# kpix.metric
+# {
+# label = “Fitness”,
+# value = f”$ { round ( balance, 4) }”,
+# delta = - round (balance / count_fitness) * 100,
+# }
 
 
 ## PAGE BACKGROUND ##
