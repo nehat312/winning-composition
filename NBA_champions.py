@@ -680,12 +680,8 @@ WS_col_5.image(MEM_logo, caption='MEM', width=35)
 tab_0, tab_1, tab_2, tab_3, tab_4, tab_5, tab_6, tab_7, tab_8, tab_9, tab_10, \
 tab_11, tab_12, tab_13, tab_14, tab_15, tab_16, tab_17, tab_18, tab_19, tab_20, \
 tab_21, tab_22, tab_23, tab_24, tab_25, tab_26, tab_27, tab_28, tab_29, tab_30, \
-    = st.tabs(['BKN', 'BOS', 'NYK', 'PHI', 'TOR',
-               'CHI', 'CLE', 'DET', 'IND', 'MIL',
-               'ATL', 'MIA', 'ORL', 'WAS', 'CHA',
-               'DEN', 'MIN', 'POR', 'OKC', 'UTA',
-               'GSW', 'LAC', 'LAL', 'PHX', 'SAC',
-               'NOP', 'DAL', 'HOU', 'SAS', 'MEM'
+    = st.tabs(['NBA', 'ATL', 'BKN', 'BOS', 'CHA', 'CHI', 'CLE', 'DET', 'IND', 'MIA', 'MIL', 'NYK', 'ORL', 'PHI', 'TOR', 'WAS',
+               'DAL', 'DEN', 'HOU', 'GSW', 'LAC', 'LAL', 'MEM', 'MIN', 'NOP', 'OKC', 'PHX', 'POR', 'SAC', 'SAS', 'UTA',
                ])
 
 with tab_0:
