@@ -612,7 +612,7 @@ box_eWINS_WS = px.bar(data_frame=champion_players,
                               y=champion_players['$MM/eWIN'], #, '$MM/TmWIN']
                               color=champion_players['WTD POS'],     # EXPERIENCE AGE MP APE
                               color_discrete_sequence=Tropic,
-                      color_continuos_sequence=Dense,
+                      color_continuous_scale=Dense,
                               # color_continuous_midpoint=10,
                               # color_discrete_map=team_logos_dict,
                               hover_name=champion_players['PLAYER'],
