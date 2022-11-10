@@ -609,7 +609,7 @@ scatter_3D_to_ast_usg = px.scatter_3d(data_frame=champion_players,
 ## HISTORICAL LINE CHARTS
 line_eWINS_WS = px.line(data_frame=champion_players,
                               x=champion_players['CHAMP'],
-                              y=champion_players[['$MM/eWIN', '$MM/TmWIN']],
+                              y=champion_players['$MM/eWIN'], #, '$MM/TmWIN']
                               color=champion_players['$MM/PlrWS'],     # EXPERIENCE AGE MP APE
 
                               color_discrete_sequence=Tropic,
@@ -840,7 +840,7 @@ with tab_0:
     # st.plotly_chart(scatter_matrix_measurables, use_container_width=True, sharing="streamlit")
 
 
-    st.plotly_chart(line_eWINS_WS, use_container_width=True, sharing="streamlit")
+    # st.plotly_chart(line_eWINS_WS, use_container_width=True, sharing="streamlit")
 
     ## 3D SCATTER ##
     # st.plotly_chart(scatter_3D_to_ast_usg.add_layout_image(court_img_dict_3D), use_container_width=True, sharing="streamlit")
