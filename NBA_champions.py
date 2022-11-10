@@ -182,17 +182,16 @@ scale_cols = ['PLAYER', 'NUMBER',
             '$MM/eWIN', '$MM/TmWIN', '$MM/PlrWS',
             ]
 
-team_df_cols = ['CHAMP', 'PLAYER', 'AGE', 'COUNTRY', 'COLLEGE',
+team_df_cols = ['CHAMP', 'PLAYER', 'AGE', 'EXPERIENCE',
+                'COUNTRY', 'COLLEGE', #'CONFERENCE',
                 'WTD POS', 'BMI', 'W-SPAN (IN)', 'APE',
-                'AGE',  # 'EXPERIENCE',
                 'USG%', 'TS%',
                 # 'AST%', 'STL%', 'BLK%', 'TO%',
-                'AST%/TO%', 'STOCK%',
+                'AST%/TO%', 'STOCK%', 'WS',
                 'SALARY', 'TM TTL SAL',
                 'NBA SAL CAP', 'NBA TM AVG SAL',
-                'WS',  # 'RAPTOR', #'LEBRON',
+                  # 'RAPTOR', #'LEBRON',
                 '$MM/eWIN', '$MM/TmWIN', '$MM/PlrWS',
-
                 ]
 
 chart_labels = {'W-SPAN (IN)':'WINGSPAN (IN)',
@@ -316,7 +315,7 @@ lebron_val_players = champion_players[champion_players['YEAR'] >= 2010]
 ## GROUP BY CHAMPIONSHIP TEAM
 
 champion_teams = champion_players[team_df_cols]
-# champion_teams = champion_teams.astype(str)
+champion_teams = champion_teams.astype(str)
 
 chi_bulls_1991 = champion_teams[champion_teams['CHAMP'] == '1991-CHI']
 chi_bulls_1992 = champion_teams[champion_teams['CHAMP'] == '1992-CHI']
