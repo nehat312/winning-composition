@@ -316,6 +316,7 @@ lebron_val_players = champion_players[champion_players['YEAR'] >= 2010]
 ## GROUP BY CHAMPIONSHIP TEAM
 
 champion_teams = champion_players[team_df_cols]
+champion_teams = champion_teams.astype(str)
 
 chi_bulls_1991 = champion_teams[champion_teams['CHAMP'] == '1991-CHI']
 chi_bulls_1992 = champion_teams[champion_teams['CHAMP'] == '1992-CHI']
@@ -675,17 +676,18 @@ df_styles = [dict(selector="th", props=th_props),
              dict(selector="td", props=td_props)]
 
 
-col_format_dict = {'WTD POS': "{:.2}",
-                   'BMI': "{:.1}",
-                   'W-SPAN (IN)': "{:.1}",
-                   'APE': "{:.1}",
-                   'USG%': "{:.1}",
-                   'TS%': "{:.1}",
-                   'AST%/TO%': "{:.1}",
-                   'STOCK%': "{:.1}",
-                   # 'USG%': "{:.1}",
-
-                   'WS': "{:,}",
+col_format_dict = {
+    # 'WTD POS': "{:.2}",
+    #                'BMI': "{:.1}",
+    #                'W-SPAN (IN)': "{:.1}",
+    #                'APE': "{:.1}",
+    #                'USG%': "{:.1}",
+    #                'TS%': "{:.1}",
+    #                'AST%/TO%': "{:.1}",
+    #                'STOCK%': "{:.1}",
+    #                # 'USG%': "{:.1}",
+    #
+    #                'WS': "{:,}",
 
 #                    'O-WS': "{:,}",
 #                    'D-WS': "{:,}",
