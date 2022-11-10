@@ -134,6 +134,7 @@ all_cols = ['YR_TM_PLR', 'YEARS', 'YEAR',
             'CONTINENT', 'GLOBAL REGION',
             'CONFERENCE', 'COLLEGE',
             'SALARY', '% SALARY', 'TM TTL SAL', 'NBA SAL CAP', 'NBA TM AVG SAL',
+            '$MM/eWIN', '$MM/TmWIN', '$MM/PlrWS',
             'MP', 'PER', 'WTD-PER', 'AGE',
             'TS%', 'AST%', 'STL%', 'BLK%', 'TO%',
             'AST%/TO%', 'STOCK%',
@@ -151,24 +152,48 @@ viz_cols = ['YEAR', 'TEAM', 'CHAMP', 'PLAYER', 'WTD POS', 'RD POS',
             'CONTINENT', 'GLOBAL REGION',
             'CONFERENCE', 'COLLEGE',
             'SALARY', '% SALARY', 'TM TTL SAL', 'NBA SAL CAP', 'NBA TM AVG SAL',
+            '$MM/eWIN', '$MM/TmWIN', '$MM/PlrWS',
             'MP', #'PER', 'WTD-PER',
             'USG%', 'TS%', 'AST%', 'STL%', 'BLK%', 'TO%',
             'AST%/TO%', 'STOCK%',
-            'D-WS', 'O-WS', 'WS',  # 'TM-WS', 'TM-RAPTOR',
+            'D-WS', 'O-WS', 'WS',  'TM-WS', 'TM-RAPTOR', 'TM-LEBRON',
             'RAPTOR', 'LEBRON',
+
             'RAPTOR_VAL', 'LEBRON_VAL', 'WS_VAL',
-
             ]
 
 
-scale_cols = ['WTD POS',
-              'RAPTOR', 'WS', #'LEBRON',
-              'BMI', 'W-SPAN (IN)', 'APE',
-              'AGE', #'EXPERIENCE',
-              'USG%', 'TS%', 'AST%', 'STL%', 'BLK%', 'TO%',
-              'AST%/TO%', 'STOCK%',
-              'SALARY', 'TM TTL SAL', 'NBA SAL CAP', 'NBA TM AVG SAL',
+scale_cols = ['PLAYER', 'NUMBER',
+            'POS', 'WTD POS', 'RD POS',
+            'HEIGHT (IN)',
+            'WEIGHT (LBS)',
+            'BMI', 'W-SPAN (IN)', 'APE',
+            'AGE',  'EXPERIENCE',
+            'NATION', 'COUNTRY',
+            'CONTINENT', 'GLOBAL REGION',
+            'CONFERENCE', 'COLLEGE',
+            'RAPTOR', 'WS', #'LEBRON',
+            'BMI', 'W-SPAN (IN)', 'APE',
+            'AGE', #'EXPERIENCE',
+            'USG%', 'TS%', 'AST%', 'STL%', 'BLK%', 'TO%',
+            'AST%/TO%', 'STOCK%',
+            'SALARY', 'TM TTL SAL',
+            'NBA SAL CAP', 'NBA TM AVG SAL',
+            '$MM/eWIN', '$MM/TmWIN', '$MM/PlrWS',
             ]
+
+team_df_cols = ['CHAMP', 'PLAYER', 'WTD POS',
+                'BMI', 'W-SPAN (IN)', 'APE',
+                'AGE',  # 'EXPERIENCE',
+                'USG%', 'TS%',
+                # 'AST%', 'STL%', 'BLK%', 'TO%',
+                'AST%/TO%', 'STOCK%',
+                'SALARY', 'TM TTL SAL',
+                'NBA SAL CAP', 'NBA TM AVG SAL',
+                'WS',  # 'RAPTOR', #'LEBRON',
+                '$MM/eWIN', '$MM/TmWIN', '$MM/PlrWS',
+
+                ]
 
 chart_labels = {'W-SPAN (IN)':'WINGSPAN (IN)',
                 'APE':'APE INDEX',
@@ -249,43 +274,14 @@ westconf_logos_list = [DAL_logo, DEN_logo, HOU_logo, LAC_logo, LAL_logo,
                        SAS_logo, SAC_logo, OKC_logo, UTA_logo, POR_logo]
 
 
+# champion_players['LOGO'] = champion_players.TEAM.map(team_logos_dict)
+
 
 #%%
-
-# print(team_list)
-# print(college_list)
-# print(conference_list)
-# print(country_list)
-# print(region_list)
-
-
-# #%%
 # # group_cols = ['']
 # college_raptor = champion_players.groupby(['TEAM', 'COLLEGE']).mean()
 # print(college_raptor)
 
-
-champion_players['LOGO'] = champion_players.TEAM.map(team_logos_dict)
-
-#**#value per dollar is the key AKA secret sauce *** #
-
-
-
-# from IPython.display import HTML
-# import base64
-#
-# # convert your links to html tags
-# def path_to_image_html(path):
-#     return '<img src="'+ path + '" width="60" >'
-#
-# HTML(champion_players[['LOGO']].to_html(escape=False, formatters=dict(image=path_to_image_html)))
-
-# print(champion_players.info())
-
-
-## PRE-PROCESSING ##
-# exo_drop_na = champion_players.dropna()
-# exo_with_temp = champion_players[['st_temp_eff_k']].dropna()
 
 
 ## FILTER DATA ##
@@ -294,7 +290,17 @@ champion_players = champion_players[champion_players['MP'] > 350] #175
 lebron_val_players = champion_players[champion_players['YEAR'] >= 2010]
 
 
+## TO DO / NOTES
+
+#**#value per dollar is the key AKA secret sauce *** #
 #DK PTS/MIN
+## TABLEAU ##
+## NEO4J / MONGO ?? ##
+## PAGES OR TABS FOR EACH ROSTER???
+## LOG TRANSFORM??
+## PCA From test code
+
+
 
 # MinMaxScaler
 
@@ -306,33 +312,78 @@ lebron_val_players = champion_players[champion_players['YEAR'] >= 2010]
 # champion_players['ss_MP'] = scaled_MP
 # print(champion_players['ss_MP'])
 
+
+## GROUP BY CHAMPIONSHIP TEAM
+
+champion_teams = champion_players[team_df_cols]
+
+chi_bulls_1991 = champion_teams[champion_teams['CHAMP'] == '1991-CHI']
+chi_bulls_1992 = champion_teams[champion_teams['CHAMP'] == '1992-CHI']
+chi_bulls_1993 = champion_teams[champion_teams['CHAMP'] == '1993-CHI']
+hou_rockets_1994 = champion_teams[champion_teams['CHAMP'] == '1994-HOU']
+hou_rockets_1995 = champion_teams[champion_teams['CHAMP'] == '1995-HOU']
+chi_bulls_1996 = champion_teams[champion_teams['CHAMP'] == '1996-CHI']
+chi_bulls_1997 = champion_teams[champion_teams['CHAMP'] == '1997-CHI']
+chi_bulls_1998 = champion_teams[champion_teams['CHAMP'] == '1998-CHI']
+sas_spurs_1999 = champion_teams[champion_teams['CHAMP'] == '1999-SAS']
+lal_lakers_2000 = champion_teams[champion_teams['CHAMP'] == '2000-LAL']
+lal_lakers_2001 = champion_teams[champion_teams['CHAMP'] == '2001-LAL']
+lal_lakers_2002 = champion_teams[champion_teams['CHAMP'] == '2002-LAL']
+sas_spurs_2003 = champion_teams[champion_teams['CHAMP'] == '2003-SAS']
+det_pistons_2004 = champion_teams[champion_teams['CHAMP'] == '2004-DET']
+sas_spurs_2005 = champion_teams[champion_teams['CHAMP'] == '2005-SAS']
+mia_heat_2006 = champion_teams[champion_teams['CHAMP'] == '2006-MIA']
+sas_spurs_2007 = champion_teams[champion_teams['CHAMP'] == '2007-SAS']
+bos_celtics_2008 = champion_teams[champion_teams['CHAMP'] == '2008-BOS']
+lal_lakers_2009 = champion_teams[champion_teams['CHAMP'] == '2009-LAL']
+lal_lakers_2010 = champion_teams[champion_teams['CHAMP'] == '2010-LAL']
+dal_mavs_2011 = champion_teams[champion_teams['CHAMP'] == '2011-DAL']
+mia_heat_2012 = champion_teams[champion_teams['CHAMP'] == '2012-MIA']
+mia_heat_2013 = champion_teams[champion_teams['CHAMP'] == '2013-MIA']
+sas_spurs_2014 = champion_teams[champion_teams['CHAMP'] == '2014-SAS']
+gsw_warriors_2015 = champion_teams[champion_teams['CHAMP'] == '2015-GSW']
+cle_cavs_2016 = champion_teams[champion_teams['CHAMP'] == '2016-CLE']
+gsw_warriors_2017 = champion_teams[champion_teams['CHAMP'] == '2017-GSW']
+gsw_warriors_2018 = champion_teams[champion_teams['CHAMP'] == '2018-GSW']
+tor_raptors_2019 = champion_teams[champion_teams['CHAMP'] == '2019-TOR']
+lal_lakers_2020 = champion_teams[champion_teams['CHAMP'] == '2020-LAL']
+mil_bucks_2021 = champion_teams[champion_teams['CHAMP'] == '2021-MIL']
+gsw_warriors_2022 = champion_teams[champion_teams['CHAMP'] == '2022-GSW']
+
+champ_df_list = [chi_bulls_1991, chi_bulls_1992, chi_bulls_1993,
+                 hou_rockets_1994, hou_rockets_1995,
+                 chi_bulls_1996, chi_bulls_1997, chi_bulls_1998,
+                 sas_spurs_1999, lal_lakers_2000, lal_lakers_2001, lal_lakers_2002,
+                 sas_spurs_2003, det_pistons_2004, sas_spurs_2005,
+                 mia_heat_2006, sas_spurs_2007, bos_celtics_2008, lal_lakers_2009, lal_lakers_2010,
+                 dal_mavs_2011, mia_heat_2012, mia_heat_2013, sas_spurs_2014, gsw_warriors_2015,
+                 cle_cavs_2016, gsw_warriors_2017, gsw_warriors_2018,
+                 tor_raptors_2019, lal_lakers_2020, mil_bucks_2021, gsw_warriors_2022,
+                 ]
+
+for df in champ_df_list:
+  df = df.drop(columns=['CHAMP', 'PLAYER'], inplace=True)
+
 #%%
 
 # Normalize / standardize data
 
 # champion_players_ss = ss.fit_transform(champion_players)
 # champion_players_mms = mms.fit_transform(champion_players)
-#
-# #%%
-#
+
 # print(champion_players_ss)
-
-
 # print(champion_players[['RAPTOR', 'LEBRON', 'WS']].describe())
-
-#%%
-
-## TABLEAU ##
-## NEO4J / MONGO ?? ##
-
-## PAGES OR TABS FOR EACH ROSTER???
-
-## LOG TRANSFORM??
-## PCA From test code
 
 
 #%%
 ## VISUALIZATIONS ##
+
+####################################################################################################################
+
+## BOX PLOTS ##
+
+
+
 
 ####################################################################################################################
 
@@ -417,6 +468,28 @@ bar_lebron_salary = px.bar(data_frame=lebron_val_players,
                               height=750,
                               # width=1000,
                               )
+
+bar_eWINS_WS = px.bar(data_frame=champion_players,
+                              x=champion_players['CHAMP'],
+                              y=champion_players['SALARY'],
+                              color=champion_players['$MM/PlrWS'],     # EXPERIENCE AGE MP APE
+                              color_continuous_scale=Tropic,
+                              color_discrete_sequence=Tropic,
+                              # color_continuous_midpoint=10,
+                              # color_discrete_map=team_logos_dict,
+                              hover_name=champion_players['PLAYER'],
+                              hover_data=champion_players[['CHAMP', 'SALARY', 'MP']], #'WS/$',
+                              barmode='group',
+                              title='$MM / PLAYER WS RELATIVE TO TEAM SALARY',
+                              labels=chart_labels,
+                              # template='simple_white+gridon',
+                              # range_x=[1991,2023],
+                              # range_y=[0,200000000],
+                              height=750,
+                            # category_orders={"InternetService": ["DSL", "Fiber optic", "No"],
+#                               "gender": ["Female", "Male"]})
+                              )
+
 
 
 ####################################################################################################################
@@ -590,6 +663,7 @@ th_props = [('font-size', '12px'),
             ('background-color', '#29609C') #f7f7f9
             ]
 
+
 td_props = [('font-size', '12px'),
             # ('text-align', 'center'),
             # ('font-weight', 'bold'),
@@ -601,11 +675,8 @@ df_styles = [dict(selector="th", props=th_props),
              dict(selector="td", props=td_props)]
 
 
-# col_format_dict = {'BYE': "{:,}",
-#                    '': "{:,}",
-#                    '': "{:,}",
-#                    '': "{:,}",
-#                    '': "{:,}",
+col_format_dict = {
+#                      'BYE': "{:,}",
 #                    '': "{:,}",
 #                    '': "{:,}",
 #                    'O-WS': "{:,}",
@@ -613,7 +684,7 @@ df_styles = [dict(selector="th", props=th_props),
 #                    'WS': "{:,}",
 #                    'TM_WS': "{:,}",
                    # #: "{:.1%}", #:"{:.1}x", "${:.2}", #"${:,}"
-#                   }
+                   }
 
 
 ## SIDEBAR ##
@@ -679,10 +750,20 @@ WS_col_5.image(MEM_logo, caption='MEM', width=35)
 
 tab_0, tab_1, tab_2, tab_3, tab_4, tab_5, tab_6, tab_7, tab_8, tab_9, tab_10, \
 tab_11, tab_12, tab_13, tab_14, tab_15, tab_16, tab_17, tab_18, tab_19, tab_20, \
-tab_21, tab_22, tab_23, tab_24, tab_25, tab_26, tab_27, tab_28, tab_29, tab_30, \
-    = st.tabs(['NBA', 'ATL', 'BKN', 'BOS', 'CHA', 'CHI', 'CLE', 'DET', 'IND', 'MIA', 'MIL', 'NYK', 'ORL', 'PHI', 'TOR', 'WAS',
-               'DAL', 'DEN', 'HOU', 'GSW', 'LAC', 'LAL', 'MEM', 'MIN', 'NOP', 'OKC', 'PHX', 'POR', 'SAC', 'SAS', 'UTA',
+tab_21, tab_22, tab_23, tab_24, tab_25, tab_26, tab_27, tab_28, tab_29, tab_30, tab_31, tab_32, \
+    = st.tabs(['NBA',
+               '2022-GSW', '2021-MIL', '2020-LAL', '2019-TOR', '2018-GSW',
+               '2017-GSW', '2016-CLE', '2015-GSW', '2014-SAS', '2013-MIA',
+               '2012-MIA', '2011-DAL', '2010-LAL', '2009-LAL', '2008-BOS',
+               '2007-SAS', '2006-MIA', '2005-SAS', '2004-DET', '2003-SAS',
+               '2002-LAL', '2001-LAL', '2000-LAL', '1999-SAS', '1998-CHI',
+               '1997-CHI', '1996-CHI', '1995-HOU', '1994-HOU', '1993-CHI',
+               '1992-CHI', '1991-CHI'
                ])
+
+# 'ATL', 'BKN', 'BOS', 'CHA', 'CHI', 'CLE', 'DET', 'IND', 'MIA', 'MIL', 'NYK', 'ORL', 'PHI', 'TOR', 'WAS',
+#                'DAL', 'DEN', 'HOU', 'GSW', 'LAC', 'LAL', 'MEM', 'MIN', 'NOP', 'OKC', 'PHX', 'POR', 'SAC', 'SAS', 'UTA',
+
 
 with tab_0:
     # st.subheader('ALL SECTORS')
@@ -753,6 +834,360 @@ with tab_0:
     ext_link_1 = link_col_1.markdown(github_link, unsafe_allow_html=True)
     ext_link_2 = link_col_2.markdown(nba_site_link, unsafe_allow_html=True)
     ext_link_3 = link_col_3.markdown(bbref_site_link, unsafe_allow_html=True)
+
+
+with tab_1:
+    st.subheader('2021-2022 GOLDEN STATE WARRIORS')
+    st.image(GSW_logo)
+    st.dataframe(gsw_warriors_2022.style.format(col_format_dict).set_table_styles(df_styles))
+
+    ## LEAGUE LOGOS ##
+    east_col_1, nba_col_2, west_col_3 = st.columns(3)
+    east_col_1.image(East_logo, width=250)  # caption='WESTERN CONFERENCE'
+    nba_col_2.image(nba_logo_1, width=300)  # caption='NATIONAL BASKETBALL ASSOCIATION'
+    west_col_3.image(West_logo, width=250)  # caption='EASTERN CONFERENCE'
+
+with tab_2:
+    st.subheader('2020-2021 MILWAUKEE BUCKS')
+    st.image(MIL_logo)
+    st.dataframe(mil_bucks_2021.style.format(col_format_dict).set_table_styles(df_styles))
+
+    ## LEAGUE LOGOS ##
+    east_col_1, nba_col_2, west_col_3 = st.columns(3)
+    east_col_1.image(East_logo, width=250)  # caption='WESTERN CONFERENCE'
+    nba_col_2.image(nba_logo_1, width=300)  # caption='NATIONAL BASKETBALL ASSOCIATION'
+    west_col_3.image(West_logo, width=250)  # caption='EASTERN CONFERENCE'
+
+with tab_3:
+    st.subheader('2019-2020 LOS ANGELES LAKERS')
+    st.image(LAL_logo)
+    st.dataframe(lal_lakers_2020.style.format(col_format_dict).set_table_styles(df_styles))
+
+    ## LEAGUE LOGOS ##
+    east_col_1, nba_col_2, west_col_3 = st.columns(3)
+    east_col_1.image(East_logo, width=250)  # caption='WESTERN CONFERENCE'
+    nba_col_2.image(nba_logo_1, width=300)  # caption='NATIONAL BASKETBALL ASSOCIATION'
+    west_col_3.image(West_logo, width=250)  # caption='EASTERN CONFERENCE'
+
+with tab_4:
+    st.subheader('2018-2019 TORONTO RAPTORS')
+    st.image(TOR_logo)
+    st.dataframe(tor_raptors_2019.style.format(col_format_dict).set_table_styles(df_styles))
+
+    ## LEAGUE LOGOS ##
+    east_col_1, nba_col_2, west_col_3 = st.columns(3)
+    east_col_1.image(East_logo, width=250)  # caption='WESTERN CONFERENCE'
+    nba_col_2.image(nba_logo_1, width=300)  # caption='NATIONAL BASKETBALL ASSOCIATION'
+    west_col_3.image(West_logo, width=250)  # caption='EASTERN CONFERENCE'
+
+with tab_5:
+    st.subheader('2017-2018 GOLDEN STATE WARRIORS')
+    st.image(GSW_logo)
+    st.dataframe(gsw_warriors_2018.style.format(col_format_dict).set_table_styles(df_styles))
+
+    ## LEAGUE LOGOS ##
+    east_col_1, nba_col_2, west_col_3 = st.columns(3)
+    east_col_1.image(East_logo, width=250)  # caption='WESTERN CONFERENCE'
+    nba_col_2.image(nba_logo_1, width=300)  # caption='NATIONAL BASKETBALL ASSOCIATION'
+    west_col_3.image(West_logo, width=250)  # caption='EASTERN CONFERENCE'
+
+with tab_6:
+    st.subheader('2016-2017 GOLDEN STATE WARRIORS')
+    st.image(GSW_logo)
+    st.dataframe(gsw_warriors_2017.style.format(col_format_dict).set_table_styles(df_styles))
+
+    ## LEAGUE LOGOS ##
+    east_col_1, nba_col_2, west_col_3 = st.columns(3)
+    east_col_1.image(East_logo, width=250)  # caption='WESTERN CONFERENCE'
+    nba_col_2.image(nba_logo_1, width=300)  # caption='NATIONAL BASKETBALL ASSOCIATION'
+    west_col_3.image(West_logo, width=250)  # caption='EASTERN CONFERENCE'
+
+with tab_7:
+    st.subheader('2015-2016 CLEVELAND CAVALIERS')
+    st.image(CLE_logo)
+    st.dataframe(cle_cavs_2016.style.format(col_format_dict).set_table_styles(df_styles))
+
+    ## LEAGUE LOGOS ##
+    east_col_1, nba_col_2, west_col_3 = st.columns(3)
+    east_col_1.image(East_logo, width=250)  # caption='WESTERN CONFERENCE'
+    nba_col_2.image(nba_logo_1, width=300)  # caption='NATIONAL BASKETBALL ASSOCIATION'
+    west_col_3.image(West_logo, width=250)  # caption='EASTERN CONFERENCE'
+
+with tab_8:
+    st.subheader('2014-2015 GOLDEN STATE WARRIORS')
+    st.image(GSW_logo)
+    st.dataframe(gsw_warriors_2015.style.format(col_format_dict).set_table_styles(df_styles))
+
+    ## LEAGUE LOGOS ##
+    east_col_1, nba_col_2, west_col_3 = st.columns(3)
+    east_col_1.image(East_logo, width=250)  # caption='WESTERN CONFERENCE'
+    nba_col_2.image(nba_logo_1, width=300)  # caption='NATIONAL BASKETBALL ASSOCIATION'
+    west_col_3.image(West_logo, width=250)  # caption='EASTERN CONFERENCE'
+
+with tab_9:
+    st.subheader('2013-2014 SAN ANTONIO SPURS')
+    st.image(SAS_logo)
+    st.dataframe(sas_spurs_2014.style.format(col_format_dict).set_table_styles(df_styles))
+
+    ## LEAGUE LOGOS ##
+    east_col_1, nba_col_2, west_col_3 = st.columns(3)
+    east_col_1.image(East_logo, width=250)  # caption='WESTERN CONFERENCE'
+    nba_col_2.image(nba_logo_1, width=300)  # caption='NATIONAL BASKETBALL ASSOCIATION'
+    west_col_3.image(West_logo, width=250)  # caption='EASTERN CONFERENCE'
+
+with tab_10:
+    st.subheader('2012-2013 MIAMI HEAT')
+    st.image(MIA_logo)
+    st.dataframe(mia_heat_2013.style.format(col_format_dict).set_table_styles(df_styles))
+
+    ## LEAGUE LOGOS ##
+    east_col_1, nba_col_2, west_col_3 = st.columns(3)
+    east_col_1.image(East_logo, width=250)  # caption='WESTERN CONFERENCE'
+    nba_col_2.image(nba_logo_1, width=300)  # caption='NATIONAL BASKETBALL ASSOCIATION'
+    west_col_3.image(West_logo, width=250)  # caption='EASTERN CONFERENCE'
+
+with tab_11:
+    st.subheader('2011-2012 MIAMI HEAT')
+    st.image(MIA_logo)
+    st.dataframe(mia_heat_2012.style.format(col_format_dict).set_table_styles(df_styles))
+
+    ## LEAGUE LOGOS ##
+    east_col_1, nba_col_2, west_col_3 = st.columns(3)
+    east_col_1.image(East_logo, width=250)  # caption='WESTERN CONFERENCE'
+    nba_col_2.image(nba_logo_1, width=300)  # caption='NATIONAL BASKETBALL ASSOCIATION'
+    west_col_3.image(West_logo, width=250)  # caption='EASTERN CONFERENCE'
+
+with tab_12:
+    st.subheader('2010-2011 DALLAS MAVERICKS')
+    st.image(DAL_logo)
+    st.dataframe(dal_mavs_2011.style.format(col_format_dict).set_table_styles(df_styles))
+
+    ## LEAGUE LOGOS ##
+    east_col_1, nba_col_2, west_col_3 = st.columns(3)
+    east_col_1.image(East_logo, width=250)  # caption='WESTERN CONFERENCE'
+    nba_col_2.image(nba_logo_1, width=300)  # caption='NATIONAL BASKETBALL ASSOCIATION'
+    west_col_3.image(West_logo, width=250)  # caption='EASTERN CONFERENCE'
+
+with tab_13:
+    st.subheader('2009-2010 LOS ANGELES LAKERS')
+    st.image(LAL_logo)
+    st.dataframe(lal_lakers_2010.style.format(col_format_dict).set_table_styles(df_styles))
+
+    ## LEAGUE LOGOS ##
+    east_col_1, nba_col_2, west_col_3 = st.columns(3)
+    east_col_1.image(East_logo, width=250)  # caption='WESTERN CONFERENCE'
+    nba_col_2.image(nba_logo_1, width=300)  # caption='NATIONAL BASKETBALL ASSOCIATION'
+    west_col_3.image(West_logo, width=250)  # caption='EASTERN CONFERENCE'
+
+with tab_14:
+    st.subheader('2008-2009 LOS ANGELES LAKERS')
+    st.image(LAL_logo)
+    st.dataframe(lal_lakers_2009.style.format(col_format_dict).set_table_styles(df_styles))
+
+    ## LEAGUE LOGOS ##
+    east_col_1, nba_col_2, west_col_3 = st.columns(3)
+    east_col_1.image(East_logo, width=250)  # caption='WESTERN CONFERENCE'
+    nba_col_2.image(nba_logo_1, width=300)  # caption='NATIONAL BASKETBALL ASSOCIATION'
+    west_col_3.image(West_logo, width=250)  # caption='EASTERN CONFERENCE'
+
+with tab_15:
+    st.subheader('2007-2008 BOSTON CELTICS')
+    st.image(BOS_logo)
+    st.dataframe(bos_celtics_2008.style.format(col_format_dict).set_table_styles(df_styles))
+
+    ## LEAGUE LOGOS ##
+    east_col_1, nba_col_2, west_col_3 = st.columns(3)
+    east_col_1.image(East_logo, width=250)  # caption='WESTERN CONFERENCE'
+    nba_col_2.image(nba_logo_1, width=300)  # caption='NATIONAL BASKETBALL ASSOCIATION'
+    west_col_3.image(West_logo, width=250)  # caption='EASTERN CONFERENCE'
+
+with tab_16:
+    st.subheader('2006-2007 SAN ANTONIO SPURS')
+    st.image(SAS_logo)
+    st.dataframe(sas_spurs_2007.style.format(col_format_dict).set_table_styles(df_styles))
+
+    ## LEAGUE LOGOS ##
+    east_col_1, nba_col_2, west_col_3 = st.columns(3)
+    east_col_1.image(East_logo, width=250)  # caption='WESTERN CONFERENCE'
+    nba_col_2.image(nba_logo_1, width=300)  # caption='NATIONAL BASKETBALL ASSOCIATION'
+    west_col_3.image(West_logo, width=250)  # caption='EASTERN CONFERENCE'
+
+with tab_17:
+    st.subheader('2005-2006 MIAMI HEAT')
+    st.image(MIA_logo)
+    st.dataframe(mia_heat_2006.style.format(col_format_dict).set_table_styles(df_styles))
+
+    ## LEAGUE LOGOS ##
+    east_col_1, nba_col_2, west_col_3 = st.columns(3)
+    east_col_1.image(East_logo, width=250)  # caption='WESTERN CONFERENCE'
+    nba_col_2.image(nba_logo_1, width=300)  # caption='NATIONAL BASKETBALL ASSOCIATION'
+    west_col_3.image(West_logo, width=250)  # caption='EASTERN CONFERENCE'
+
+with tab_18:
+    st.subheader('2004-2005 SAN ANTONIO SPURS')
+    st.image(SAS_logo)
+    st.dataframe(sas_spurs_2005.style.format(col_format_dict).set_table_styles(df_styles))
+
+    ## LEAGUE LOGOS ##
+    east_col_1, nba_col_2, west_col_3 = st.columns(3)
+    east_col_1.image(East_logo, width=250)  # caption='WESTERN CONFERENCE'
+    nba_col_2.image(nba_logo_1, width=300)  # caption='NATIONAL BASKETBALL ASSOCIATION'
+    west_col_3.image(West_logo, width=250)  # caption='EASTERN CONFERENCE'
+
+with tab_19:
+    st.subheader('2003-2004 DETROIT PISTONS')
+    st.image(DET_logo)
+    st.dataframe(det_pistons_2004.style.format(col_format_dict).set_table_styles(df_styles))
+
+    ## LEAGUE LOGOS ##
+    east_col_1, nba_col_2, west_col_3 = st.columns(3)
+    east_col_1.image(East_logo, width=250)  # caption='WESTERN CONFERENCE'
+    nba_col_2.image(nba_logo_1, width=300)  # caption='NATIONAL BASKETBALL ASSOCIATION'
+    west_col_3.image(West_logo, width=250)  # caption='EASTERN CONFERENCE'
+
+with tab_20:
+    st.subheader('2002-2003 SAN ANTONIO SPURS')
+    st.image(SAS_logo)
+    st.dataframe(sas_spurs_2003.style.format(col_format_dict).set_table_styles(df_styles))
+
+    ## LEAGUE LOGOS ##
+    east_col_1, nba_col_2, west_col_3 = st.columns(3)
+    east_col_1.image(East_logo, width=250)  # caption='WESTERN CONFERENCE'
+    nba_col_2.image(nba_logo_1, width=300)  # caption='NATIONAL BASKETBALL ASSOCIATION'
+    west_col_3.image(West_logo, width=250)  # caption='EASTERN CONFERENCE'
+
+with tab_21:
+    st.subheader('2001-2002 LOS ANGELES LAKERS')
+    st.image(LAL_logo)
+    st.dataframe(lal_lakers_2002.style.format(col_format_dict).set_table_styles(df_styles))
+
+    ## LEAGUE LOGOS ##
+    east_col_1, nba_col_2, west_col_3 = st.columns(3)
+    east_col_1.image(East_logo, width=250)  # caption='WESTERN CONFERENCE'
+    nba_col_2.image(nba_logo_1, width=300)  # caption='NATIONAL BASKETBALL ASSOCIATION'
+    west_col_3.image(West_logo, width=250)  # caption='EASTERN CONFERENCE'
+
+with tab_22:
+    st.subheader('2000-2001 LOS ANGELES LAKERS')
+    st.image(LAL_logo)
+    st.dataframe(lal_lakers_2001.style.format(col_format_dict).set_table_styles(df_styles))
+
+    ## LEAGUE LOGOS ##
+    east_col_1, nba_col_2, west_col_3 = st.columns(3)
+    east_col_1.image(East_logo, width=250)  # caption='WESTERN CONFERENCE'
+    nba_col_2.image(nba_logo_1, width=300)  # caption='NATIONAL BASKETBALL ASSOCIATION'
+    west_col_3.image(West_logo, width=250)  # caption='EASTERN CONFERENCE'
+
+with tab_23:
+    st.subheader('1999-2000 LOS ANGELES LAKERS')
+    st.image(LAL_logo)
+    st.dataframe(lal_lakers_2000.style.format(col_format_dict).set_table_styles(df_styles))
+
+    ## LEAGUE LOGOS ##
+    east_col_1, nba_col_2, west_col_3 = st.columns(3)
+    east_col_1.image(East_logo, width=250)  # caption='WESTERN CONFERENCE'
+    nba_col_2.image(nba_logo_1, width=300)  # caption='NATIONAL BASKETBALL ASSOCIATION'
+    west_col_3.image(West_logo, width=250)  # caption='EASTERN CONFERENCE'
+
+with tab_24:
+    st.subheader('1998-1999 SAN ANTONIO SPURS')
+    st.image(SAS_logo)
+    st.dataframe(sas_spurs_1999.style.format(col_format_dict).set_table_styles(df_styles))
+
+    ## LEAGUE LOGOS ##
+    east_col_1, nba_col_2, west_col_3 = st.columns(3)
+    east_col_1.image(East_logo, width=250)  # caption='WESTERN CONFERENCE'
+    nba_col_2.image(nba_logo_1, width=300)  # caption='NATIONAL BASKETBALL ASSOCIATION'
+    west_col_3.image(West_logo, width=250)  # caption='EASTERN CONFERENCE'
+
+with tab_25:
+    st.subheader('1997-1998 CHICAGO BULLS')
+    st.image(CHI_logo)
+    st.dataframe(chi_bulls_1998.style.format(col_format_dict).set_table_styles(df_styles))
+
+    ## LEAGUE LOGOS ##
+    east_col_1, nba_col_2, west_col_3 = st.columns(3)
+    east_col_1.image(East_logo, width=250)  # caption='WESTERN CONFERENCE'
+    nba_col_2.image(nba_logo_1, width=300)  # caption='NATIONAL BASKETBALL ASSOCIATION'
+    west_col_3.image(West_logo, width=250)  # caption='EASTERN CONFERENCE'
+
+with tab_26:
+    st.subheader('1996-1997 CHICAGO BULLS')
+    st.image(CHI_logo)
+    st.dataframe(chi_bulls_1997.style.format(col_format_dict).set_table_styles(df_styles))
+
+    ## LEAGUE LOGOS ##
+    east_col_1, nba_col_2, west_col_3 = st.columns(3)
+    east_col_1.image(East_logo, width=250)  # caption='WESTERN CONFERENCE'
+    nba_col_2.image(nba_logo_1, width=300)  # caption='NATIONAL BASKETBALL ASSOCIATION'
+    west_col_3.image(West_logo, width=250)  # caption='EASTERN CONFERENCE'
+
+with tab_27:
+    st.subheader('1995-1996 CHICAGO BULLS')
+    st.image(CHI_logo)
+    st.dataframe(chi_bulls_1996.style.format(col_format_dict).set_table_styles(df_styles))
+
+    ## LEAGUE LOGOS ##
+    east_col_1, nba_col_2, west_col_3 = st.columns(3)
+    east_col_1.image(East_logo, width=250)  # caption='WESTERN CONFERENCE'
+    nba_col_2.image(nba_logo_1, width=300)  # caption='NATIONAL BASKETBALL ASSOCIATION'
+    west_col_3.image(West_logo, width=250)  # caption='EASTERN CONFERENCE'
+
+with tab_28:
+    st.subheader('1994-1995 HOUSTON ROCKETS')
+    st.image(HOU_logo)
+    st.dataframe(hou_rockets_1995.style.format(col_format_dict).set_table_styles(df_styles))
+
+    ## LEAGUE LOGOS ##
+    east_col_1, nba_col_2, west_col_3 = st.columns(3)
+    east_col_1.image(East_logo, width=250)  # caption='WESTERN CONFERENCE'
+    nba_col_2.image(nba_logo_1, width=300)  # caption='NATIONAL BASKETBALL ASSOCIATION'
+    west_col_3.image(West_logo, width=250)  # caption='EASTERN CONFERENCE'
+
+with tab_29:
+    st.subheader('1993-1994 HOUSTON ROCKETS')
+    st.image(HOU_logo)
+    st.dataframe(hou_rockets_1994.style.format(col_format_dict).set_table_styles(df_styles))
+
+    ## LEAGUE LOGOS ##
+    east_col_1, nba_col_2, west_col_3 = st.columns(3)
+    east_col_1.image(East_logo, width=250)  # caption='WESTERN CONFERENCE'
+    nba_col_2.image(nba_logo_1, width=300)  # caption='NATIONAL BASKETBALL ASSOCIATION'
+    west_col_3.image(West_logo, width=250)  # caption='EASTERN CONFERENCE'
+
+with tab_30:
+    st.subheader('1992-1993 CHICAGO BULLS')
+    st.image(CHI_logo)
+    st.dataframe(chi_bulls_1993.style.format(col_format_dict).set_table_styles(df_styles))
+
+    ## LEAGUE LOGOS ##
+    east_col_1, nba_col_2, west_col_3 = st.columns(3)
+    east_col_1.image(East_logo, width=250)  # caption='WESTERN CONFERENCE'
+    nba_col_2.image(nba_logo_1, width=300)  # caption='NATIONAL BASKETBALL ASSOCIATION'
+    west_col_3.image(West_logo, width=250)  # caption='EASTERN CONFERENCE'
+
+with tab_31:
+    st.subheader('1991-1992 CHICAGO BULLS')
+    st.image(CHI_logo)
+    st.dataframe(chi_bulls_1992.style.format(col_format_dict).set_table_styles(df_styles))
+
+    ## LEAGUE LOGOS ##
+    east_col_1, nba_col_2, west_col_3 = st.columns(3)
+    east_col_1.image(East_logo, width=250)  # caption='WESTERN CONFERENCE'
+    nba_col_2.image(nba_logo_1, width=300)  # caption='NATIONAL BASKETBALL ASSOCIATION'
+    west_col_3.image(West_logo, width=250)  # caption='EASTERN CONFERENCE'
+
+with tab_32:
+    st.subheader('1990-1991 CHICAGO BULLS')
+    st.image(CHI_logo)
+    st.dataframe(chi_bulls_1991.style.format(col_format_dict).set_table_styles(df_styles))
+
+    ## LEAGUE LOGOS ##
+    east_col_1, nba_col_2, west_col_3 = st.columns(3)
+    east_col_1.image(East_logo, width=250)  # caption='WESTERN CONFERENCE'
+    nba_col_2.image(nba_logo_1, width=300)  # caption='NATIONAL BASKETBALL ASSOCIATION'
+    west_col_3.image(West_logo, width=250)  # caption='EASTERN CONFERENCE'
+
 
 
 ## SCRIPT TERMINATION ##
@@ -861,3 +1296,11 @@ st.stop()
             #                   "sepal_width": "Sepal Width", "sepal_length": "Sepal Length",
             #                   "petal_width": "Petal Width", "petal_length": "Petal Length", },
             #                     color_continuous_scale=px.colors.diverging.Tealrose, color_continuous_midpoint=2)
+
+
+# from IPython.display import HTML
+# import base64
+# # convert your links to html tags
+# def path_to_image_html(path):
+#     return '<img src="'+ path + '" width="60" >'
+# HTML(champion_players[['LOGO']].to_html(escape=False, formatters=dict(image=path_to_image_html)))
