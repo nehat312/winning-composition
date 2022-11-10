@@ -607,7 +607,7 @@ scatter_3D_to_ast_usg = px.scatter_3d(data_frame=champion_players,
 #%%
 
 ## HISTORICAL LINE CHARTS
-box_eWINS_WS = px.box(data_frame=champion_players,
+box_eWINS_WS = px.bar(data_frame=champion_players,
                               x=champion_players['CHAMP'],
                               y=champion_players['$MM/eWIN'], #, '$MM/TmWIN']
                               color=champion_players['CHAMP'],     # EXPERIENCE AGE MP APE
