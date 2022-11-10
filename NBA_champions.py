@@ -316,7 +316,7 @@ lebron_val_players = champion_players[champion_players['YEAR'] >= 2010]
 ## GROUP BY CHAMPIONSHIP TEAM
 
 champion_teams = champion_players[team_df_cols]
-champion_teams = champion_teams.astype(str)
+# champion_teams = champion_teams.astype(str)
 
 chi_bulls_1991 = champion_teams[champion_teams['CHAMP'] == '1991-CHI']
 chi_bulls_1992 = champion_teams[champion_teams['CHAMP'] == '1992-CHI']
@@ -362,8 +362,8 @@ champ_df_list = [chi_bulls_1991, chi_bulls_1992, chi_bulls_1993,
                  tor_raptors_2019, lal_lakers_2020, mil_bucks_2021, gsw_warriors_2022,
                  ]
 
-# for df in champ_df_list:
-#   df = df.drop(columns=['CHAMP', 'PLAYER'], inplace=True)
+for df in champ_df_list:
+  df = df.drop(columns=['CHAMP', 'PLAYER'], inplace=True)
 
 #%%
 
@@ -960,7 +960,6 @@ with tab_11:
     st.subheader('2011-2012 MIAMI HEAT')
     st.image(MIA_logo)
     st.dataframe(mia_heat_2012.style.format(col_format_dict).set_table_styles(df_styles))
-
     ## LEAGUE LOGOS ##
     east_col_1, nba_col_2, west_col_3 = st.columns(3)
     east_col_1.image(East_logo, width=250)  # caption='WESTERN CONFERENCE'
