@@ -182,8 +182,8 @@ scale_cols = ['PLAYER', 'NUMBER',
             '$MM/eWIN', '$MM/TmWIN', '$MM/PlrWS',
             ]
 
-team_df_cols = ['CHAMP', 'PLAYER', 'WTD POS',
-                'BMI', 'W-SPAN (IN)', 'APE',
+team_df_cols = ['CHAMP', 'PLAYER', 'AGE', 'COUNTRY', 'COLLEGE',
+                'WTD POS', 'BMI', 'W-SPAN (IN)', 'APE',
                 'AGE',  # 'EXPERIENCE',
                 'USG%', 'TS%',
                 # 'AST%', 'STL%', 'BLK%', 'TO%',
@@ -675,13 +675,21 @@ df_styles = [dict(selector="th", props=th_props),
              dict(selector="td", props=td_props)]
 
 
-col_format_dict = {
-#                      'BYE': "{:,}",
-#                    '': "{:,}",
-#                    '': "{:,}",
+col_format_dict = {'WTD POS': "{:.2}",
+                   'BMI': "{:.1}",
+                   'W-SPAN (IN)': "{:.1}",
+                   'APE': "{:.1}",
+                   'USG%': "{:.1}",
+                   'TS%': "{:.1}",
+                   'AST%/TO%': "{:.1}",
+                   'STOCK%': "{:.1}",
+                   # 'USG%': "{:.1}",
+
+                   'WS': "{:,}",
+                   
 #                    'O-WS': "{:,}",
 #                    'D-WS': "{:,}",
-#                    'WS': "{:,}",
+
 #                    'TM_WS': "{:,}",
                    # #: "{:.1%}", #:"{:.1}x", "${:.2}", #"${:,}"
                    }
