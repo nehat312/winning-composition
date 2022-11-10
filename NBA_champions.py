@@ -843,7 +843,7 @@ with tab_0:
     # st.plotly_chart(scatter_matrix_measurables, use_container_width=True, sharing="streamlit")
 
 
-    st.plotly_chart(box_eWINS_WS.add_traces(line_NBA_eWIN).add_layout_image(court_img_dict), use_container_width=True, sharing="streamlit")
+    # st.plotly_chart(box_eWINS_WS.add_traces(line_NBA_eWIN).add_layout_image(court_img_dict), use_container_width=True, sharing="streamlit")
 
     ## 3D SCATTER ##
     # st.plotly_chart(scatter_3D_to_ast_usg.add_layout_image(court_img_dict_3D), use_container_width=True, sharing="streamlit")
