@@ -361,8 +361,8 @@ champ_df_list = [chi_bulls_1991, chi_bulls_1992, chi_bulls_1993,
                  tor_raptors_2019, lal_lakers_2020, mil_bucks_2021, gsw_warriors_2022,
                  ]
 
-for df in champ_df_list:
-  df = df.drop(columns=['CHAMP', 'PLAYER'], inplace=True)
+# for df in champ_df_list:
+#   df = df.drop(columns=['CHAMP', 'PLAYER'], inplace=True)
 
 #%%
 
@@ -686,7 +686,7 @@ col_format_dict = {'WTD POS': "{:.2}",
                    # 'USG%': "{:.1}",
 
                    'WS': "{:,}",
-                   
+
 #                    'O-WS': "{:,}",
 #                    'D-WS': "{:,}",
 
