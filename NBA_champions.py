@@ -803,7 +803,7 @@ tab_21, tab_22, tab_23, tab_24, tab_25, tab_26, tab_27, tab_28, tab_29, tab_30, 
 
 with tab_0:
     # st.subheader('ALL SECTORS')
-
+    st.plotly_chart(scatter_matrix_metrics, use_container_width=True, sharing="streamlit")
     ## BAR - WS SALARY ##
     st.plotly_chart(bar_WS_salary.add_traces(line_NBA_salary).add_layout_image(court_img_dict),
                     use_container_width=True, sharing="streamlit")
@@ -839,7 +839,7 @@ with tab_0:
 
     ## SCATTER MATRIX ##
     # st.plotly_chart(scatter_matrix_teams, use_container_width=True, sharing="streamlit")
-    st.plotly_chart(scatter_matrix_metrics, use_container_width=True, sharing="streamlit")
+
     # st.plotly_chart(scatter_matrix_measurables, use_container_width=True, sharing="streamlit")
 
 
