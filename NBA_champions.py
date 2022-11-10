@@ -184,7 +184,8 @@ scale_cols = ['PLAYER', 'NUMBER',
 
 team_df_cols = ['CHAMP', 'PLAYER', 'AGE', 'EXPERIENCE',
                 'COUNTRY', 'COLLEGE', #'CONFERENCE',
-                'WTD POS', 'BMI', 'W-SPAN (IN)', 'APE',
+                 'MP', 'WTD POS',
+                'BMI', 'W-SPAN (IN)', 'APE',
                 'USG%', 'TS%',
                 # 'AST%', 'STL%', 'BLK%', 'TO%',
                 'AST%/TO%', 'STOCK%', 'WS',
@@ -605,6 +606,29 @@ scatter_3D_to_ast_usg = px.scatter_3d(data_frame=champion_players,
 
 #%%
 
+## HISTORICAL LINE CHARTS
+line_eWINS_WS = px.line(data_frame=champion_players,
+                              x=champion_players['CHAMP'],
+                              y=champion_players[['$MM/eWIN', '$MM/TmWIN']],
+                              color=champion_players['$MM/PlrWS'],     # EXPERIENCE AGE MP APE
+
+                              color_discrete_sequence=Tropic,
+                              # color_continuous_midpoint=10,
+                              # color_discrete_map=team_logos_dict,
+                              hover_name=champion_players['PLAYER'],
+                              hover_data=champion_players[['CHAMP',]], #'WS/$',
+                              title='$MM / PLAYER WS RELATIVE TO TEAM SALARY',
+                              labels=chart_labels,
+                              # template='simple_white+gridon',
+                              # range_x=[1991,2023],
+                              # range_y=[0,200000000],
+                              height=750,
+                            # category_orders={"InternetService": ["DSL", "Fiber optic", "No"],
+#                               "gender": ["Female", "Male"]})
+                              )
+
+#%%
+
 ####################################################################################################################
 ## TRACE LINES ##
 
@@ -815,6 +839,8 @@ with tab_0:
     st.plotly_chart(scatter_matrix_metrics, use_container_width=True, sharing="streamlit")
     # st.plotly_chart(scatter_matrix_measurables, use_container_width=True, sharing="streamlit")
 
+
+    st.plotly_chart(line_eWINS_WS, use_container_width=True, sharing="streamlit"))
 
     ## 3D SCATTER ##
     # st.plotly_chart(scatter_3D_to_ast_usg.add_layout_image(court_img_dict_3D), use_container_width=True, sharing="streamlit")
