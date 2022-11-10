@@ -608,9 +608,9 @@ scatter_3D_to_ast_usg = px.scatter_3d(data_frame=champion_players,
 
 ## HISTORICAL LINE CHARTS
 line_eWINS_WS = px.line(data_frame=champion_players,
-                              x=champion_players['CHAMP'],
+                              x=champion_players['YEAR'],
                               y=champion_players['$MM/eWIN'], #, '$MM/TmWIN']
-                              color=champion_players['$MM/PlrWS'],     # EXPERIENCE AGE MP APE
+                              color=champion_players['TEAM'],     # EXPERIENCE AGE MP APE
 
                               color_discrete_sequence=Tropic,
                               # color_continuous_midpoint=10,
