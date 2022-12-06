@@ -17,6 +17,8 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import MinMaxScaler
 
+# from streamlit_aggrid import AgGrid
+
 # import matplotlib.pyplot as plt
 # import seaborn as sns
 # import dash as dash
@@ -374,6 +376,11 @@ for df in champ_df_list:
 
 # print(champion_players_ss)
 # print(champion_players[['RAPTOR', 'LEBRON', 'WS']].describe())
+
+#%%
+
+## AGG GRID
+# grid = AgGrid(df)
 
 
 #%%
