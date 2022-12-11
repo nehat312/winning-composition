@@ -736,8 +736,6 @@ st.container()
 st.title('CHAMPIONSHIP-CALIBER NBA ROSTER CONSTRUCTION')
 st.write('*STATISTICAL BREAKDOWN OF HISTORICAL AND MODERN-DAY NBA CHAMPIONSHIP ROSTERS*')
 
-st.image(capstone_court, width=1000, use_column_width=True) #
-
 ## EAST LOGOS ##
 EA_col_1, EA_col_2, EA_col_3, EA_col_4, EA_col_5, \
 EC_col_1, EC_col_2, EC_col_3, EC_col_4, EC_col_5, \
@@ -798,28 +796,11 @@ tab_21, tab_22, tab_23, tab_24, tab_25, tab_26, tab_27, tab_28, tab_29, tab_30, 
 with tab_0:
     # st.subheader('ALL SECTORS')
     st.plotly_chart(scatter_matrix_metrics, use_container_width=True, sharing="streamlit")
+
     ## BAR - WS SALARY ##
-    st.plotly_chart(bar_WS_salary.add_traces(line_NBA_salary).add_layout_image(court_img_dict),
-                    use_container_width=True, sharing="streamlit")
-    # st.plotly_chart(bar_champions_salary.update_yaxes(categoryorder='category ascending'), use_container_width=True, sharing="streamlit")
+    st.plotly_chart(bar_WS_salary.add_traces(line_NBA_salary).add_layout_image(court_img_dict), use_container_width=True, sharing="streamlit")
 
-    ## BAR - USG% SALARY ##
-    # st.plotly_chart(bar_usg_salary.add_layout_image(court_img_dict), use_container_width=True, sharing="streamlit")
-    # st.plotly_chart(bar_usg_salary.add_traces(line_NBA_salary).add_layout_image(court_img_dict),
-    #                 use_container_width=True, sharing="streamlit")
-        # st.plotly_chart(bar_champions_salary.update_yaxes(categoryorder='category ascending'), use_container_width=True, sharing="streamlit")
-
-
-
-
-    ## BAR - RAPTOR SALARY ##
-    # st.plotly_chart(bar_raptor_salary.add_layout_image(court_img_dict), use_container_width=True, sharing="streamlit")
-        # st.plotly_chart(bar_raptor_salary.update_xaxes(categoryorder='category ascending'), use_container_width=True, sharing="streamlit")
-
-
-    ## BAR - LEBRON SALARY ##
-    # st.plotly_chart(bar_lebron_salary.add_layout_image(court_img_dict), use_container_width=True, sharing="streamlit")
-        # st.plotly_chart(bar_lebron_salary.update_xaxes(categoryorder='category ascending'), use_container_width=True, sharing="streamlit")
+    st.image(capstone_court, width=1000, use_column_width=True)
 
     ## SCATTER TERNARY ##
 
@@ -841,6 +822,7 @@ with tab_0:
 
     ## 3D SCATTER ##
     # st.plotly_chart(scatter_3D_to_ast_usg.add_layout_image(court_img_dict_3D), use_container_width=True, sharing="streamlit")
+
 
 
     ## LEAGUE LOGOS ##
