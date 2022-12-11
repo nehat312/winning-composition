@@ -736,7 +736,7 @@ st.container()
 st.title('CHAMPIONSHIP-CALIBER NBA ROSTER CONSTRUCTION')
 st.write('*STATISTICAL BREAKDOWN OF HISTORICAL AND MODERN-DAY NBA CHAMPIONSHIP ROSTERS*')
 
-st.image(capstone_court, caption='BKN', width=1000)
+st.image(capstone_court, width=1000, use_column_width=True) #
 
 ## EAST LOGOS ##
 EA_col_1, EA_col_2, EA_col_3, EA_col_4, EA_col_5, \
