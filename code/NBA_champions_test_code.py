@@ -232,12 +232,7 @@ conference_list = list(champion_players['CONFERENCE'].unique())
 country_list = list(champion_players['COUNTRY'].unique())
 region_list = list(champion_players['GLOBAL REGION'].unique())
 
-team_logos_list = [ATL_logo, BKN_logo, BOS_logo, CHI_logo, CHA_logo,
-                    CLE_logo, DET_logo, IND_logo, MIA_logo, MIL_logo,
-                    NYK_logo, ORL_logo, PHI_logo, TOR_logo, WAS_logo,
-                    DAL_logo, DEN_logo, HOU_logo, LAC_logo, LAL_logo,
-                    GSW_logo, MEM_logo, MIN_logo, MEM_logo, PHX_logo,
-                    SAS_logo, SAC_logo, OKC_logo, UTA_logo, POR_logo]
+
 
 eastconf_logos_list = [ATL_logo, BKN_logo, BOS_logo, CHI_logo, CHA_logo,
                        CLE_logo, DET_logo, IND_logo, MIA_logo, MIL_logo,
@@ -260,7 +255,7 @@ westconf_logos_list = [DAL_logo, DEN_logo, HOU_logo, LAC_logo, LAL_logo,
 # print(college_raptor)
 
 
-champion_players['LOGO'] = champion_players.TEAM.map(team_logos_dict)
+
 
 #**#value per dollar is the key AKA secret sauce *** #
 
@@ -289,171 +284,6 @@ champion_players = champion_players[champion_players['MP'] > 300]
 lebron_val_players = champion_players[champion_players['YEAR'] >= 2010]
 
 
-
-#%%
-
-print(champion_players.info())
-print(lebron_val_players.info())
-#%%
-# MinMaxScaler
-
-ss = StandardScaler()
-mms = MinMaxScaler()
-
-# Normalize the training data
-
-# champion_players_ss = ss.fit_transform(champion_players)
-# champion_players_mms = mms.fit_transform(champion_players)
-#
-# #%%
-#
-# print(champion_players_ss)
-
-
-#%%
-
-## VISUALIZATIONS ##
-
-bar_champions_salary = px.bar(data_frame=champion_players,
-                              x=champion_players['CHAMP'],
-                              y=champion_players['SALARY'],
-                              color=champion_players['WS'],     # EXPERIENCE AGE MP APE
-                              color_continuous_scale=Tropic,
-                              color_discrete_sequence=Tropic,
-                              color_continuous_midpoint=10,
-                              # color_discrete_map=team_logos_dict,
-                              hover_name=champion_players['PLAYER'],
-                              hover_data=champion_players[['CHAMP', 'SALARY', 'MP', 'WS']], #'WS/$',
-                              barmode='group',
-                              title='WIN SHARES (WS) METRIC RELATIVE TO CHAMPIONSHIP TEAM SALARY',
-                              labels=chart_labels,
-                              text=champion_players['PLAYER'],
-                              # template='simple_white+gridon',
-                              # range_x=[1991,2023],
-                              # range_y=[0,200000000],
-                              height=750,
-                              # width=1000,
-                              )
-
-bar_raptor_salary = px.bar(data_frame=champion_players,
-                              x=champion_players['CHAMP'],
-                              y=champion_players['SALARY'],
-                              color=champion_players['RAPTOR'],     # EXPERIENCE AGE MP APE
-                              color_continuous_scale=Tropic,
-                              color_discrete_sequence=Tropic,
-                              # color_continuous_midpoint=10,
-                              # color_discrete_map=team_logos_dict,
-                              hover_name=champion_players['PLAYER'],
-                              hover_data=champion_players[['CHAMP', 'SALARY', 'MP', 'RAPTOR']],
-                              barmode='group',
-                              title='RAPTOR METRIC RELATIVE TO CHAMPIONSHIP TEAM SALARY',
-                              labels=chart_labels,
-                              # template='simple_white+gridon',
-                              # range_x=[1991,2022],
-                              # range_y=[0,200000000],
-                              height=750,
-                              # width=1000,
-                              )
-
-bar_lebron_salary = px.bar(data_frame=lebron_val_players,
-                              x=lebron_val_players['CHAMP'],
-                              y=lebron_val_players['SALARY'],
-                              color=lebron_val_players['LEBRON'],     # EXPERIENCE AGE MP APE
-                              color_continuous_scale=Tropic,
-                              color_discrete_sequence=Tropic,
-                              # color_continuous_midpoint=10,
-                              # color_discrete_map=team_logos_dict,
-                              hover_name=lebron_val_players['PLAYER'],
-                              hover_data=lebron_val_players[['CHAMP', 'SALARY', 'MP', 'LEBRON']],
-                              barmode='group',
-                              title='LEBRON METRIC RELATIVE TO CHAMPIONSHIP TEAM SALARY',
-                              labels=chart_labels,
-                              # template='simple_white+gridon',
-                              # range_x=[1991,2022],
-                              # range_y=[0,200000000],
-                              height=750,
-                              # width=1000,
-                              )
-
-
-# bar_nations_regions =
-
-
-
-scatter_3d_wingspan1 = px.scatter_3d(data_frame=champion_players,
-                                     x=champion_players['BMI'],
-                                     y=champion_players['WEIGHT (LBS)'],
-                                     z=champion_players['APE'],
-                                     color=champion_players['WTD POS'],
-                                     color_discrete_sequence=Dense,
-                                     color_continuous_scale=Dense,
-                                     color_continuous_midpoint=3,
-                                     title='NBA CHAMPIONS -- HEIGHT / WEIGHT / WINGSPAN / BMI / AGE / APE INDEX',
-                                     hover_name=champion_players['PLAYER'],
-                                     hover_data=champion_players[['TEAM', 'YEAR']], #'LOGO'
-                                     # 'HEIGHT (IN)' 'WEIGHT (LBS)' 'BMI' 'W-SPAN (IN)'
-                                     # custom_data=['LOGO'],
-                                     # size=champion_players['WS'],
-                                     # size_max=50,
-                                     # symbol=champion_players['disc_year'],
-                                     labels=chart_labels,
-                                     # range_x=[0,360],
-                                     # range_y=[-50,50],
-                                     # range_z=[0,2500],
-                                     # range_color=Sunsetdark,
-                                     opacity=.8,
-                                     height=800,
-                                     # width=1000,
-                                     )
-
-scatter_matrix_metrics = px.scatter_matrix(champion_players,
-                                         dimensions=['RAPTOR', 'WS', 'USG%'],
-                                         color=champion_players['WTD POS'],
-                                         color_continuous_scale=Dense,
-                                         color_discrete_sequence=Dense,
-                                         # color_discrete_map=team_logos_dict,
-                                         hover_name=champion_players['PLAYER'],
-                                         hover_data=champion_players[['MP', 'CHAMP']],
-                                         title='PLAYER PERFORMANCE BY CHAMPIONSHIP TEAM',
-                                         labels=chart_labels,
-                                         # custom_data= [league_logo_list],
-                                         height=800,
-                                         # width=800,
-                                         )
-
-scatter_matrix_measurables = px.scatter_matrix(champion_players,
-                                         dimensions=['BMI', 'APE', 'WS', 'RAPTOR', 'LEBRON'],
-                                         color=champion_players['WTD POS'],
-                                         color_continuous_scale=Dense,
-                                         color_discrete_sequence=Dense,
-                                         # color_discrete_map=team_logos_dict,
-                                         hover_name=champion_players['PLAYER'],
-                                         hover_data=champion_players[['MP', 'CHAMP']],
-                                         title='PLAYER PERFORMANCE BY CHAMPIONSHIP TEAM',
-                                         labels=chart_labels,
-                                         # custom_data= [league_logo_list],
-                                         height=800,
-                                         # width=800,
-                                         )
-
-scatter_matrix_positions = px.scatter_matrix(champion_players,
-                                             dimensions=['MP', 'RAPTOR', 'LEBRON', 'WS', 'USG%'],
-                                             color=champion_players['WTD POS'],
-                                             color_continuous_scale=Dense,
-                                             color_discrete_sequence=Dense,
-                                             hover_name=champion_players['PLAYER'],
-                                             hover_data=champion_players[['MP', 'CHAMP']],
-                                             title='PLAYER PERFORMANCE BY WTD. POSITION',
-                                             labels=chart_labels,
-                                             # custom_data=[team_logos_dict],
-                                             height=750,
-                                             # width=800,
-                                             )
-
-
-
-
-## EFFICENCY VS USAGE VS MP VS PERFORMANCE
 
 
 #%%

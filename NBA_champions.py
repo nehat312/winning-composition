@@ -57,6 +57,7 @@ champion_players = pd.read_csv(players_path, index_col='YR_TM_PLR', header=0)
 nba_logo_1 = Image.open('images/NBA_Logo.png')
 nba_logo_2 = Image.open('images/NBA_Logo2.png')
 court_img_1 = Image.open('images/Court1.png')
+capstone_court = Image.open('images/NBA_Court_Trim.png')
 
 ## EASTERN CONFERENCE LOGOS ##
 East_logo = Image.open('images/east/NBA_East.png')
@@ -284,6 +285,8 @@ westconf_logos_list = [DAL_logo, DEN_logo, HOU_logo, LAC_logo, LAL_logo,
 # college_raptor = champion_players.groupby(['TEAM', 'COLLEGE']).mean()
 # print(college_raptor)
 
+# Keep? Functional?
+# champion_players['LOGO'] = champion_players.TEAM.map(team_logos_dict)
 
 
 ## FILTER DATA ##
@@ -368,17 +371,6 @@ for df in champ_df_list:
   df = df.drop(columns=['CHAMP', 'PLAYER'], inplace=True)
 
 #%%
-
-# Normalize / standardize data
-
-# champion_players_ss = ss.fit_transform(champion_players)
-# champion_players_mms = mms.fit_transform(champion_players)
-
-# print(champion_players_ss)
-# print(champion_players[['RAPTOR', 'LEBRON', 'WS']].describe())
-
-#%%
-
 ## AGG GRID
 # grid = AgGrid(df)
 
@@ -389,9 +381,6 @@ for df in champ_df_list:
 ####################################################################################################################
 
 ## BOX PLOTS ##
-
-
-
 
 ####################################################################################################################
 
@@ -663,11 +652,8 @@ line_NBA_eWIN = go.Scatter(x=champion_players['CHAMP'], y=champion_players['$MM/
 
 ####################################################################################################################
 
-# density_map_1 = px.density_contour(exoplanets,
-#                                    x=exoplanets['ra'],
-#                                    y=exoplanets['dec'],
-#                                    z=exoplanets['sy_distance_pc'],
-#                                    )
+## DENSITY MAP
+##
 
 ####################################################################################################################
 #%%
@@ -696,7 +682,6 @@ th_props = [('font-size', '12px'),
             ('color', '#EBEDE9'), #6d6d6d #29609C
             ('background-color', '#29609C') #f7f7f9
             ]
-
 
 td_props = [('font-size', '12px'),
             # ('text-align', 'center'),
@@ -750,6 +735,8 @@ st.container()
 
 st.title('CHAMPIONSHIP-CALIBER NBA ROSTER CONSTRUCTION')
 st.write('*STATISTICAL BREAKDOWN OF HISTORICAL AND MODERN-DAY NBA CHAMPIONSHIP ROSTERS*')
+
+st.image(capstone_court, caption='BKN', width=1000)
 
 ## EAST LOGOS ##
 EA_col_1, EA_col_2, EA_col_3, EA_col_4, EA_col_5, \
